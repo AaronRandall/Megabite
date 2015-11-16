@@ -119,9 +119,6 @@
         }
     }
     
-    // TODO: Evict contours which are inside other similar contours (e.g. carrot)
-    // http://stackoverflow.com/questions/8508096/how-to-check-if-one-contour-is-nested-embedded-in-opencv
-    
     for ( int x = 0; x< contours.size(); x++ ) {
         if ([evictedIndexes containsObject:[NSNumber numberWithInt:x]]) {
             continue;
@@ -132,8 +129,8 @@
 
     NSLog(@"** Num. filtered items: %lu", filteredContours.size());
     
+    // Evict contours which are inside other similar contours (e.g. carrot)
     evictedIndexes = [NSMutableSet set];
-    
     for (int x = 0; x < filteredContours.size(); x++) {
         for ( int y = 0; y< filteredContours.size(); y++ ) {
             if (x == y) {
