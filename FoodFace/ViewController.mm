@@ -17,57 +17,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageView.image = [UIImage imageNamed:@"PlateFood"];
     
     UIImage *image = [UIImage imageNamed:@"PlateFood"];
-    cv::Mat cvMat = [self cvMatFromUIImage:image];
     
-    std::vector<std::vector<cv::Point> > squares;
-    squares = [self findSquaresInImage:cvMat];
-    cv::Mat cvMatWithSquares = [self debugSquares:squares image:cvMat];
+    self.imageView.image = image;
     
+    // Convert the image into a matrix
+    cv::Mat imageMatrix = [self cvMatFromUIImage:image];
+    
+    // Detect all contours within the image matrix
+    std::vector<std::vector<cv::Point>> contours = [self findContoursInImage:imageMatrix];
+    
+    // Filter contours for those that match detection criteria
+    std::vector<std::vector<cv::Point>> filteredContours = [self filterContours:contours];
+    
+    // Highlight the contours in the image
+    cv::Mat cvMatWithSquares = [self highlightContoursInImage:filteredContours image:imageMatrix];
+    
+    // Convert the image matrix into an image
     UIImage *squaredImage = [self UIImageFromCVMat:cvMatWithSquares];
-    NSLog(@"");
     
     self.outputImageView.image = squaredImage;
-    
-//    //cv:IplImage iplImage = *[self createIplImageFromUIImage:image];
-//    NSLog(@"Here");
-//    
-//    //std::vector<std::vector<cv::Point>> ;
-//    //cv::findContours(iplImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-//    
-//    
-//    cv::Mat canny_output;
-//    cv::vector<cv::vector<Point> > contours;
-//    cv::vector<cv::Vec4i> hierarchy;
-//    
-//    /// Detect edges using canny
-//    //Canny( src_gray, canny_output, thresh, thresh*2, 3 );
-//    /// Find contours
-//    
-//   // cv::findContours( iplImage, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, nil );
-//    
-//    cv::Mat bwImage;
-//    cv::cvtColor(cvMat, bwImage, CV_RGB2GRAY);
-////    vector< vector<cv::Point> > contours;
-//    
-//    cv::findContours(bwImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-//    
-//    for( size_t i = 0; i < contours.size(); i++ )
-//    {
-//        NSLog(@"In here");
-//    }
 }
 
-- (std::vector<std::vector<cv::Point> >)findSquaresInImage:(cv::Mat)_image
+- (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
 {
-    std::vector<std::vector<cv::Point> > squares;
-    cv::Mat pyr, timg, gray0(_image.size(), CV_8U), gray;
+    std::vector<std::vector<cv::Point>> validContours;
+    cv::Mat pyr, timg, gray0(image.size(), CV_8U), gray;
     int thresh = 50, N = 11;
-    cv::pyrDown(_image, pyr, cv::Size(_image.cols/2, _image.rows/2));
-    cv::pyrUp(pyr, timg, _image.size());
-    std::vector<std::vector<cv::Point> > contours;
+    cv::pyrDown(image, pyr, cv::Size(image.cols/2, image.rows/2));
+    cv::pyrUp(pyr, timg, image.size());
+    std::vector<std::vector<cv::Point>> contours;
+    cv::vector<cv::Vec4i> hierarchy;
+    
     for( int c = 0; c < 3; c++ ) {
         int ch[] = {c, 0};
         mixChannels(&timg, 1, &gray0, 1, ch, 1);
@@ -79,7 +61,11 @@
             else {
                 gray = gray0 >= (l+1)*255/N;
             }
-            cv::findContours(gray, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+            cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+            
+            
+            // hierarchy is ordered as: [Next, Previous, First_Child, Parent]
+            
             std::vector<cv::Point> approx;
             for( size_t i = 0; i < contours.size(); i++ )
             {
@@ -96,72 +82,37 @@
                 NSLog(@"Sides: %lu", approx.size());
                 NSLog(@"Size: %f", fabs(contourArea(cv::Mat(contours[i]))));
                 
-                squares.push_back(contours[i]);
-                
-//                 if (approx.size() > 4)
-//                 {
-//                     // Detect and label circles
-//                     double area = cv::contourArea(contours[i]);
-//                     cv::Rect r = cv::boundingRect(contours[i]);
-//                     int radius = r.width / 2;
-//                     
-//                     if (std::abs(1 - ((double)r.width / r.height)) <= 0.2 &&
-//                         std::abs(1 - (area / (CV_PI * std::pow(radius, 2)))) <= 0.2)
-//                     {
-//                         squares.push_back(contours[i]);
-//                     }
-//                 } else {
-//                    //squares.push_back(contours[i]);
-//                }
-                
-                //cv::approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true)*0.02, true);
-                //squares.push_back(approx);
-                
-//                if( approx.size() == 4 && fabs(contourArea(cv::Mat(approx))) > 1000 && cv::isContourConvex(cv::Mat(approx))) {
-//                    double maxCosine = 0;
-//                    
-//                    for( int j = 2; j < 5; j++ )
-//                    {
-//                        //double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
-//                        //maxCosine = MAX(maxCosine, cosine);
-//                    }
-//                    
-//                    if( maxCosine < 0.3 ) {
-//                        NSLog(@"found edge detection");
-//                        squares.push_back(approx);
-//                    }
-//                }
+                validContours.push_back(contours[i]);
             }
         }
     }
  
-    return squares;
+    return validContours;
 }
 
-- (cv::Mat)debugSquares:(std::vector<std::vector<cv::Point> >)squares image:(cv::Mat)image
+- (std::vector<std::vector<cv::Point>>)filterContours:(std::vector<std::vector<cv::Point>>)contours
 {
-//    NSMutableArray *evictedIndexes = [NSMutableArray array];
-    
     NSMutableSet *evictedIndexes = [NSMutableSet set];
     
-    std::vector<std::vector<cv::Point>> filtered;
+    std::vector<std::vector<cv::Point>> filteredContours;
     
-    for ( int x = 0; x< squares.size(); x++ ) {
-        for ( int y = 0; y< squares.size(); y++ ) {
+    for ( int x = 0; x< contours.size(); x++ ) {
+        for ( int y = 0; y< contours.size(); y++ ) {
             if (y <= x) {
                 continue;
             }
             
             // 0 == perfect match
-            double result = cv::matchShapes(squares[x], squares[y], 1, 1);
+            double result = cv::matchShapes(contours[x], contours[y], 1, 1);
             NSLog(@"Comparison result: %f", result);
-//            if (result <= 0.5) {
-//                [evictedIndexes addObject:[NSNumber numberWithInt:y]];
-//            }
+            //if (result <= 0.5) {
+            //    [evictedIndexes addObject:[NSNumber numberWithInt:y]];
+            //}
             
-            cv::Rect boundingRectX = cv::boundingRect(squares[x]);
-            cv::Rect boundingRectY = cv::boundingRect(squares[y]);
-
+            cv::Rect boundingRectX = cv::boundingRect(contours[x]);
+            cv::Rect boundingRectY = cv::boundingRect(contours[y]);
+            
+            // Evict contours that are similar in bounds to the current contour
             if ((std::fabs(boundingRectX.x - boundingRectY.x) < 25.0f) && (std::fabs(boundingRectX.y - boundingRectY.y) < 25.0f)) {
                 NSLog(@"** removing item (x,x)(y,y): (%d,%d),(%d,%d)", boundingRectX.x, boundingRectY.x, boundingRectX.y, boundingRectY.y);
                 [evictedIndexes addObject:[NSNumber numberWithInt:y]];
@@ -171,33 +122,38 @@
     
     // TODO: Evict contours which are inside other similar contours (e.g. carrot)
     
-    for ( int x = 0; x< squares.size(); x++ ) {
+    for ( int x = 0; x< contours.size(); x++ ) {
         if ([evictedIndexes containsObject:[NSNumber numberWithInt:x]]) {
             continue;
         }
         
-        filtered.push_back(squares[x]);
+        filteredContours.push_back(contours[x]);
     }
     
-    NSLog(@"** Num. filtered items: %lu", filtered.size());
+    NSLog(@"** Num. filtered items: %lu", filteredContours.size());
     
-    for ( int i = 0; i< filtered.size(); i++ ) {
+    return filteredContours;
+}
+
+- (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
+{
+    for ( int i = 0; i< contours.size(); i++ ) {
         // draw contour
-        cv::drawContours(image, filtered, i, cv::Scalar(255,0,0), 3, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
+        cv::drawContours(image, contours, i, cv::Scalar(255,0,0), 3, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
         
-        std::vector<cv::Point> currentSquare = filtered[i];
+        std::vector<cv::Point> currentSquare = contours[i];
         
-//        // draw bounding rect
-//        cv::Rect rect = boundingRect(cv::Mat(squares[i]));
-//        cv::rectangle(image, rect.tl(), rect.br(), cv::Scalar(0,255,0), 2, 8, 0);
+        //        // draw bounding rect
+        //        cv::Rect rect = boundingRect(cv::Mat(squares[i]));
+        //        cv::rectangle(image, rect.tl(), rect.br(), cv::Scalar(0,255,0), 2, 8, 0);
         
-//        // draw rotated rect
-//        cv::RotatedRect minRect = minAreaRect(cv::Mat(squares[i]));
-//        cv::Point2f rect_points[4];
-//        minRect.points( rect_points );
-//        for ( int j = 0; j < 4; j++ ) {
-//            cv::line( image, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,0,255), 1, 8 ); // blue
-//        }
+        //        // draw rotated rect
+        //        cv::RotatedRect minRect = minAreaRect(cv::Mat(squares[i]));
+        //        cv::Point2f rect_points[4];
+        //        minRect.points( rect_points );
+        //        for ( int j = 0; j < 4; j++ ) {
+        //            cv::line( image, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,0,255), 1, 8 ); // blue
+        //        }
     }
     
     return image;
