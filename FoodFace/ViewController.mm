@@ -63,7 +63,6 @@
             }
             cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
             
-            
             // hierarchy is ordered as: [Next, Previous, First_Child, Parent]
             
             std::vector<cv::Point> approx;
@@ -121,6 +120,7 @@
     }
     
     // TODO: Evict contours which are inside other similar contours (e.g. carrot)
+    // http://stackoverflow.com/questions/8508096/how-to-check-if-one-contour-is-nested-embedded-in-opencv
     
     for ( int x = 0; x< contours.size(); x++ ) {
         if ([evictedIndexes containsObject:[NSNumber numberWithInt:x]]) {
@@ -129,10 +129,40 @@
         
         filteredContours.push_back(contours[x]);
     }
-    
+
     NSLog(@"** Num. filtered items: %lu", filteredContours.size());
     
-    return filteredContours;
+    evictedIndexes = [NSMutableSet set];
+    
+    for (int x = 0; x < filteredContours.size(); x++) {
+        for ( int y = 0; y< filteredContours.size(); y++ ) {
+            if (x == y) {
+                continue;
+            }
+            
+            // Take the first point of the current (y) contour
+            cv::Point currentContourPoint = filteredContours[y][0];
+            
+            if(cv::pointPolygonTest(filteredContours[x], currentContourPoint, false) >= 0)
+            {
+                // it is inside
+                NSLog(@"");
+                [evictedIndexes addObject:[NSNumber numberWithInt:y]];
+            }
+        }
+    }
+    
+    std::vector<std::vector<cv::Point>> secondPassFilteredContours;
+    for ( int x = 0; x< filteredContours.size(); x++ ) {
+        if ([evictedIndexes containsObject:[NSNumber numberWithInt:x]]) {
+            continue;
+        }
+        
+        secondPassFilteredContours.push_back(filteredContours[x]);
+    }
+    
+    NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
+    return secondPassFilteredContours;
 }
 
 - (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
