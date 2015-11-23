@@ -24,6 +24,7 @@
     
     // Convert the image into a matrix
     cv::Mat imageMatrix = [self cvMatFromUIImage:image];
+    cv::Mat copyImageMatrix = [self cvMatFromUIImage:image];
     
     // Detect all contours within the image matrix
     std::vector<std::vector<cv::Point>> contours = [self findContoursInImage:imageMatrix];
@@ -34,10 +35,19 @@
     // Highlight the contours in the image
     cv::Mat cvMatWithSquares = [self highlightContoursInImage:filteredContours image:imageMatrix];
     
-    // Convert the image matrix into an image
-    UIImage *squaredImage = [self UIImageFromCVMat:cvMatWithSquares];
+    // TODO: extract highlighted contours
+    cv::vector<cv::Mat> extractedContours = [self cutContoursFromImage:filteredContours image:copyImageMatrix];
+    UIImage *extractedContour1 = [self UIImageFromCVMat:extractedContours[0]];
+    self.debugImageView1.image = extractedContour1;
     
-    self.outputImageView.image = squaredImage;
+    // TODO: detect plate
+    // TODO: fill extracted regions on plate
+    
+    
+    // Convert the image matrix into an image
+    UIImage *highlightedImage = [self UIImageFromCVMat:cvMatWithSquares];
+    
+    self.outputImageView.image = highlightedImage;
 }
 
 - (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
@@ -160,6 +170,36 @@
     
     NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
     return secondPassFilteredContours;
+}
+
+- (cv::vector<cv::Mat>)cutContoursFromImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
+{
+    cv::vector<cv::Mat> subregions;
+    
+    for (int i = 0; i < contours.size(); i++)
+    {
+        // Get bounding box for contour
+        //cv::Rect roi = cv::boundingRect(contours[i]); // This is a OpenCV function
+
+        // Create a mask for each contour to mask out that region from image.
+        cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
+        drawContours(mask, contours, i, cv::Scalar(255), CV_FILLED); // This is a OpenCV function
+        
+        // At this point, mask has value of 255 for pixels within the contour and value of 0 for those not in contour.
+        
+        // Extract region using mask for region
+        cv::Mat contourRegion;
+        cv::Mat imageROI;
+        image.copyTo(imageROI, mask); // 'image' is the image you used to compute the contours.
+        contourRegion = imageROI;//(roi);
+        // Mat maskROI = mask(roi); // Save this if you want a mask for pixels within the contour in contourRegion.
+        
+        // Store contourRegion. contourRegion is a rectangular image the size of the bounding rect for the contour
+        // BUT only pixels within the contour is visible. All other pixels are set to (0,0,0).
+        subregions.push_back(contourRegion);
+    }
+    
+    return subregions;
 }
 
 - (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
