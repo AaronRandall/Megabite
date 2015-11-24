@@ -37,8 +37,11 @@
     
     // TODO: extract highlighted contours
     cv::vector<cv::Mat> extractedContours = [self cutContoursFromImage:filteredContours image:copyImageMatrix];
-    UIImage *extractedContour1 = [self UIImageFromCVMat:extractedContours[0]];
-    self.debugImageView1.image = extractedContour1;
+    
+    for (int i = 0; i < extractedContours.size(); i++) {
+        UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
+        self.debugImageView1.image = extractedContour;
+    }
     
     // TODO: detect plate
     // TODO: fill extracted regions on plate
