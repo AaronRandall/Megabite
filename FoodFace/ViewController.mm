@@ -77,12 +77,12 @@
     // TODO: select template based on num. extracted contours
     // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
     NSMutableArray *binPolyforms = [NSMutableArray array];
-    Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 50, 50)]];
-    Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(200, 50, 50, 50)]];
-    Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 50, 50)]];
-    Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 200, 200, 200)]];
-    Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(0, 50, 50, 100)]];
-    Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 50, 50, 100)]];
+    Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 100, 50, 50)]];
+    Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 100, 50, 50)]];
+    Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(225, 200, 50, 50)]];
+    Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 300, 200, 200)]];
+    Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(25, 150, 50, 100)]];
+    Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(425, 150, 50, 100)]];
     
     [binPolyforms addObject:bin1];
     [binPolyforms addObject:bin2];
@@ -105,35 +105,55 @@
     
     NSLog(@"Poly");
     
+    UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
+    
     for (int i = 0; i < sortedBinPolyforms.count; i++) {
         Polyform *currentBinPolyform = sortedBinPolyforms[i];
         Polyform *currentItemPolyform = sortedItemPolyforms[i];
         
         // TODO: calculate centroid. Currently using x,y of bins
         
-        
+        testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBin:currentBinPolyform];
     }
     
-    
-    // DEBUG: Creating a composite image
-//    UIImage *testImage = [UIImage imageNamed:@"PlateFood"];
+//    
+//    UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
 //    CGSize size = CGSizeMake(500, 500);
 //    UIGraphicsBeginImageContext(size);
 //    
-//    CGPoint thumbPoint = CGPointMake(0, 25 - 500 / 2);
-//    [testImage drawAtPoint:thumbPoint];
+//    CGPoint background = CGPointMake(0, 0);
+//    [testImage drawAtPoint:background];
 //    
-//    UIImage* starred = ((Polyform*)sortedItemPolyforms[0]).image;
+//    UIImage* item = ((Polyform*)sortedItemPolyforms[0]).image;
 //    
-//    CGPoint starredPoint = CGPointMake(0, 0);
-//    [starred drawAtPoint:starredPoint];
+//    CGPoint itemPoint = CGPointMake(250, 250);
+//    [item drawAtPoint:itemPoint];
 //    
 //    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
 //    UIGraphicsEndImageContext();
-//    
+    
+    self.debugImageView2.image = testImage;
     
     // TODO: place item in desired location for current bin
     NSLog(@"");
+}
+
+- (UIImage*)addItemPolyform:(Polyform*)itemPolyform toImage:(UIImage*)image atBin:(Polyform*)binPolyform {
+    CGSize size = CGSizeMake(500, 500);
+    UIGraphicsBeginImageContext(size);
+    
+    CGPoint background = CGPointMake(0, 0);
+    [image drawAtPoint:background];
+    
+    UIImage *item = itemPolyform.image;
+    
+    CGPoint itemPoint = CGPointMake(binPolyform.shape.bounds.origin.x, binPolyform.shape.bounds.origin.y);
+    [item drawAtPoint:itemPoint];
+    
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return result;
 }
 
 - (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
