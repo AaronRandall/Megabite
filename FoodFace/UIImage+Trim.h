@@ -12,5 +12,6 @@
 @interface UIImage (Trim)
 
 - (UIImage *)trimmedImage;
+- (UIImage *)replaceColor:(UIColor*)color withTolerance:(float)tolerance;
 
 @end

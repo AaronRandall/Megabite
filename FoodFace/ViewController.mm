@@ -41,12 +41,14 @@
     // Highlight the contours in the image
     cv::Mat cvMatWithSquares = [self highlightContoursInImage:filteredContours image:imageMatrix];
     
-    // TODO: extract highlighted contours
+    // Extract highlighted contours
     cv::vector<cv::Mat> extractedContours = [self cutContoursFromImage:filteredContours image:copyImageMatrix];
     
+    // Crop extracted contours to the size of the contour, and make background transparent
     for (int i = 0; i < extractedContours.size(); i++) {
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
-        [self.images addObject:[extractedContour trimmedImage]];
+        [self.images addObject:[[extractedContour trimmedImage] replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f]];
+        
         self.debugImageView1.image = self.images[0];
     }
     
@@ -123,7 +125,7 @@
             
             // 0 == perfect match
             double result = cv::matchShapes(contours[x], contours[y], 1, 1);
-            NSLog(@"Comparison result: %f", result);
+            //NSLog(@"Comparison result: %f", result);
             //if (result <= 0.5) {
             //    [evictedIndexes addObject:[NSNumber numberWithInt:y]];
             //}
@@ -133,7 +135,7 @@
             
             // Evict contours that are similar in bounds to the current contour
             if ((std::fabs(boundingRectX.x - boundingRectY.x) < 25.0f) && (std::fabs(boundingRectX.y - boundingRectY.y) < 25.0f)) {
-                NSLog(@"** removing item (x,x)(y,y): (%d,%d),(%d,%d)", boundingRectX.x, boundingRectY.x, boundingRectX.y, boundingRectY.y);
+                //NSLog(@"** removing item (x,x)(y,y): (%d,%d),(%d,%d)", boundingRectX.x, boundingRectY.x, boundingRectX.y, boundingRectY.y);
                 [evictedIndexes addObject:[NSNumber numberWithInt:y]];
             }
         }
