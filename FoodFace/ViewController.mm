@@ -74,13 +74,15 @@
         [itemPolyforms addObject:polyform];
     }
     
+    // TODO: select template based on num. extracted contours
+    // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
     NSMutableArray *binPolyforms = [NSMutableArray array];
-    Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 50)]];
-    Polyform *bin2 = [Polyform new];
-    Polyform *bin3 = [Polyform new];
-    Polyform *bin4 = [Polyform new];
-    Polyform *bin5 = [Polyform new];
-    Polyform *bin6 = [Polyform new];
+    Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 50, 50)]];
+    Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(200, 50, 50, 50)]];
+    Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 50, 50)]];
+    Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 200, 200, 200)]];
+    Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(0, 50, 50, 100)]];
+    Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 50, 50, 100)]];
     
     [binPolyforms addObject:bin1];
     [binPolyforms addObject:bin2];
@@ -88,17 +90,23 @@
     [binPolyforms addObject:bin4];
     [binPolyforms addObject:bin5];
     [binPolyforms addObject:bin6];
-
-    NSLog(@"Poly");
     
-    // TODO: select template based on num. extracted contours
-    // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
+    
     // TODO: calculate item centroid coordinates, surface areas, ordered by surface area (big to small)
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"surfaceArea"
+                                                 ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *sortedBinPolyforms = [binPolyforms sortedArrayUsingDescriptors:sortDescriptors];
+    NSArray *sortedItemPolyforms = [itemPolyforms sortedArrayUsingDescriptors:sortDescriptors];
+    
     
     // TODO: find optimum rotation for current bin & item combination
+    
+    NSLog(@"Poly");
+    
+    
     // TODO: place item in desired location for current bin
-    
-    
     
 }
 
