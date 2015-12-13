@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73EB6CBE1C1CD8BF00C314B9 /* UIImage+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 73EB6CBD1C1CD8BF00C314B9 /* UIImage+Trim.m */; };
 		9383216E1BDF9482005F681D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9383216D1BDF9482005F681D /* main.m */; };
 		938321711BDF9482005F681D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321701BDF9482005F681D /* AppDelegate.m */; };
 		938321741BDF9482005F681D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 938321731BDF9482005F681D /* ViewController.mm */; };
@@ -38,6 +39,8 @@
 /* Begin PBXFileReference section */
 		3F1B9D9BF3CAA192D517E9D6 /* Pods-FoodFace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodFace.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodFace/Pods-FoodFace.release.xcconfig"; sourceTree = "<group>"; };
 		658810F0EB1C6D56AEE96871 /* libPods-FoodFace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodFace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73EB6CBC1C1CD8BF00C314B9 /* UIImage+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Trim.h"; sourceTree = "<group>"; };
+		73EB6CBD1C1CD8BF00C314B9 /* UIImage+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Trim.m"; sourceTree = "<group>"; };
 		8E0BD7E53F778412F0991262 /* Pods-FoodFace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodFace.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodFace/Pods-FoodFace.debug.xcconfig"; sourceTree = "<group>"; };
 		938321691BDF9482005F681D /* FoodFace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodFace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9383216D1BDF9482005F681D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				938321721BDF9482005F681D /* ViewController.h */,
 				938321731BDF9482005F681D /* ViewController.mm */,
 				938321751BDF9482005F681D /* Main.storyboard */,
+				73EB6CBC1C1CD8BF00C314B9 /* UIImage+Trim.h */,
+				73EB6CBD1C1CD8BF00C314B9 /* UIImage+Trim.m */,
 				938321781BDF9482005F681D /* Assets.xcassets */,
 				9383217A1BDF9482005F681D /* LaunchScreen.storyboard */,
 				9383217D1BDF9482005F681D /* Info.plist */,
@@ -330,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				938321741BDF9482005F681D /* ViewController.mm in Sources */,
+				73EB6CBE1C1CD8BF00C314B9 /* UIImage+Trim.m in Sources */,
 				938321711BDF9482005F681D /* AppDelegate.m in Sources */,
 				9383216E1BDF9482005F681D /* main.m in Sources */,
 			);

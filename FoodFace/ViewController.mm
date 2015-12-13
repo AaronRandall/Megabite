@@ -8,15 +8,21 @@
 
 #import "ViewController.h"
 #import <opencv2/opencv.hpp>
+#import "UIImage+Trim.h"
 
 @interface ViewController ()
-
+    @property NSMutableArray *images;
+    @property int imageIndex;
 @end
 
-@implementation ViewController
+@implementation ViewController {
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.images = [NSMutableArray array];
+    self.imageIndex = 0;
     
     UIImage *image = [UIImage imageNamed:@"PlateFood"];
     
@@ -40,7 +46,8 @@
     
     for (int i = 0; i < extractedContours.size(); i++) {
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
-        self.debugImageView1.image = extractedContour;
+        [self.images addObject:[extractedContour trimmedImage]];
+        self.debugImageView1.image = self.images[0];
     }
     
     // TODO: detect plate
@@ -326,4 +333,9 @@
     return ret;
 }
 
+- (IBAction)nextButton:(id)sender {
+    self.imageIndex++;
+    int currentIndex = self.imageIndex % self.images.count;
+    self.debugImageView1.image = [self.images objectAtIndex:currentIndex];
+}
 @end
