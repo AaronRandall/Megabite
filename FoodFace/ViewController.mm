@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <opencv2/opencv.hpp>
 #import "UIImage+Trim.h"
+#import "Polyform.h"
 
 @interface ViewController ()
     @property NSMutableArray *images;
@@ -24,6 +25,7 @@
     self.images = [NSMutableArray array];
     self.imageIndex = 0;
     
+    // TODO: resize input image to fixed size (500x500)
     UIImage *image = [UIImage imageNamed:@"PlateFood"];
     
     self.imageView.image = image;
@@ -48,18 +50,56 @@
     for (int i = 0; i < extractedContours.size(); i++) {
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
         [self.images addObject:[[extractedContour trimmedImage] replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f]];
-        
+        // TODO: find optimum (smallest) bounding box for image (based on rotation), so e.g. a diagonal thin shape would
+        // be rotated to be flat, and therefore occupy a smaller rectangle
         self.debugImageView1.image = self.images[0];
     }
     
     // TODO: detect plate
-    // TODO: fill extracted regions on plate
-    
+    // TODO: fill extracted regions (holes) on plate
     
     // Convert the image matrix into an image
     UIImage *highlightedImage = [self UIImageFromCVMat:cvMatWithSquares];
     
     self.outputImageView.image = highlightedImage;
+    
+    // Polyform
+    //   - Geometric shape (UIBezierPath)
+    //   - AppliedRotation
+    //   - SurfaceArea
+    //   - Origin (x,y)
+    NSMutableArray *itemPolyforms = [NSMutableArray array];
+    for (int i = 0; i < self.images.count; i++) {
+        Polyform *polyform = [[Polyform alloc] initWithImage:self.images[i]];
+        [itemPolyforms addObject:polyform];
+    }
+    
+    NSMutableArray *binPolyforms = [NSMutableArray array];
+    Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 50)]];
+    Polyform *bin2 = [Polyform new];
+    Polyform *bin3 = [Polyform new];
+    Polyform *bin4 = [Polyform new];
+    Polyform *bin5 = [Polyform new];
+    Polyform *bin6 = [Polyform new];
+    
+    [binPolyforms addObject:bin1];
+    [binPolyforms addObject:bin2];
+    [binPolyforms addObject:bin3];
+    [binPolyforms addObject:bin4];
+    [binPolyforms addObject:bin5];
+    [binPolyforms addObject:bin6];
+
+    NSLog(@"Poly");
+    
+    // TODO: select template based on num. extracted contours
+    // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
+    // TODO: calculate item centroid coordinates, surface areas, ordered by surface area (big to small)
+    
+    // TODO: find optimum rotation for current bin & item combination
+    // TODO: place item in desired location for current bin
+    
+    
+    
 }
 
 - (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
@@ -338,6 +378,8 @@
 - (IBAction)nextButton:(id)sender {
     self.imageIndex++;
     int currentIndex = self.imageIndex % self.images.count;
-    self.debugImageView1.image = [self.images objectAtIndex:currentIndex];
+    UIImage *currentImage = [self.images objectAtIndex:currentIndex];
+    self.debugImageView1.image = currentImage;
+    NSLog(@"Height: %f, Width: %f", currentImage.size.height, currentImage.size.width);
 }
 @end
