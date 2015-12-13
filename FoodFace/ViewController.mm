@@ -105,9 +105,35 @@
     
     NSLog(@"Poly");
     
+    for (int i = 0; i < sortedBinPolyforms.count; i++) {
+        Polyform *currentBinPolyform = sortedBinPolyforms[i];
+        Polyform *currentItemPolyform = sortedItemPolyforms[i];
+        
+        // TODO: calculate centroid. Currently using x,y of bins
+        
+        
+    }
+    
+    
+    // DEBUG: Creating a composite image
+//    UIImage *testImage = [UIImage imageNamed:@"PlateFood"];
+//    CGSize size = CGSizeMake(500, 500);
+//    UIGraphicsBeginImageContext(size);
+//    
+//    CGPoint thumbPoint = CGPointMake(0, 25 - 500 / 2);
+//    [testImage drawAtPoint:thumbPoint];
+//    
+//    UIImage* starred = ((Polyform*)sortedItemPolyforms[0]).image;
+//    
+//    CGPoint starredPoint = CGPointMake(0, 0);
+//    [starred drawAtPoint:starredPoint];
+//    
+//    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
     
     // TODO: place item in desired location for current bin
-    
+    NSLog(@"");
 }
 
 - (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
