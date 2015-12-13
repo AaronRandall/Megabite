@@ -63,34 +63,20 @@
     
     self.outputImageView.image = highlightedImage;
     
-    // Polyform
-    //   - Geometric shape (UIBezierPath)
-    //   - AppliedRotation
-    //   - SurfaceArea
-    //   - Origin (x,y)
+    
+    // Construct polyform objects from the extracted images
     NSMutableArray *itemPolyforms = [NSMutableArray array];
     for (int i = 0; i < self.images.count; i++) {
         Polyform *polyform = [[Polyform alloc] initWithImage:self.images[i]];
         [itemPolyforms addObject:polyform];
     }
     
+    
     // TODO: select template based on num. extracted contours
     // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
-    NSMutableArray *binPolyforms = [NSMutableArray array];
-    Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 100, 50, 50)]];
-    Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 100, 50, 50)]];
-    Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(225, 200, 50, 50)]];
-    Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 300, 200, 200)]];
-    Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(25, 150, 50, 100)]];
-    Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(425, 150, 50, 100)]];
-    
-    [binPolyforms addObject:bin1];
-    [binPolyforms addObject:bin2];
-    [binPolyforms addObject:bin3];
-    [binPolyforms addObject:bin4];
-    [binPolyforms addObject:bin5];
-    [binPolyforms addObject:bin6];
-    
+
+    // Get the bin polyforms based on the item polyforms we've extracted
+    NSArray *binPolyforms = [self binPolyformsForTemplateBasedOnItemPolyforms:itemPolyforms];
     
     // TODO: calculate item centroid coordinates, surface areas, ordered by surface area (big to small)
     NSSortDescriptor *sortDescriptor;
@@ -112,33 +98,38 @@
         Polyform *currentItemPolyform = sortedItemPolyforms[i];
         
         // TODO: calculate centroid. Currently using x,y of bins
-        
-        testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBin:currentBinPolyform];
+    
+        // Add current item polyform to the image at the bin polyform position
+        testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBinPolyform:currentBinPolyform];
     }
     
-//    
-//    UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
-//    CGSize size = CGSizeMake(500, 500);
-//    UIGraphicsBeginImageContext(size);
-//    
-//    CGPoint background = CGPointMake(0, 0);
-//    [testImage drawAtPoint:background];
-//    
-//    UIImage* item = ((Polyform*)sortedItemPolyforms[0]).image;
-//    
-//    CGPoint itemPoint = CGPointMake(250, 250);
-//    [item drawAtPoint:itemPoint];
-//    
-//    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-    
     self.debugImageView2.image = testImage;
-    
-    // TODO: place item in desired location for current bin
-    NSLog(@"");
 }
 
-- (UIImage*)addItemPolyform:(Polyform*)itemPolyform toImage:(UIImage*)image atBin:(Polyform*)binPolyform {
+- (NSArray*)binPolyformsForTemplateBasedOnItemPolyforms:(NSArray*)itemPolyforms {
+    NSMutableArray *binPolyforms = [NSMutableArray array];
+    
+    // TODO: more template layouts based on different bin counts
+    if (itemPolyforms.count >= 6) {
+        Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 100, 50, 50)]];
+        Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 100, 50, 50)]];
+        Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(225, 225, 50, 50)]];
+        Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 325, 200, 200)]];
+        Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(25, 150, 50, 100)]];
+        Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(425, 150, 50, 100)]];
+        
+        [binPolyforms addObject:bin1];
+        [binPolyforms addObject:bin2];
+        [binPolyforms addObject:bin3];
+        [binPolyforms addObject:bin4];
+        [binPolyforms addObject:bin5];
+        [binPolyforms addObject:bin6];
+    }
+    
+    return binPolyforms;
+}
+
+- (UIImage*)addItemPolyform:(Polyform*)itemPolyform toImage:(UIImage*)image atBinPolyform:(Polyform*)binPolyform {
     CGSize size = CGSizeMake(500, 500);
     UIGraphicsBeginImageContext(size);
     
