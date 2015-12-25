@@ -49,11 +49,20 @@
     // Crop extracted contours to the size of the contour, and make background transparent
     for (int i = 0; i < extractedContours.size(); i++) {
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
-        [self.images addObject:[[extractedContour trimmedImage] replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f]];
-        // TODO: find optimum (smallest) bounding box for image (based on rotation), so e.g. a diagonal thin shape would
+
+        UIImage *transparentShrunkImage = [[extractedContour trimmedImage] replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
+        
+        UIImage *boundingBoxImage = [self imageBoundingBox:transparentShrunkImage];
+        
+        [self.images addObject:boundingBoxImage];
+        // TODO: find optimum (smallest) bounding box for image (based on rotation, AKA minimum-area enclosing rectangle), so e.g. a diagonal thin shape would
         // be rotated to be flat, and therefore occupy a smaller rectangle
-        self.debugImageView1.image = self.images[0];
+        
     }
+    
+    //[self imageBoundingBox:self.images[4]];
+    
+    self.debugImageView1.image = self.images[0];
     
     // TODO: detect plate
     // TODO: fill extracted regions (holes) on plate
@@ -74,7 +83,7 @@
     
     // TODO: select template based on num. extracted contours
     // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
-
+    
     // Get the bin polyforms based on the item polyforms we've extracted
     NSArray *binPolyforms = [self binPolyformsForTemplateBasedOnItemPolyforms:itemPolyforms];
     
@@ -89,8 +98,6 @@
     
     // TODO: find optimum rotation for current bin & item combination
     
-    NSLog(@"Poly");
-    
     UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
     
     for (int i = 0; i < sortedBinPolyforms.count; i++) {
@@ -104,6 +111,60 @@
     }
     
     self.debugImageView2.image = testImage;
+}
+
+- (UIImage*)imageBoundingBox:(UIImage*)image {
+    int boundingBoxRotation = 0;
+    int smallestSurfaceArea = image.size.height * image.size.width;
+    
+    for (int i = 0; i < 180; i++) {
+        // Rotate the image
+        UIImage *tempImage = [self imageRotatedByDegrees:i image:image];
+        
+        // Trim to smallest box
+        tempImage = [tempImage trimmedImage];
+        int currentSurfaceArea = (tempImage.size.height * tempImage.size.width);
+        
+        if (currentSurfaceArea < smallestSurfaceArea) {
+            // The current rotation has a smaller surface area than the previous smallest surface area
+            smallestSurfaceArea = currentSurfaceArea;
+            boundingBoxRotation = i;
+        }
+        
+        // Observe bounding box size
+        NSLog(@"Rotation: %d, SurfaceArea: %f (%f, %f)", i, (tempImage.size.width * tempImage.size.height),tempImage.size.width, tempImage.size.height);
+    }
+    
+    return [self imageRotatedByDegrees:boundingBoxRotation image:image];
+}
+
+- (CGFloat)degreesToRadians:(CGFloat)degrees
+{
+    return degrees * M_PI / 180;
+}
+
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage*)image {
+    CGFloat radians = [self degreesToRadians:degrees];
+    
+    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0, image.size.width, image.size.height)];
+    CGAffineTransform t = CGAffineTransformMakeRotation(radians);
+    rotatedViewBox.transform = t;
+    CGSize rotatedSize = rotatedViewBox.frame.size;
+    
+    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, [[UIScreen mainScreen] scale]);
+    CGContextRef bitmap = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(bitmap, rotatedSize.width / 2, rotatedSize.height / 2);
+    
+    CGContextRotateCTM(bitmap, radians);
+    
+    CGContextScaleCTM(bitmap, 1.0, -1.0);
+    CGContextDrawImage(bitmap, CGRectMake(-image.size.width / 2, -image.size.height / 2 , image.size.width, image.size.height), image.CGImage );
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 - (NSArray*)binPolyformsForTemplateBasedOnItemPolyforms:(NSArray*)itemPolyforms {
