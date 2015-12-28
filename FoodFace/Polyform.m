@@ -15,6 +15,8 @@
     if (self) {
         self.image = image;
         self.surfaceArea = image.size.height * image.size.width;
+        self.centroidX = image.size.width / 2;
+        self.centroidY = image.size.height / 2;
     }
     return self;
 }
@@ -24,6 +26,8 @@
     if (self) {
         self.shape = shape;
         self.surfaceArea = shape.bounds.size.height * shape.bounds.size.width;
+        self.centroidX = shape.bounds.size.width / 2;
+        self.centroidY = shape.bounds.size.height / 2;
     }
     return self;
 }

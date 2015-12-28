@@ -50,17 +50,17 @@
     for (int i = 0; i < extractedContours.size(); i++) {
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
 
-        UIImage *transparentShrunkImage = [[extractedContour trimmedImage] replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
+        // Make the black mask of the image transparent
+        UIImage *modifiedImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
         
-        UIImage *boundingBoxImage = [self imageBoundingBox:transparentShrunkImage];
+        // Trim to the bounding box
+        modifiedImage = [modifiedImage trimmedImage];
         
-        [self.images addObject:boundingBoxImage];
-        // TODO: find optimum (smallest) bounding box for image (based on rotation, AKA minimum-area enclosing rectangle), so e.g. a diagonal thin shape would
-        // be rotated to be flat, and therefore occupy a smaller rectangle
+        // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
+        modifiedImage = [self imageBoundingBox:modifiedImage];
         
+        [self.images addObject:modifiedImage];
     }
-    
-    //[self imageBoundingBox:self.images[4]];
     
     self.debugImageView1.image = self.images[0];
     
@@ -171,6 +171,7 @@
     NSMutableArray *binPolyforms = [NSMutableArray array];
     
     // TODO: more template layouts based on different bin counts
+    // TODO: way to visualise layouts before populating with objects
     if (itemPolyforms.count >= 6) {
         Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 100, 50, 50)]];
         Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 100, 50, 50)]];
@@ -199,7 +200,10 @@
     
     UIImage *item = itemPolyform.image;
     
-    CGPoint itemPoint = CGPointMake(binPolyform.shape.bounds.origin.x, binPolyform.shape.bounds.origin.y);
+    double pointX = (binPolyform.shape.bounds.origin.x + binPolyform.centroidX) - itemPolyform.centroidX;
+    double pointY = (binPolyform.shape.bounds.origin.y + binPolyform.centroidY) - itemPolyform.centroidY;
+    
+    CGPoint itemPoint = CGPointMake(pointX, pointY);
     [item drawAtPoint:itemPoint];
     
     UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
