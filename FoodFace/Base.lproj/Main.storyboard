@@ -55,6 +55,9 @@
                                     <action selector="nextButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QKW-eG-VpL"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lqg-JV-sPU">
+                                <rect key="frame" x="322" y="609" width="265" height="249"/>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -63,6 +66,7 @@
                     <connections>
                         <outlet property="debugImageView1" destination="Vaq-bw-2X6" id="PhE-go-ZRr"/>
                         <outlet property="debugImageView2" destination="hm1-73-QAa" id="wpa-9k-hml"/>
+                        <outlet property="debugImageView3" destination="Lqg-JV-sPU" id="gv4-Tl-nd7"/>
                         <outlet property="imageView" destination="ABS-3a-ZOc" id="oCw-bB-y1M"/>
                         <outlet property="outputImageView" destination="lc2-3A-dLq" id="tEQ-sf-3VL"/>
                     </connections>

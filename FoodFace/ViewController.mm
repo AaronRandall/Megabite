@@ -111,6 +111,24 @@
     }
     
     self.debugImageView2.image = testImage;
+    
+    
+    
+    
+    
+    
+    // DEBUG bin layout
+    UIGraphicsBeginImageContextWithOptions(testImage.size, NO, 0.0); //size of the image, opaque, and scale (set to screen default with 0)
+    [((Polyform*)[sortedBinPolyforms objectAtIndex:0]).shape fill];
+    [((Polyform*)[sortedBinPolyforms objectAtIndex:1]).shape fill];
+    [((Polyform*)[sortedBinPolyforms objectAtIndex:2]).shape fill];
+    [((Polyform*)[sortedBinPolyforms objectAtIndex:3]).shape fill];
+    [((Polyform*)[sortedBinPolyforms objectAtIndex:4]).shape fill];
+    [((Polyform*)[sortedBinPolyforms objectAtIndex:5]).shape fill];
+    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.debugImageView3.image = myImage;
 }
 
 - (UIImage*)imageBoundingBox:(UIImage*)image {
@@ -173,11 +191,17 @@
     // TODO: more template layouts based on different bin counts
     // TODO: way to visualise layouts before populating with objects
     if (itemPolyforms.count >= 6) {
+        // Left eye
         Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 100, 50, 50)]];
+        // Right eye
         Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 100, 50, 50)]];
+        // Nose
         Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(225, 225, 50, 50)]];
-        Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 325, 200, 200)]];
+        // Mouth
+        Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 325, 200, 100)]];
+        // Left ear
         Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(25, 150, 50, 100)]];
+        // Right ear
         Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(425, 150, 50, 100)]];
         
         [binPolyforms addObject:bin1];
