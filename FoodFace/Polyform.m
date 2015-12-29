@@ -34,7 +34,7 @@
         [[UIColor blueColor] set];
         UIRectFill(CGRectMake(0.0, 0.0, shape.bounds.size.width, shape.bounds.size.height));
         [self.shape fill];
-//        UIImage *shapeImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIImage *shapeImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.image = shapeImage;
     }
