@@ -51,15 +51,21 @@
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
 
         // Make the black mask of the image transparent
-        UIImage *modifiedImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
+        UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
+        
+        NSLog(@"*** 1: %f, %f", originalImage.size.width, originalImage.size.height);
         
         // Trim to the bounding box
-        modifiedImage = [modifiedImage trimmedImage];
+        UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
+
+        NSLog(@"*** 2: %f, %f", trimmedImage.size.width, trimmedImage.size.height);
         
         // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
-        modifiedImage = [self imageBoundingBox:modifiedImage];
+        UIImage *boundingBoxImage = [self imageBoundingBox:trimmedImage];
         
-        [self.images addObject:modifiedImage];
+        NSLog(@"*** 3: %f, %f", boundingBoxImage.size.width, boundingBoxImage.size.height);
+                
+        [self.images addObject:boundingBoxImage];
     }
     
     self.debugImageView1.image = self.images[0];
@@ -105,6 +111,7 @@
         Polyform *currentItemPolyform = sortedItemPolyforms[i];
         
         // TODO: calculate centroid. Currently using x,y of bins
+        
     
         // Add current item polyform to the image at the bin polyform position
         testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBinPolyform:currentBinPolyform];
@@ -112,19 +119,32 @@
     
     self.debugImageView2.image = testImage;
     
+    // Debug the bin layout
+    [self displayBinTemplateLayout:sortedBinPolyforms usingSize:testImage.size];
     
+    Polyform *bin = [sortedBinPolyforms objectAtIndex:1];
+    Polyform *item = [sortedItemPolyforms objectAtIndex:1];
     
+    // Debug overlay of bin and item
+    UIGraphicsBeginImageContextWithOptions(bin.shape.bounds.size, YES, 0.0);
+    [[UIColor redColor] set]; //set the desired background color
+    UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
+    [[UIColor blueColor] set];
+    [item.shape fill];
+    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
     
+    self.debugImageView4.image = myImage;
+}
+
+- (void)displayBinTemplateLayout:(NSArray*)binPolyforms usingSize:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     
+    for (int i = 0; i < binPolyforms.count; i++) {
+        [((Polyform*)[binPolyforms objectAtIndex:i]).shape fill];
+    }
     
-    // DEBUG bin layout
-    UIGraphicsBeginImageContextWithOptions(testImage.size, NO, 0.0); //size of the image, opaque, and scale (set to screen default with 0)
-    [((Polyform*)[sortedBinPolyforms objectAtIndex:0]).shape fill];
-    [((Polyform*)[sortedBinPolyforms objectAtIndex:1]).shape fill];
-    [((Polyform*)[sortedBinPolyforms objectAtIndex:2]).shape fill];
-    [((Polyform*)[sortedBinPolyforms objectAtIndex:3]).shape fill];
-    [((Polyform*)[sortedBinPolyforms objectAtIndex:4]).shape fill];
-    [((Polyform*)[sortedBinPolyforms objectAtIndex:5]).shape fill];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -140,7 +160,7 @@
         UIImage *tempImage = [self imageRotatedByDegrees:i image:image];
         
         // Trim to smallest box
-        tempImage = [tempImage trimmedImage];
+        tempImage = [tempImage imageByTrimmingTransparentPixels];
         int currentSurfaceArea = (tempImage.size.height * tempImage.size.width);
         
         if (currentSurfaceArea < smallestSurfaceArea) {
@@ -150,10 +170,15 @@
         }
         
         // Observe bounding box size
-        NSLog(@"Rotation: %d, SurfaceArea: %f (%f, %f)", i, (tempImage.size.width * tempImage.size.height),tempImage.size.width, tempImage.size.height);
+        //NSLog(@"Rotation: %d, SurfaceArea: %f (%f, %f)", i, (tempImage.size.width * tempImage.size.height),tempImage.size.width, tempImage.size.height);
     }
     
-    return [self imageRotatedByDegrees:boundingBoxRotation image:image];
+    UIImage *boundingBoxImage = [self imageRotatedByDegrees:boundingBoxRotation image:image];
+    
+    // Trim to smallest box
+    boundingBoxImage = [boundingBoxImage imageByTrimmingTransparentPixels];
+    
+    return boundingBoxImage;
 }
 
 - (CGFloat)degreesToRadians:(CGFloat)degrees
@@ -169,7 +194,7 @@
     rotatedViewBox.transform = t;
     CGSize rotatedSize = rotatedViewBox.frame.size;
     
-    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, [[UIScreen mainScreen] scale]);
+    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, image.scale);
     CGContextRef bitmap = UIGraphicsGetCurrentContext();
     
     CGContextTranslateCTM(bitmap, rotatedSize.width / 2, rotatedSize.height / 2);

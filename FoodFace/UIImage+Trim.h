@@ -11,7 +11,9 @@
 
 @interface UIImage (Trim)
 
-- (UIImage *)trimmedImage;
 - (UIImage *)replaceColor:(UIColor*)color withTolerance:(float)tolerance;
+- (UIEdgeInsets)transparencyInsetsRequiringFullOpacity:(BOOL)fullyOpaque;
+- (UIImage *)imageByTrimmingTransparentPixels;
+- (UIImage *)imageByTrimmingTransparentPixelsRequiringFullOpacity:(BOOL)fullyOpaque;
 
 @end

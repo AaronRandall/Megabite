@@ -17,6 +17,7 @@
         self.surfaceArea = image.size.height * image.size.width;
         self.centroidX = image.size.width / 2;
         self.centroidY = image.size.height / 2;
+        self.shape = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, image.size.width, image.size.height)];
     }
     return self;
 }

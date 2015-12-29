@@ -10,96 +10,6 @@
 
 @implementation UIImage (Trim)
 
-- (UIImage *)trimmedImage {
-    
-    CGImageRef inImage = self.CGImage;
-    CFDataRef m_DataRef;
-    m_DataRef = CGDataProviderCopyData(CGImageGetDataProvider(inImage));
-    
-    UInt8 * m_PixelBuf = (UInt8 *) CFDataGetBytePtr(m_DataRef);
-    
-    size_t width = CGImageGetWidth(inImage);
-    size_t height = CGImageGetHeight(inImage);
-    
-    CGPoint top,left,right,bottom;
-    
-    BOOL breakOut = NO;
-    for (int x = 0;breakOut==NO && x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            int loc = x + (y * width);
-            loc *= 4;
-            if (m_PixelBuf[loc + 3] != 0) {
-                left = CGPointMake(x, y);
-                breakOut = YES;
-                break;
-            }
-        }
-    }
-    
-    breakOut = NO;
-    for (int y = 0;breakOut==NO && y < height; y++) {
-        
-        for (int x = 0; x < width; x++) {
-            
-            int loc = x + (y * width);
-            loc *= 4;
-            if (m_PixelBuf[loc + 3] != 0) {
-                top = CGPointMake(x, y);
-                breakOut = YES;
-                break;
-            }
-            
-        }
-    }
-    
-    breakOut = NO;
-    for (int y = height-1;breakOut==NO && y >= 0; y--) {
-        
-        for (int x = width-1; x >= 0; x--) {
-            
-            int loc = x + (y * width);
-            loc *= 4;
-            if (m_PixelBuf[loc + 3] != 0) {
-                bottom = CGPointMake(x, y);
-                breakOut = YES;
-                break;
-            }
-            
-        }
-    }
-    
-    breakOut = NO;
-    for (int x = width-1;breakOut==NO && x >= 0; x--) {
-        
-        for (int y = height-1; y >= 0; y--) {
-            
-            int loc = x + (y * width);
-            loc *= 4;
-            if (m_PixelBuf[loc + 3] != 0) {
-                right = CGPointMake(x, y);
-                breakOut = YES;
-                break;
-            }
-            
-        }
-    }
-    
-    
-    CGFloat scale = self.scale;
-    
-    CGRect cropRect = CGRectMake(left.x / scale, top.y/scale, (right.x - left.x)/scale, (bottom.y - top.y) / scale);
-    UIGraphicsBeginImageContextWithOptions( cropRect.size,
-                                           NO,
-                                           scale);
-    [self drawAtPoint:CGPointMake(-cropRect.origin.x, -cropRect.origin.y)
-            blendMode:kCGBlendModeCopy
-                alpha:1.];
-    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    CFRelease(m_DataRef);
-    return croppedImage;
-}
-
 - (UIImage *)replaceColor:(UIColor*)color withTolerance:(float)tolerance {
     CGImageRef imageRef = [self CGImage];
     
@@ -177,4 +87,160 @@
     
     return result;
 }
+
+- (UIEdgeInsets)transparencyInsetsRequiringFullOpacity:(BOOL)fullyOpaque
+{
+    // Draw our image on that context
+    NSInteger width  = (NSInteger)CGImageGetWidth([self CGImage]);
+    NSInteger height = (NSInteger)CGImageGetHeight([self CGImage]);
+    NSInteger bytesPerRow = width * (NSInteger)sizeof(uint8_t);
+    
+    // Allocate array to hold alpha channel
+    uint8_t * bitmapData = calloc((size_t)(width * height), sizeof(uint8_t));
+    
+    // Create alpha-only bitmap context
+    CGContextRef contextRef = CGBitmapContextCreate(bitmapData, (NSUInteger)width, (NSUInteger)height, 8, (NSUInteger)bytesPerRow, NULL, kCGImageAlphaOnly);
+    
+    CGImageRef cgImage = self.CGImage;
+    CGRect rect = CGRectMake(0, 0, width, height);
+    CGContextDrawImage(contextRef, rect, cgImage);
+    
+    // Sum all non-transparent pixels in every row and every column
+    uint16_t * rowSum = calloc((size_t)height, sizeof(uint16_t));
+    uint16_t * colSum = calloc((size_t)width,  sizeof(uint16_t));
+    
+    // Enumerate through all pixels
+    for (NSInteger row = 0; row < height; row++) {
+        
+        for (NSInteger col = 0; col < width; col++) {
+            
+            if (fullyOpaque) {
+                
+                // Found non-transparent pixel
+                if (bitmapData[row*bytesPerRow + col] == UINT8_MAX) {
+                    
+                    rowSum[row]++;
+                    colSum[col]++;
+                    
+                }
+                
+            } else {
+                
+                // Found non-transparent pixel
+                if (bitmapData[row*bytesPerRow + col]) {
+                    
+                    rowSum[row]++;
+                    colSum[col]++;
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    // Initialize crop insets and enumerate cols/rows arrays until we find non-empty columns or row
+    UIEdgeInsets crop = UIEdgeInsetsZero;
+    
+    // Top
+    for (NSInteger i = 0; i < height; i++) {
+        
+        if (rowSum[i] > 0) {
+            
+            crop.top = i;
+            break;
+            
+        }
+        
+    }
+    
+    // Bottom
+    for (NSInteger i = height - 1; i >= 0; i--) {
+        
+        if (rowSum[i] > 0) {
+            crop.bottom = MAX(0, height - i - 1);
+            break;
+        }
+        
+    }
+    
+    // Left
+    for (NSInteger i = 0; i < width; i++) {
+        
+        if (colSum[i] > 0) {
+            crop.left = i;
+            break;
+        }
+        
+    }
+    
+    // Right
+    for (NSInteger i = width - 1; i >= 0; i--) {
+        
+        if (colSum[i] > 0) {
+            
+            crop.right = MAX(0, width - i - 1);
+            break;
+            
+        }
+    }
+    
+    free(bitmapData);
+    free(colSum);
+    free(rowSum);
+    
+    CGContextRelease(contextRef);
+    
+    return crop;
+}
+
+/*
+ * Original method signature; behavior should be identical.
+ */
+- (UIImage *)imageByTrimmingTransparentPixels
+{
+    return [self imageByTrimmingTransparentPixelsRequiringFullOpacity:NO];
+}
+
+/*
+ * Alternative method signature allowing for the use of cropping based on semi-transparency.
+ */
+- (UIImage *)imageByTrimmingTransparentPixelsRequiringFullOpacity:(BOOL)fullyOpaque
+{
+    if (self.size.height < 2 || self.size.width < 2) {
+        
+        return self;
+        
+    }
+    
+    CGRect rect = CGRectMake(0, 0, self.size.width * self.scale, self.size.height * self.scale);
+    UIEdgeInsets crop = [self transparencyInsetsRequiringFullOpacity:fullyOpaque];
+    
+    UIImage *img = self;
+    
+    if (crop.top == 0 && crop.bottom == 0 && crop.left == 0 && crop.right == 0) {
+        
+        // No cropping needed
+        
+    } else {
+        
+        // Calculate new crop bounds
+        rect.origin.x += crop.left;
+        rect.origin.y += crop.top;
+        rect.size.width -= crop.left + crop.right;
+        rect.size.height -= crop.top + crop.bottom;
+        
+        // Crop it
+        CGImageRef newImage = CGImageCreateWithImageInRect([self CGImage], rect);
+        
+        // Convert back to UIImage
+        img = [UIImage imageWithCGImage:newImage scale:self.scale orientation:self.imageOrientation];
+        
+        CGImageRelease(newImage);
+    }
+    
+    return img;
+}
+
 @end
