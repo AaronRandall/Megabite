@@ -29,6 +29,14 @@
         self.surfaceArea = shape.bounds.size.height * shape.bounds.size.width;
         self.centroidX = shape.bounds.size.width / 2;
         self.centroidY = shape.bounds.size.height / 2;
+        
+        UIGraphicsBeginImageContextWithOptions(shape.bounds.size, NO, 0.0);
+        [[UIColor blueColor] set];
+        UIRectFill(CGRectMake(0.0, 0.0, shape.bounds.size.width, shape.bounds.size.height));
+        [self.shape fill];
+//        UIImage *shapeImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.image = shapeImage;
     }
     return self;
 }

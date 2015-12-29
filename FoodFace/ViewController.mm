@@ -134,7 +134,9 @@
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    
+
+    self.debugImageViewBin.image = bin.image;
+    self.debugImageViewItem.image = item.image;
     self.debugImageView4.image = myImage;
 }
 
