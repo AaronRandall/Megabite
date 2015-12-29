@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageView2;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageView3;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageView4;
+@property (weak, nonatomic) IBOutlet UIImageView *debugImageView5;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageViewBin;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageViewItem;
 - (IBAction)nextButton:(id)sender;

@@ -109,15 +109,13 @@
     for (int i = 0; i < sortedBinPolyforms.count; i++) {
         Polyform *currentBinPolyform = sortedBinPolyforms[i];
         Polyform *currentItemPolyform = sortedItemPolyforms[i];
-        
-        // TODO: calculate centroid. Currently using x,y of bins
-        
     
         // Add current item polyform to the image at the bin polyform position
         testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBinPolyform:currentBinPolyform];
     }
     
     self.debugImageView2.image = testImage;
+    self.debugImageView5.image = testImage;
     
     // Debug the bin layout
     [self displayBinTemplateLayout:sortedBinPolyforms usingSize:testImage.size];
@@ -125,19 +123,88 @@
     Polyform *bin = [sortedBinPolyforms objectAtIndex:1];
     Polyform *item = [sortedItemPolyforms objectAtIndex:1];
     
+    
+    // --------------------------------------------------------------------
     // Debug overlay of bin and item
     UIGraphicsBeginImageContextWithOptions(bin.shape.bounds.size, YES, 0.0);
     [[UIColor redColor] set]; //set the desired background color
     UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
     [[UIColor blueColor] set];
-    [item.shape fill];
+    
+    double pointX = bin.centroidX - item.centroidX;
+    double pointY = bin.centroidY - item.centroidY;
+    
+    UIRectFill(CGRectMake(pointX, pointY, item.shape.bounds.size.width, item.shape.bounds.size.height));
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
+    NSUInteger numberOfRedPixels = [self processImage: myImage];
+    
 
     self.debugImageViewBin.image = bin.image;
     self.debugImageViewItem.image = item.image;
     self.debugImageView4.image = myImage;
+    // --------------------------------------------------------------------
+}
+
+struct pixel {
+    unsigned char r, g, b, a;
+};
+
+/**
+ * Process the image and return the number of pure red pixels in it.
+ */
+
+- (NSUInteger) processImage: (UIImage*) image
+{
+    NSUInteger numberOfRedPixels = 0;
+    
+    // Allocate a buffer big enough to hold all the pixels
+    
+    struct pixel* pixels = (struct pixel*) calloc(1, image.size.width * image.size.height * sizeof(struct pixel));
+    if (pixels != nil)
+    {
+        // Create a new bitmap
+        
+        CGContextRef context = CGBitmapContextCreate(
+                                                     (void*) pixels,
+                                                     image.size.width,
+                                                     image.size.height,
+                                                     8,
+                                                     image.size.width * 4,
+                                                     CGImageGetColorSpace(image.CGImage),
+                                                     kCGImageAlphaPremultipliedLast
+                                                     );
+        
+        if (context != NULL)
+        {
+            // Draw the image in the bitmap
+            
+            CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, image.size.width, image.size.height), image.CGImage);
+            
+            // Now that we have the image drawn in our own buffer, we can loop over the pixels to
+            // process it. This simple case simply counts all pixels that have a pure red component.
+            
+            // There are probably more efficient and interesting ways to do this. But the important
+            // part is that the pixels buffer can be read directly.
+            
+            NSUInteger numberOfPixels = image.size.width * image.size.height;
+            
+            while (numberOfPixels > 0) {
+                if (pixels->r == 255) {
+                    numberOfRedPixels++;
+                }
+                pixels++;
+                numberOfPixels--;
+            }
+            
+            CGContextRelease(context);
+        }
+        
+        //free(pixels);
+    }
+    
+    return numberOfRedPixels;
 }
 
 - (void)displayBinTemplateLayout:(NSArray*)binPolyforms usingSize:(CGSize)size {
