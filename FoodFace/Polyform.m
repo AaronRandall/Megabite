@@ -31,7 +31,7 @@
         self.centroidY = shape.bounds.size.height / 2;
         
         UIGraphicsBeginImageContextWithOptions(shape.bounds.size, NO, 0.0);
-        [[UIColor blueColor] set];
+        [[UIColor redColor] set];
         UIRectFill(CGRectMake(0.0, 0.0, shape.bounds.size.width, shape.bounds.size.height));
         [self.shape fill];
         UIImage *shapeImage = UIGraphicsGetImageFromCurrentImageContext();

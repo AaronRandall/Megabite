@@ -19,6 +19,8 @@
 @implementation ViewController {
 }
 
+#define DEGREES_TO_RADIANS(x) (M_PI * (x) / 180.0)
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -126,23 +128,47 @@
     
     // --------------------------------------------------------------------
     // Debug overlay of bin and item
+//    CGPathRef path = createPathRotatedAroundBoundingBoxCenter(item.shape.CGPath, M_PI / 8);
+//    item.shape = [UIBezierPath bezierPathWithCGPath:path];
+
+    // Rotate the UIBezierPath
+    [item.shape applyTransform:CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45))];
+    // Find the rotated path's bounding box
+    CGRect boundingBox = CGPathGetPathBoundingBox(item.shape.CGPath);
+    int rotatedCentroidX = boundingBox.size.width/2;
+    int rotatedCentroidY = boundingBox.size.height/2;
+    double pointX = bin.centroidX - rotatedCentroidX;
+    double pointY = bin.centroidY - rotatedCentroidY;
+    
+    // TODO: this is the delta, not absolute!
+    [item.shape applyTransform:CGAffineTransformMakeTranslation(pointX, pointY)];
+    
+//    item.centroidX = item.shape.bounds.size.width / 2;
+//    item.centroidY = item.shape.bounds.size.height / 2;
+    
+    
+//    UIImage *rotatedImage = [self imageRotatedByDegrees:15 image:originalItem.image];
+//    Polyform *item = [[Polyform alloc] initWithImage:rotatedImage];
+//    
     UIGraphicsBeginImageContextWithOptions(bin.shape.bounds.size, YES, 0.0);
-    [[UIColor redColor] set]; //set the desired background color
+    [[UIColor redColor] set]; // set the background color
     UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
     [[UIColor blueColor] set];
     
-    double pointX = bin.centroidX - item.centroidX;
-    double pointY = bin.centroidY - item.centroidY;
+//    double pointX = bin.centroidX - item.centroidX;
+//    double pointY = bin.centroidY - item.centroidY;
     
-    UIRectFill(CGRectMake(pointX, pointY, item.shape.bounds.size.width, item.shape.bounds.size.height));
+//    UIRectFill(CGRectMake(pointX, pointY, item.shape.bounds.size.width, item.shape.bounds.size.height));
+    
+    //[item.shape stroke];
+    [item.shape fill];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
     NSUInteger numberOfRedPixels = [self processImage: myImage];
     
-
     self.debugImageViewBin.image = bin.image;
-    self.debugImageViewItem.image = item.image;
+    self.debugImageViewItem.image = [self imageRotatedByDegrees:45 image:item.image];
     self.debugImageView4.image = myImage;
     // --------------------------------------------------------------------
 }
