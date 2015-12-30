@@ -28,6 +28,7 @@
     self.imageIndex = 0;
     
     // TODO: resize input image to fixed size (500x500)
+    // PlateFood, Plate, FoodPlate2
     UIImage *image = [UIImage imageNamed:@"PlateFood"];
     
     self.imageView.image = image;
@@ -55,18 +56,18 @@
         // Make the black mask of the image transparent
         UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
         
-        NSLog(@"*** 1: %f, %f", originalImage.size.width, originalImage.size.height);
+//        NSLog(@"*** 1: %f, %f", originalImage.size.width, originalImage.size.height);
         
         // Trim to the bounding box
         UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
 
-        NSLog(@"*** 2: %f, %f", trimmedImage.size.width, trimmedImage.size.height);
+//        NSLog(@"*** 2: %f, %f", trimmedImage.size.width, trimmedImage.size.height);
         
         // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
         UIImage *boundingBoxImage = [self imageBoundingBox:trimmedImage];
         
-        NSLog(@"*** 3: %f, %f", boundingBoxImage.size.width, boundingBoxImage.size.height);
-                
+//        NSLog(@"*** 3: %f, %f", boundingBoxImage.size.width, boundingBoxImage.size.height);
+        
         [self.images addObject:boundingBoxImage];
     }
     
@@ -131,7 +132,7 @@
     
     for (int i = 0; i < 180; i++) {
         int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:i];
-        NSLog(@"Rotation:%d, Red pixels: %d", i, redPixels);
+//        NSLog(@"Rotation:%d, Red pixels: %d", i, redPixels);
         
         if (redPixels < smallestNumRedPixels) {
             smallestNumRedPixels = redPixels;
@@ -139,7 +140,7 @@
         }
     }
     
-    NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
+//    NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
     
     [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:optimalRotation];
     
@@ -410,8 +411,8 @@ struct pixel {
                 if (std::fabs(cv::contourArea(contours[i])) < 1000 || !cv::isContourConvex(approx) || fabs(contourArea(cv::Mat(contours[i]))) > 50000)
                     continue;
                 
-                NSLog(@"Sides: %lu", approx.size());
-                NSLog(@"Size: %f", fabs(contourArea(cv::Mat(contours[i]))));
+//                NSLog(@"Sides: %lu", approx.size());
+//                NSLog(@"Size: %f", fabs(contourArea(cv::Mat(contours[i]))));
                 
                 validContours.push_back(contours[i]);
             }
@@ -459,7 +460,7 @@ struct pixel {
         filteredContours.push_back(contours[x]);
     }
 
-    NSLog(@"** Num. filtered items: %lu", filteredContours.size());
+//    NSLog(@"** Num. filtered items: %lu", filteredContours.size());
     
     // Evict contours which are inside other similar contours (e.g. carrot)
     evictedIndexes = [NSMutableSet set];
@@ -490,7 +491,7 @@ struct pixel {
         secondPassFilteredContours.push_back(filteredContours[x]);
     }
     
-    NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
+//    NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
     return secondPassFilteredContours;
 }
 
