@@ -125,14 +125,14 @@
     Polyform *bin = [sortedBinPolyforms objectAtIndex:1];
     Polyform *item = [sortedItemPolyforms objectAtIndex:1];
     
-    
     // --------------------------------------------------------------------
     // Debug overlay of bin and item
 //    CGPathRef path = createPathRotatedAroundBoundingBoxCenter(item.shape.CGPath, M_PI / 8);
 //    item.shape = [UIBezierPath bezierPathWithCGPath:path];
 
     // Rotate the UIBezierPath
-    [item.shape applyTransform:CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(45))];
+    int degreesToRotate = 0;
+    [item.shape applyTransform:CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(degreesToRotate))];
     // Find the rotated path's bounding box
     CGRect boundingBox = CGPathGetPathBoundingBox(item.shape.CGPath);
     int rotatedCentroidX = boundingBox.size.width/2;
@@ -141,7 +141,7 @@
     double pointY = bin.centroidY - rotatedCentroidY;
     
     // TODO: this is the delta, not absolute!
-    [item.shape applyTransform:CGAffineTransformMakeTranslation(pointX, pointY)];
+    [item.shape applyTransform:CGAffineTransformMakeTranslation(pointX-(boundingBox.origin.x), pointY-(boundingBox.origin.y))];
     
 //    item.centroidX = item.shape.bounds.size.width / 2;
 //    item.centroidY = item.shape.bounds.size.height / 2;
@@ -168,7 +168,7 @@
     NSUInteger numberOfRedPixels = [self processImage: myImage];
     
     self.debugImageViewBin.image = bin.image;
-    self.debugImageViewItem.image = [self imageRotatedByDegrees:45 image:item.image];
+    self.debugImageViewItem.image = [self imageRotatedByDegrees:degreesToRotate image:item.image];
     self.debugImageView4.image = myImage;
     // --------------------------------------------------------------------
 }
