@@ -122,55 +122,62 @@
     // Debug the bin layout
     [self displayBinTemplateLayout:sortedBinPolyforms usingSize:testImage.size];
     
-    Polyform *bin = [sortedBinPolyforms objectAtIndex:1];
-    Polyform *item = [sortedItemPolyforms objectAtIndex:1];
+    Polyform *bin = [sortedBinPolyforms objectAtIndex:0];
+    Polyform *item = [sortedItemPolyforms objectAtIndex:0];
     
+    int smallestNumRedPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
+    int optimalRotation = 0;
+    for (int i = 0; i < 180; i++) {
+        int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:i];
+        NSLog(@"Rotation:%d, Red pixels: %d", i, redPixels);
+        
+        if (redPixels < smallestNumRedPixels) {
+            smallestNumRedPixels = redPixels;
+            optimalRotation = i;
+        }
+    }
+    
+    NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
+    
+    [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:optimalRotation];
+}
+
+- (int)calculateSurfaceAreaCoverageForBin:(Polyform*)bin item:(Polyform*)item rotation:(int)rotation {
     // --------------------------------------------------------------------
     // Debug overlay of bin and item
-//    CGPathRef path = createPathRotatedAroundBoundingBoxCenter(item.shape.CGPath, M_PI / 8);
-//    item.shape = [UIBezierPath bezierPathWithCGPath:path];
-
+    //    CGPathRef path = createPathRotatedAroundBoundingBoxCenter(item.shape.CGPath, M_PI / 8);
+    //    item.shape = [UIBezierPath bezierPathWithCGPath:path];
+    
     // Rotate the UIBezierPath
-    int degreesToRotate = 0;
-    [item.shape applyTransform:CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(degreesToRotate))];
+    int degreesToRotate = rotation;
+    UIBezierPath *copyOfItem = [item.shape copy];
+    [copyOfItem applyTransform:CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(degreesToRotate))];
     // Find the rotated path's bounding box
-    CGRect boundingBox = CGPathGetPathBoundingBox(item.shape.CGPath);
+    CGRect boundingBox = CGPathGetPathBoundingBox(copyOfItem.CGPath);
     int rotatedCentroidX = boundingBox.size.width/2;
     int rotatedCentroidY = boundingBox.size.height/2;
     double pointX = bin.centroidX - rotatedCentroidX;
     double pointY = bin.centroidY - rotatedCentroidY;
     
-    // TODO: this is the delta, not absolute!
-    [item.shape applyTransform:CGAffineTransformMakeTranslation(pointX-(boundingBox.origin.x), pointY-(boundingBox.origin.y))];
+    [copyOfItem applyTransform:CGAffineTransformMakeTranslation(pointX-(boundingBox.origin.x), pointY-(boundingBox.origin.y))];
     
-//    item.centroidX = item.shape.bounds.size.width / 2;
-//    item.centroidY = item.shape.bounds.size.height / 2;
-    
-    
-//    UIImage *rotatedImage = [self imageRotatedByDegrees:15 image:originalItem.image];
-//    Polyform *item = [[Polyform alloc] initWithImage:rotatedImage];
-//    
     UIGraphicsBeginImageContextWithOptions(bin.shape.bounds.size, YES, 0.0);
     [[UIColor redColor] set]; // set the background color
     UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
     [[UIColor blueColor] set];
     
-//    double pointX = bin.centroidX - item.centroidX;
-//    double pointY = bin.centroidY - item.centroidY;
-    
-//    UIRectFill(CGRectMake(pointX, pointY, item.shape.bounds.size.width, item.shape.bounds.size.height));
-    
-    //[item.shape stroke];
-    [item.shape fill];
+    [copyOfItem fill];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     NSUInteger numberOfRedPixels = [self processImage: myImage];
     
     self.debugImageViewBin.image = bin.image;
     self.debugImageViewItem.image = [self imageRotatedByDegrees:degreesToRotate image:item.image];
     self.debugImageView4.image = myImage;
     // --------------------------------------------------------------------
+    
+    return numberOfRedPixels;
 }
 
 struct pixel {
