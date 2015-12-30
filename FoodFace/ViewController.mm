@@ -112,6 +112,8 @@
         Polyform *currentBinPolyform = sortedBinPolyforms[i];
         Polyform *currentItemPolyform = sortedItemPolyforms[i];
     
+        currentItemPolyform = [self rotatePolyformToCoverBin:currentItemPolyform bin:currentBinPolyform];
+        
         // Add current item polyform to the image at the bin polyform position
         testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBinPolyform:currentBinPolyform];
     }
@@ -121,12 +123,12 @@
     
     // Debug the bin layout
     [self displayBinTemplateLayout:sortedBinPolyforms usingSize:testImage.size];
-    
-    Polyform *bin = [sortedBinPolyforms objectAtIndex:0];
-    Polyform *item = [sortedItemPolyforms objectAtIndex:0];
-    
+}
+
+- (Polyform*)rotatePolyformToCoverBin:(Polyform*)item bin:(Polyform*)bin {
     int smallestNumRedPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
     int optimalRotation = 0;
+    
     for (int i = 0; i < 180; i++) {
         int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:i];
         NSLog(@"Rotation:%d, Red pixels: %d", i, redPixels);
@@ -140,6 +142,13 @@
     NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
     
     [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:optimalRotation];
+    
+    // Rotate the image and save it back to the polyform
+    UIImage *rotatedItemImage = [self imageRotatedByDegrees:optimalRotation image:item.image];
+
+    rotatedItemImage = [rotatedItemImage imageByTrimmingTransparentPixels];
+    
+    return [[Polyform alloc] initWithImage:rotatedItemImage];
 }
 
 - (int)calculateSurfaceAreaCoverageForBin:(Polyform*)bin item:(Polyform*)item rotation:(int)rotation {
