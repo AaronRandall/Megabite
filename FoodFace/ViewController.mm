@@ -14,6 +14,7 @@
 @interface ViewController ()
     @property NSMutableArray *images;
     @property int imageIndex;
+    @property float arcLengthMultiplier;
 @end
 
 @implementation ViewController {
@@ -24,14 +25,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.arcLengthMultiplier = 0.02;
+    
+    [self convertImageToFoodFace];
+}
+
+- (UIImage*)roundedRectImageFromImage:(UIImage *)image
+                                size:(CGSize)imageSize
+                    withCornerRadius:(float)cornerRadius
+{
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, image.scale);
+    CGRect bounds=(CGRect){CGPointZero,imageSize};
+    [[UIBezierPath bezierPathWithRoundedRect:bounds
+                                cornerRadius:cornerRadius] addClip];
+    [image drawInRect:bounds];
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return finalImage;
+}
+
+- (void)convertImageToFoodFace {
     self.images = [NSMutableArray array];
     self.imageIndex = 0;
     
     // TODO: resize input image to fixed size (1000x1000)
     // TODO: Crop image to largest possible circle
     
-    // PlateFood, Plate, FoodPlate2, Breakfast
-    UIImage *image = [UIImage imageNamed:@"Breakfast"];
+    // PlateFood, Plate, FoodPlate2, Breakfast, FoodFace2, FoodFace3, FoodFace4 (0.03)
+    UIImage *image = [UIImage imageNamed:@"FoodFace4"];
+    
+    image = [self roundedRectImageFromImage:image size:image.size withCornerRadius:image.size.height/2];
     
     self.imageView.image = image;
     
@@ -63,26 +87,38 @@
     // Crop extracted contours to the size of the contour, and make background transparent
     for (int i = 0; i < extractedContours.size(); i++) {
         UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
-
+        
         // Make the black mask of the image transparent
         UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
         
-//        NSLog(@"*** 1: %f, %f", originalImage.size.width, originalImage.size.height);
+        //        NSLog(@"*** 1: %f, %f", originalImage.size.width, originalImage.size.height);
         
         // Trim to the bounding box
         UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
-
-//        NSLog(@"*** 2: %f, %f", trimmedImage.size.width, trimmedImage.size.height);
+        
+        //        NSLog(@"*** 2: %f, %f", trimmedImage.size.width, trimmedImage.size.height);
         
         // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
         UIImage *boundingBoxImage = [self imageBoundingBox:trimmedImage];
         
-//        NSLog(@"*** 3: %f, %f", boundingBoxImage.size.width, boundingBoxImage.size.height);
+        //        NSLog(@"*** 3: %f, %f", boundingBoxImage.size.width, boundingBoxImage.size.height);
+        
+        
+        // TODO: filter extracted contours for anomalies (all white, all black, etc)
+        // Could consider removing anything that has an average colour ~= to plate average colour after extracting all contours from the plate
         
         [self.images addObject:boundingBoxImage];
     }
     
-    self.debugImageView1.image = self.images[0];
+    
+    
+    
+    // DEBUG
+    //return;
+    
+    if (self.images.count > 0) {
+        self.debugImageView1.image = self.images[0];
+    }
     
     // TODO: detect plate
     // TODO: fill extracted regions (holes) on plate
@@ -118,7 +154,7 @@
     for (int i = 0; i < sortedBinPolyforms.count; i++) {
         Polyform *currentBinPolyform = sortedBinPolyforms[i];
         Polyform *currentItemPolyform = sortedItemPolyforms[i];
-    
+        
         currentItemPolyform = [self rotatePolyformToCoverBin:currentItemPolyform bin:currentBinPolyform];
         
         // Add current item polyform to the image at the bin polyform position
@@ -423,12 +459,12 @@ struct pixel {
                 // so user can tweak to get the correct detection
                 cv::approxPolyDP(cv::Mat(contours[i]),
                                  approx,
-                                 cv::arcLength(cv::Mat(contours[i]), true) * 0.02,
+                                 cv::arcLength(cv::Mat(contours[i]), true) * self.arcLengthMultiplier,
                                  true
                                  );
                 
                 // Skip small or non-convex objects 
-                if (std::fabs(cv::contourArea(contours[i])) < 1000
+                if (std::fabs(cv::contourArea(contours[i])) < 2000
                     || !cv::isContourConvex(approx)
                     || fabs(contourArea(cv::Mat(contours[i]))) > 250000)
                     continue;
@@ -685,5 +721,10 @@ struct pixel {
     UIImage *currentImage = [self.images objectAtIndex:currentIndex];
     self.debugImageView1.image = currentImage;
     NSLog(@"Height: %f, Width: %f", currentImage.size.height, currentImage.size.width);
+}
+
+- (IBAction)run:(id)sender {
+    self.arcLengthMultiplier = [self.arcLengthTextField.text floatValue];
+    [self convertImageToFoodFace];
 }
 @end

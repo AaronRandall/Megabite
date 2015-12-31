@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageViewAll;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageView6;
 - (IBAction)nextButton:(id)sender;
+- (IBAction)run:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *arcLengthTextField;
 
 @end
 
