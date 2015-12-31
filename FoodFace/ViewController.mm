@@ -30,23 +30,32 @@
     // TODO: resize input image to fixed size (1000x1000)
     // TODO: Crop image to largest possible circle
     
-    // PlateFood, Plate, FoodPlate2
-    UIImage *image = [UIImage imageNamed:@"FoodPlate2"];
+    // PlateFood, Plate, FoodPlate2, Breakfast
+    UIImage *image = [UIImage imageNamed:@"Breakfast"];
     
     self.imageView.image = image;
     
     // Convert the image into a matrix
-    cv::Mat imageMatrix = [self cvMatFromUIImage:image];
+    cv::Mat imageMatrixAll = [self cvMatFromUIImage:image];
+    cv::Mat imageMatrixFiltered = [self cvMatFromUIImage:image];
     cv::Mat copyImageMatrix = [self cvMatFromUIImage:image];
     
     // Detect all contours within the image matrix
-    std::vector<std::vector<cv::Point>> contours = [self findContoursInImage:imageMatrix];
+    std::vector<std::vector<cv::Point>> allContours = [self findContoursInImage:imageMatrixAll];
     
     // Filter contours for those that match detection criteria
-    std::vector<std::vector<cv::Point>> filteredContours = [self filterContours:contours];
+    std::vector<std::vector<cv::Point>> filteredContours = [self filterContours:allContours];
     
     // Highlight the contours in the image
-    cv::Mat cvMatWithSquares = [self highlightContoursInImage:filteredContours image:imageMatrix];
+    cv::Mat cvMatWithSquaresAll = [self highlightContoursInImage:allContours image:imageMatrixAll];
+    cv::Mat cvMatWithSquaresFiltered = [self highlightContoursInImage:filteredContours image:imageMatrixFiltered];
+    
+    // Convert the image matrix into an image
+    UIImage *highlightedImageAll = [self UIImageFromCVMat:cvMatWithSquaresAll];
+    UIImage *highlightedImageFiltered = [self UIImageFromCVMat:cvMatWithSquaresFiltered];
+    
+    self.outputImageView.image = highlightedImageFiltered;
+    self.outputImageViewAll.image = highlightedImageAll;
     
     // Extract highlighted contours
     cv::vector<cv::Mat> extractedContours = [self cutContoursFromImage:filteredContours image:copyImageMatrix];
@@ -77,11 +86,6 @@
     
     // TODO: detect plate
     // TODO: fill extracted regions (holes) on plate
-    
-    // Convert the image matrix into an image
-    UIImage *highlightedImage = [self UIImageFromCVMat:cvMatWithSquares];
-    
-    self.outputImageView.image = highlightedImage;
     
     
     // Construct polyform objects from the extracted images
@@ -327,28 +331,36 @@ struct pixel {
 - (NSArray*)binPolyformsForTemplateBasedOnItemPolyforms:(NSArray*)itemPolyforms {
     NSMutableArray *binPolyforms = [NSMutableArray array];
     
-    // TODO: more template layouts based on different bin counts
-    // TODO: way to visualise layouts before populating with objects
-    if (itemPolyforms.count >= 6) {
-        // Left eye
-        Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 100, 100)]];
-        // Right eye
-        Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 100, 100)]];
-        // Nose
-        Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
-        // Mouth
-        Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 650, 400, 200)]];
-        // Left ear
-        Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
-        // Right ear
-        Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
-        
-        [binPolyforms addObject:bin1];
-        [binPolyforms addObject:bin2];
-        [binPolyforms addObject:bin3];
-        [binPolyforms addObject:bin4];
-        [binPolyforms addObject:bin5];
-        [binPolyforms addObject:bin6];
+    // Left eye
+    Polyform *leftEye = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 150, 150)]];
+    // Right eye
+    Polyform *rightEye = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 150, 150)]];
+    // Nose
+    Polyform *nose = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
+    // Mouth
+    Polyform *mouth = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 650, 400, 200)]];
+    // Left ear
+    Polyform *leftEar = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
+    // Right ear
+    Polyform *rightEar = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
+    
+    if (itemPolyforms.count == 3) {
+        [binPolyforms addObject:leftEye];
+        [binPolyforms addObject:rightEye];
+        [binPolyforms addObject:mouth];
+    } else if (itemPolyforms.count >= 4 &&
+               itemPolyforms.count <= 5) {
+        [binPolyforms addObject:leftEye];
+        [binPolyforms addObject:rightEye];
+        [binPolyforms addObject:mouth];
+        [binPolyforms addObject:nose];
+    } else if (itemPolyforms.count >= 6) {
+        [binPolyforms addObject:leftEye];
+        [binPolyforms addObject:rightEye];
+        [binPolyforms addObject:mouth];
+        [binPolyforms addObject:nose];
+        [binPolyforms addObject:leftEar];
+        [binPolyforms addObject:rightEar];
     }
     
     return binPolyforms;
@@ -392,10 +404,14 @@ struct pixel {
             if( l == 0 ) {
                 cv::Canny(gray0, gray, 0, thresh, 3);
                 cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
+                
+                UIImage *greyImage = [self UIImageFromCVMat:gray];
+                self.debugImageView6.image = greyImage;
             }
             else {
                 gray = gray0 >= (l+1)*255/N;
             }
+            
             cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
             
             // hierarchy is ordered as: [Next, Previous, First_Child, Parent]
@@ -403,6 +419,8 @@ struct pixel {
             std::vector<cv::Point> approx;
             for( size_t i = 0; i < contours.size(); i++ )
             {
+                // TODO: support adjusting 0.02 value and update detected objects
+                // so user can tweak to get the correct detection
                 cv::approxPolyDP(cv::Mat(contours[i]),
                                  approx,
                                  cv::arcLength(cv::Mat(contours[i]), true) * 0.02,
@@ -410,9 +428,22 @@ struct pixel {
                                  );
                 
                 // Skip small or non-convex objects 
-                if (std::fabs(cv::contourArea(contours[i])) < 1000 || !cv::isContourConvex(approx) || fabs(contourArea(cv::Mat(contours[i]))) > 50000)
+                if (std::fabs(cv::contourArea(contours[i])) < 1000
+                    || !cv::isContourConvex(approx)
+                    || fabs(contourArea(cv::Mat(contours[i]))) > 250000)
                     continue;
                 
+//                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
+//                    !cv::isContourConvex(approx))
+//                    continue;
+//
+//                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
+//                    fabs(contourArea(cv::Mat(contours[i]))) > 500000)
+//                    continue;
+//                
+//                if (!cv::isContourConvex(approx))
+//                    continue;
+//                
 //                NSLog(@"Sides: %lu", approx.size());
 //                NSLog(@"Size: %f", fabs(contourArea(cv::Mat(contours[i]))));
                 
@@ -531,7 +562,7 @@ struct pixel {
 {
     for ( int i = 0; i< contours.size(); i++ ) {
         // draw contour
-        cv::drawContours(image, contours, i, cv::Scalar(255,0,0), 3, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
+        cv::drawContours(image, contours, i, cv::Scalar(255,0,0), 10, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
         
         std::vector<cv::Point> currentSquare = contours[i];
         
