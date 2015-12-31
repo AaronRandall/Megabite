@@ -27,9 +27,11 @@
     self.images = [NSMutableArray array];
     self.imageIndex = 0;
     
-    // TODO: resize input image to fixed size (500x500)
+    // TODO: resize input image to fixed size (1000x1000)
+    // TODO: Crop image to largest possible circle
+    
     // PlateFood, Plate, FoodPlate2
-    UIImage *image = [UIImage imageNamed:@"PlateFood"];
+    UIImage *image = [UIImage imageNamed:@"FoodPlate2"];
     
     self.imageView.image = image;
     
@@ -329,17 +331,17 @@ struct pixel {
     // TODO: way to visualise layouts before populating with objects
     if (itemPolyforms.count >= 6) {
         // Left eye
-        Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 100, 50, 50)]];
+        Polyform *bin1 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 100, 100)]];
         // Right eye
-        Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 100, 50, 50)]];
+        Polyform *bin2 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 100, 100)]];
         // Nose
-        Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(225, 225, 50, 50)]];
+        Polyform *bin3 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
         // Mouth
-        Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(150, 325, 200, 100)]];
+        Polyform *bin4 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 650, 400, 200)]];
         // Left ear
-        Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(25, 150, 50, 100)]];
+        Polyform *bin5 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
         // Right ear
-        Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(425, 150, 50, 100)]];
+        Polyform *bin6 = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
         
         [binPolyforms addObject:bin1];
         [binPolyforms addObject:bin2];
@@ -353,7 +355,7 @@ struct pixel {
 }
 
 - (UIImage*)addItemPolyform:(Polyform*)itemPolyform toImage:(UIImage*)image atBinPolyform:(Polyform*)binPolyform {
-    CGSize size = CGSizeMake(500, 500);
+    CGSize size = CGSizeMake(1000, 1000);
     UIGraphicsBeginImageContext(size);
     
     CGPoint background = CGPointMake(0, 0);
