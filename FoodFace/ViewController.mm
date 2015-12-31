@@ -10,6 +10,7 @@
 #import <opencv2/opencv.hpp>
 #import "UIImage+Trim.h"
 #import "Polyform.h"
+#import "UIImage+AverageColor.h"
 
 @interface ViewController ()
     @property NSMutableArray *images;
@@ -106,6 +107,11 @@
         
         // TODO: filter extracted contours for anomalies (all white, all black, etc)
         // Could consider removing anything that has an average colour ~= to plate average colour after extracting all contours from the plate
+//        
+//        NSDictionary *extractedColours = [boundingBoxImage mainColoursInImageWithdetail:0];
+//        for (UIColor *color in extractedColours.keyEnumerator) {
+//            NSLog(@"Jere %@", color getre);
+//        }
         
         [self.images addObject:boundingBoxImage];
     }

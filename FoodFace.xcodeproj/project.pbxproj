@@ -18,6 +18,7 @@
 		9383217C1BDF9482005F681D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9383217A1BDF9482005F681D /* LaunchScreen.storyboard */; };
 		938321871BDF9482005F681D /* FoodFaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321861BDF9482005F681D /* FoodFaceTests.m */; };
 		938321921BDF9482005F681D /* FoodFaceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321911BDF9482005F681D /* FoodFaceUITests.m */; };
+		939655CE1C359F9500D56C6B /* UIImage+AverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */; };
 		ABBF38A0EA53153904F342EE /* libPods-FoodFace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658810F0EB1C6D56AEE96871 /* libPods-FoodFace.a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,8 @@
 		9383218D1BDF9482005F681D /* FoodFaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodFaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		938321911BDF9482005F681D /* FoodFaceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodFaceUITests.m; sourceTree = "<group>"; };
 		938321931BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		939655CC1C359F9500D56C6B /* UIImage+AverageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AverageColor.h"; sourceTree = "<group>"; };
+		939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AverageColor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +142,8 @@
 				9383216C1BDF9482005F681D /* Supporting Files */,
 				73EB6CC11C1DE66D00C314B9 /* Polyform.h */,
 				73EB6CC21C1DE66D00C314B9 /* Polyform.m */,
+				939655CC1C359F9500D56C6B /* UIImage+AverageColor.h */,
+				939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */,
 			);
 			path = FoodFace;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 				73EB6CC31C1DE66D00C314B9 /* Polyform.m in Sources */,
 				938321741BDF9482005F681D /* ViewController.mm in Sources */,
 				73EB6CBE1C1CD8BF00C314B9 /* UIImage+Trim.m in Sources */,
+				939655CE1C359F9500D56C6B /* UIImage+AverageColor.m in Sources */,
 				938321711BDF9482005F681D /* AppDelegate.m in Sources */,
 				9383216E1BDF9482005F681D /* main.m in Sources */,
 			);
