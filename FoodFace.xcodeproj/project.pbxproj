@@ -19,6 +19,8 @@
 		938321871BDF9482005F681D /* FoodFaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321861BDF9482005F681D /* FoodFaceTests.m */; };
 		938321921BDF9482005F681D /* FoodFaceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321911BDF9482005F681D /* FoodFaceUITests.m */; };
 		939655CE1C359F9500D56C6B /* UIImage+AverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */; };
+		93F1EF001C37088B0084A372 /* ContourAnalyser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93F1EEFF1C37088B0084A372 /* ContourAnalyser.mm */; };
+		93F1EF031C3709C50084A372 /* ImageHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93F1EF021C3709C50084A372 /* ImageHelper.mm */; };
 		ABBF38A0EA53153904F342EE /* libPods-FoodFace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658810F0EB1C6D56AEE96871 /* libPods-FoodFace.a */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,10 @@
 		938321931BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939655CC1C359F9500D56C6B /* UIImage+AverageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AverageColor.h"; sourceTree = "<group>"; };
 		939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AverageColor.m"; sourceTree = "<group>"; };
+		93F1EEFE1C37088B0084A372 /* ContourAnalyser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContourAnalyser.h; sourceTree = "<group>"; };
+		93F1EEFF1C37088B0084A372 /* ContourAnalyser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContourAnalyser.mm; sourceTree = "<group>"; };
+		93F1EF011C3709C50084A372 /* ImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
+		93F1EF021C3709C50084A372 /* ImageHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageHelper.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,10 @@
 				73EB6CC21C1DE66D00C314B9 /* Polyform.m */,
 				939655CC1C359F9500D56C6B /* UIImage+AverageColor.h */,
 				939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */,
+				93F1EEFE1C37088B0084A372 /* ContourAnalyser.h */,
+				93F1EEFF1C37088B0084A372 /* ContourAnalyser.mm */,
+				93F1EF011C3709C50084A372 /* ImageHelper.h */,
+				93F1EF021C3709C50084A372 /* ImageHelper.mm */,
 			);
 			path = FoodFace;
 			sourceTree = "<group>";
@@ -351,9 +361,11 @@
 				73EB6CC31C1DE66D00C314B9 /* Polyform.m in Sources */,
 				938321741BDF9482005F681D /* ViewController.mm in Sources */,
 				73EB6CBE1C1CD8BF00C314B9 /* UIImage+Trim.m in Sources */,
+				93F1EF031C3709C50084A372 /* ImageHelper.mm in Sources */,
 				939655CE1C359F9500D56C6B /* UIImage+AverageColor.m in Sources */,
 				938321711BDF9482005F681D /* AppDelegate.m in Sources */,
 				9383216E1BDF9482005F681D /* main.m in Sources */,
+				93F1EF001C37088B0084A372 /* ContourAnalyser.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,8 @@
 #import "UIImage+Trim.h"
 #import "Polyform.h"
 #import "UIImage+AverageColor.h"
+#import "ContourAnalyser.h"
+#import "ImageHelper.h"
 
 @interface ViewController ()
     @property NSMutableArray *images;
@@ -31,106 +33,66 @@
     [self convertImageToFoodFace];
 }
 
-- (UIImage*)roundedRectImageFromImage:(UIImage *)image
-                                size:(CGSize)imageSize
-                    withCornerRadius:(float)cornerRadius
-{
-    UIGraphicsBeginImageContextWithOptions(imageSize, NO, image.scale);
-    CGRect bounds=(CGRect){CGPointZero,imageSize};
-    [[UIBezierPath bezierPathWithRoundedRect:bounds
-                                cornerRadius:cornerRadius] addClip];
-    [image drawInRect:bounds];
-    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return finalImage;
-}
-
 - (void)convertImageToFoodFace {
-    self.images = [NSMutableArray array];
-    self.imageIndex = 0;
-    
     // TODO: resize input image to fixed size (1000x1000)
     // TODO: Crop image to largest possible circle
+    // TODO: detect plate
+    // TODO: fill extracted regions (holes) on plate
+    // TODO: select template based on num. extracted contours
+    // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
+    
+    self.images = [NSMutableArray array];
+    self.imageIndex = 0;
     
     // PlateFood, Plate, FoodPlate2, Breakfast, FoodFace2, FoodFace3, FoodFace4 (0.03)
     UIImage *image = [UIImage imageNamed:@"FoodFace4"];
     
-    image = [self roundedRectImageFromImage:image size:image.size withCornerRadius:image.size.height/2];
-    
+    // Crop the image to the plate dimensions
+    image = [ImageHelper roundedRectImageFromImage:image size:image.size withCornerRadius:image.size.height/2];
     self.imageView.image = image;
     
     // Convert the image into a matrix
-    cv::Mat imageMatrixAll = [self cvMatFromUIImage:image];
-    cv::Mat imageMatrixFiltered = [self cvMatFromUIImage:image];
-    cv::Mat copyImageMatrix = [self cvMatFromUIImage:image];
+    cv::Mat imageMatrixAll = [ImageHelper cvMatFromUIImage:image];
+    cv::Mat imageMatrixFiltered = [ImageHelper cvMatFromUIImage:image];
+    cv::Mat copyImageMatrix = [ImageHelper cvMatFromUIImage:image];
     
-    // Detect all contours within the image matrix
-    std::vector<std::vector<cv::Point>> allContours = [self findContoursInImage:imageMatrixAll];
-    
-    // Filter contours for those that match detection criteria
-    std::vector<std::vector<cv::Point>> filteredContours = [self filterContours:allContours];
+    // Detect all contours within the image matrix, and filter for those that match detection criteria
+    std::vector<std::vector<cv::Point>> allContours = [ContourAnalyser findContoursInImage:imageMatrixAll];
+    std::vector<std::vector<cv::Point>> filteredContours = [ContourAnalyser filterContours:allContours];
     
     // Highlight the contours in the image
-    cv::Mat cvMatWithSquaresAll = [self highlightContoursInImage:allContours image:imageMatrixAll];
-    cv::Mat cvMatWithSquaresFiltered = [self highlightContoursInImage:filteredContours image:imageMatrixFiltered];
+    cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
+    cv::Mat cvMatWithSquaresFiltered = [ImageHelper highlightContoursInImage:filteredContours image:imageMatrixFiltered];
     
     // Convert the image matrix into an image
-    UIImage *highlightedImageAll = [self UIImageFromCVMat:cvMatWithSquaresAll];
-    UIImage *highlightedImageFiltered = [self UIImageFromCVMat:cvMatWithSquaresFiltered];
+    UIImage *highlightedImageAll = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
+    UIImage *highlightedImageFiltered = [ImageHelper UIImageFromCVMat:cvMatWithSquaresFiltered];
     
     self.outputImageView.image = highlightedImageFiltered;
     self.outputImageViewAll.image = highlightedImageAll;
     
     // Extract highlighted contours
-    cv::vector<cv::Mat> extractedContours = [self cutContoursFromImage:filteredContours image:copyImageMatrix];
+    cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:copyImageMatrix];
     
     // Crop extracted contours to the size of the contour, and make background transparent
     for (int i = 0; i < extractedContours.size(); i++) {
-        UIImage *extractedContour = [self UIImageFromCVMat:extractedContours[i]];
+        UIImage *extractedContour = [ImageHelper UIImageFromCVMat:extractedContours[i]];
         
         // Make the black mask of the image transparent
         UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
         
-        //        NSLog(@"*** 1: %f, %f", originalImage.size.width, originalImage.size.height);
-        
         // Trim to the bounding box
         UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
-        
-        //        NSLog(@"*** 2: %f, %f", trimmedImage.size.width, trimmedImage.size.height);
         
         // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
         UIImage *boundingBoxImage = [self imageBoundingBox:trimmedImage];
         
-        //        NSLog(@"*** 3: %f, %f", boundingBoxImage.size.width, boundingBoxImage.size.height);
-        
-        
-        // TODO: filter extracted contours for anomalies (all white, all black, etc)
-        // Could consider removing anything that has an average colour ~= to plate average colour after extracting all contours from the plate
-        
-//        NSDictionary *extractedColours = [boundingBoxImage mainColoursInImageWithdetail:0];
-//        for (UIColor *color in extractedColours.keyEnumerator) {
-//            CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
-//            [color getRed:&red green:&green blue:&blue alpha:&alpha];
-//            NSLog(@"Color: %@", color);
-//        }
-        
         [self.images addObject:boundingBoxImage];
     }
-    
-    
-    
-    
-    // DEBUG
-    //return;
     
     if (self.images.count > 0) {
         self.debugImageView1.image = self.images[0];
     }
-    
-    // TODO: detect plate
-    // TODO: fill extracted regions (holes) on plate
-    
     
     // Construct polyform objects from the extracted images
     NSMutableArray *itemPolyforms = [NSMutableArray array];
@@ -139,23 +101,15 @@
         [itemPolyforms addObject:polyform];
     }
     
-    
-    // TODO: select template based on num. extracted contours
-    // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
-    
     // Get the bin polyforms based on the item polyforms we've extracted
     NSArray *binPolyforms = [self binPolyformsForTemplateBasedOnItemPolyforms:itemPolyforms];
     
-    // TODO: calculate item centroid coordinates, surface areas, ordered by surface area (big to small)
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"surfaceArea"
                                                  ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     NSArray *sortedBinPolyforms = [binPolyforms sortedArrayUsingDescriptors:sortDescriptors];
     NSArray *sortedItemPolyforms = [itemPolyforms sortedArrayUsingDescriptors:sortDescriptors];
-    
-    
-    // TODO: find optimum rotation for current bin & item combination
     
     UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
     
@@ -431,296 +385,9 @@ struct pixel {
     return result;
 }
 
-- (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
-{
-    std::vector<std::vector<cv::Point>> validContours;
-    cv::Mat pyr, timg, gray0(image.size(), CV_8U), gray;
-    int thresh = 50, N = 11;
-    cv::pyrDown(image, pyr, cv::Size(image.cols/2, image.rows/2));
-    cv::pyrUp(pyr, timg, image.size());
-    std::vector<std::vector<cv::Point>> contours;
-    cv::vector<cv::Vec4i> hierarchy;
-    
-    bool skipNonConvexContours = YES;
-    
-    for( int c = 0; c < 3; c++ ) {
-        int ch[] = {c, 0};
-        mixChannels(&timg, 1, &gray0, 1, ch, 1);
-        for( int l = 0; l < N; l++ ) {
-            if( l == 0 ) {
-                cv::Canny(gray0, gray, 0, thresh, 3);
-                //cv::threshold(gray0, gray, 192.0, 255.0, 1);
-                
-                UIImage *greyImage = [self UIImageFromCVMat:gray];
-                self.debugImageView6.image = greyImage;
-                
-                cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
-                
-                greyImage = [self UIImageFromCVMat:gray];
-                self.debugImageView7.image = greyImage;
-            }
-            else {
-//                continue;
-                skipNonConvexContours = YES;
-                gray = gray0 >= (l+1)*255/N;
-            }
-            
-            cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-            
-            // hierarchy is ordered as: [Next, Previous, First_Child, Parent]
-            
-            std::vector<cv::Point> approx;
-            for( size_t i = 0; i < contours.size(); i++ )
-            {
-                // TODO: support adjusting 0.02 value and update detected objects
-                // so user can tweak to get the correct detection
-                cv::approxPolyDP(cv::Mat(contours[i]),
-                                 approx,
-                                 cv::arcLength(cv::Mat(contours[i]), true) * self.arcLengthMultiplier,
-                                 true
-                                 );
-                
-                std::vector<cv::Point> currentContour = contours[i];
-                cv::Rect x = cv::boundingRect(currentContour);
-                
-                if (x.width > 800 || x.height > 800) {
-                    NSLog(@"Skipping contour due to width/height constraints");
-                    continue;
-                }
-                
-                // Skip small or non-convex objects 
-                if (std::fabs(cv::contourArea(contours[i])) < 5000
-                    || fabs(contourArea(cv::Mat(contours[i]))) > 250000) {
-                   // NSLog(@"Skipping contour due to surface area constraints");
-                    continue;
-                }
-                
-//                if(hierarchy[i][2]<0) {
-//                    //Check if there is a child contour
-//                    NSLog(@"Open Contour");
-//                    continue;
-//                } else {
-//                    NSLog(@"Closed Contour");
-//                }
-//                
-//
-                if (skipNonConvexContours && !cv::isContourConvex(approx)) {
-                    //NSLog(@"Skipping contour due to being non-convex");
-                    continue;
-                }
-                
-//                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
-//                    !cv::isContourConvex(approx))
-//                    continue;
-//
-//                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
-//                    fabs(contourArea(cv::Mat(contours[i]))) > 500000)
-//                    continue;
-//                
-//                if (!cv::isContourConvex(approx))
-//                    continue;
-//                
-//                NSLog(@"Sides: %lu", approx.size());
-//                NSLog(@"Size: %f", fabs(contourArea(cv::Mat(contours[i]))));
-                
-                validContours.push_back(contours[i]);
-            }
-        }
-    }
- 
-    return validContours;
-}
-
-- (std::vector<std::vector<cv::Point>>)filterContours:(std::vector<std::vector<cv::Point>>)contours
-{
-    NSMutableSet *evictedIndexes = [NSMutableSet set];
-    
-    std::vector<std::vector<cv::Point>> filteredContours;
-    
-    for ( int x = 0; x< contours.size(); x++ ) {
-        for ( int y = 0; y< contours.size(); y++ ) {
-            if (y <= x) {
-                continue;
-            }
-            
-            // 0 == perfect match
-            double result = cv::matchShapes(contours[x], contours[y], 1, 1);
-            //NSLog(@"Comparison result: %f", result);
-            //if (result <= 0.5) {
-            //    [evictedIndexes addObject:[NSNumber numberWithInt:y]];
-            //}
-            
-            cv::Rect boundingRectX = cv::boundingRect(contours[x]);
-            cv::Rect boundingRectY = cv::boundingRect(contours[y]);
-            
-            // Evict contours that are similar in bounds to the current contour
-            if ((std::fabs(boundingRectX.x - boundingRectY.x) < 25.0f) && (std::fabs(boundingRectX.y - boundingRectY.y) < 25.0f)) {
-                //NSLog(@"** removing item (x,x)(y,y): (%d,%d),(%d,%d)", boundingRectX.x, boundingRectY.x, boundingRectX.y, boundingRectY.y);
-                [evictedIndexes addObject:[NSNumber numberWithInt:y]];
-            }
-        }
-    }
-    
-    for ( int x = 0; x< contours.size(); x++ ) {
-        if ([evictedIndexes containsObject:[NSNumber numberWithInt:x]]) {
-            continue;
-        }
-        
-        filteredContours.push_back(contours[x]);
-    }
-
-//    NSLog(@"** Num. filtered items: %lu", filteredContours.size());
-    
-    // Evict contours which are inside other similar contours (e.g. carrot)
-    evictedIndexes = [NSMutableSet set];
-    for (int x = 0; x < filteredContours.size(); x++) {
-        for ( int y = 0; y< filteredContours.size(); y++ ) {
-            if (x == y) {
-                continue;
-            }
-            
-            // Take the first point of the current (y) contour
-            cv::Point currentContourPoint = filteredContours[y][0];
-            
-            if(cv::pointPolygonTest(filteredContours[x], currentContourPoint, false) >= 0)
-            {
-                // it is inside
-                NSLog(@"");
-                [evictedIndexes addObject:[NSNumber numberWithInt:y]];
-            }
-        }
-    }
-    
-    std::vector<std::vector<cv::Point>> secondPassFilteredContours;
-    for ( int x = 0; x< filteredContours.size(); x++ ) {
-        if ([evictedIndexes containsObject:[NSNumber numberWithInt:x]]) {
-            continue;
-        }
-        
-        secondPassFilteredContours.push_back(filteredContours[x]);
-    }
-    
-//    NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
-    return secondPassFilteredContours;
-}
-
-- (cv::vector<cv::Mat>)cutContoursFromImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
-{
-    cv::vector<cv::Mat> subregions;
-    
-    for (int i = 0; i < contours.size(); i++)
-    {
-        // Get bounding box for contour
-        //cv::Rect roi = cv::boundingRect(contours[i]); // This is a OpenCV function
-
-        // Create a mask for each contour to mask out that region from image.
-        cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
-        drawContours(mask, contours, i, cv::Scalar(255), CV_FILLED); // This is a OpenCV function
-        
-        // At this point, mask has value of 255 for pixels within the contour and value of 0 for those not in contour.
-        
-        // Extract region using mask for region
-        cv::Mat contourRegion;
-        cv::Mat imageROI;
-        image.copyTo(imageROI, mask); // 'image' is the image you used to compute the contours.
-        contourRegion = imageROI;//(roi);
-        // Mat maskROI = mask(roi); // Save this if you want a mask for pixels within the contour in contourRegion.
-        
-        // Store contourRegion. contourRegion is a rectangular image the size of the bounding rect for the contour
-        // BUT only pixels within the contour is visible. All other pixels are set to (0,0,0).
-        subregions.push_back(contourRegion);
-    }
-    
-    return subregions;
-}
-
-- (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
-{
-    for ( int i = 0; i< contours.size(); i++ ) {
-        // draw contour
-        cv::drawContours(image, contours, i, cv::Scalar(255,0,0), 10, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
-        
-        std::vector<cv::Point> currentSquare = contours[i];
-        
-        //        // draw bounding rect
-        //        cv::Rect rect = boundingRect(cv::Mat(squares[i]));
-        //        cv::rectangle(image, rect.tl(), rect.br(), cv::Scalar(0,255,0), 2, 8, 0);
-        
-        //        // draw rotated rect
-        //        cv::RotatedRect minRect = minAreaRect(cv::Mat(squares[i]));
-        //        cv::Point2f rect_points[4];
-        //        minRect.points( rect_points );
-        //        for ( int j = 0; j < 4; j++ ) {
-        //            cv::line( image, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,0,255), 1, 8 ); // blue
-        //        }
-    }
-    
-    return image;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (cv::Mat)cvMatFromUIImage:(UIImage *)image
-{
-    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
-    CGFloat cols = image.size.width;
-    CGFloat rows = image.size.height;
-    
-    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
-    
-    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to  data
-                                                    cols,                       // Width of bitmap
-                                                    rows,                       // Height of bitmap
-                                                    8,                          // Bits per component
-                                                    cvMat.step[0],              // Bytes per row
-                                                    colorSpace,                 // Colorspace
-                                                    kCGImageAlphaNoneSkipLast |
-                                                    kCGBitmapByteOrderDefault); // Bitmap info flags
-    
-    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
-    CGContextRelease(contextRef);
-    
-    return cvMat;
-}
-
--(UIImage *)UIImageFromCVMat:(cv::Mat)cvMat
-{
-    NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
-    CGColorSpaceRef colorSpace;
-    
-    if (cvMat.elemSize() == 1) {
-        colorSpace = CGColorSpaceCreateDeviceGray();
-    } else {
-        colorSpace = CGColorSpaceCreateDeviceRGB();
-    }
-    
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-    
-    // Creating CGImage from cv::Mat
-    CGImageRef imageRef = CGImageCreate(cvMat.cols,                                 //width
-                                        cvMat.rows,                                 //height
-                                        8,                                          //bits per component
-                                        8 * cvMat.elemSize(),                       //bits per pixel
-                                        cvMat.step[0],                              //bytesPerRow
-                                        colorSpace,                                 //colorspace
-                                        kCGImageAlphaNone|kCGBitmapByteOrderDefault,// bitmap info
-                                        provider,                                   //CGDataProviderRef
-                                        NULL,                                       //decode
-                                        false,                                      //should interpolate
-                                        kCGRenderingIntentDefault                   //intent
-                                        );
-    
-    
-    // Getting UIImage from CGImage
-    UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    CGDataProviderRelease(provider);
-    CGColorSpaceRelease(colorSpace);
-    
-    return finalImage;
 }
 
 - (IplImage *)createIplImageFromUIImage:(UIImage *)image {
