@@ -1,14 +1,14 @@
 //
-//  Polyform.m
+//  Polygon.m
 //  FoodFace
 //
 //  Created by Aaron Randall on 13/12/2015.
 //  Copyright © 2015 Aaron. All rights reserved.
 //
 
-#import "Polyform.h"
+#import "Polygon.h"
 
-@implementation Polyform
+@implementation Polygon
 
 -(id)initWithImage:(UIImage*)image {
     self = [super init];

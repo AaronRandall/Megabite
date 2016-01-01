@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <opencv2/opencv.hpp>
 #import "UIImage+Trim.h"
-#import "Polyform.h"
+#import "Polygon.h"
 #import "UIImage+AverageColor.h"
 #import "ContourAnalyser.h"
 #import "ImageHelper.h"
@@ -81,42 +81,42 @@
         self.debugImageView1.image = self.images[0];
     }
     
-    // Construct polyform objects from the extracted images
-    NSMutableArray *itemPolyforms = [NSMutableArray array];
+    // Construct Polygon objects from the extracted images
+    NSMutableArray *itemPolygons = [NSMutableArray array];
     for (int i = 0; i < self.images.count; i++) {
-        Polyform *polyform = [[Polyform alloc] initWithImage:self.images[i]];
-        [itemPolyforms addObject:polyform];
+        Polygon *polygon = [[Polygon alloc] initWithImage:self.images[i]];
+        [itemPolygons addObject:polygon];
     }
     
-    // Get the bin polyforms based on the item polyforms we've extracted
-    NSArray *binPolyforms = [self binPolyformsForTemplateBasedOnItemPolyforms:itemPolyforms];
+    // Get the bin Polygons based on the item Polygons we've extracted
+    NSArray *binPolygons = [self binPolygonsForTemplateBasedOnItemPolygons:itemPolygons];
     
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"surfaceArea" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSArray *sortedBinPolyforms = [binPolyforms sortedArrayUsingDescriptors:sortDescriptors];
-    NSArray *sortedItemPolyforms = [itemPolyforms sortedArrayUsingDescriptors:sortDescriptors];
+    NSArray *sortedBinPolygons = [binPolygons sortedArrayUsingDescriptors:sortDescriptors];
+    NSArray *sortedItemPolygons = [itemPolygons sortedArrayUsingDescriptors:sortDescriptors];
     
     UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
     
-    for (int i = 0; i < sortedBinPolyforms.count; i++) {
-        Polyform *currentBinPolyform = sortedBinPolyforms[i];
-        Polyform *currentItemPolyform = sortedItemPolyforms[i];
+    for (int i = 0; i < sortedBinPolygons.count; i++) {
+        Polygon *currentBinPolygon = sortedBinPolygons[i];
+        Polygon *currentItemPolygon = sortedItemPolygons[i];
         
-        currentItemPolyform = [self rotatePolyformToCoverBin:currentItemPolyform bin:currentBinPolyform];
+        currentItemPolygon = [self rotatePolygonToCoverBin:currentItemPolygon bin:currentBinPolygon];
         
-        // Add current item polyform to the image at the bin polyform position
-        testImage = [self addItemPolyform:currentItemPolyform toImage:testImage atBinPolyform:currentBinPolyform];
+        // Add current item Polygon to the image at the bin Polygon position
+        testImage = [self addItemPolygon:currentItemPolygon toImage:testImage atBinPolygon:currentBinPolygon];
     }
     
     self.debugImageView2.image = testImage;
     self.debugImageView5.image = testImage;
     
     // Debug the bin layout
-    [self displayBinTemplateLayout:sortedBinPolyforms usingSize:testImage.size];
+    [self displayBinTemplateLayout:sortedBinPolygons usingSize:testImage.size];
 }
 
-- (Polyform*)rotatePolyformToCoverBin:(Polyform*)item bin:(Polyform*)bin {
+- (Polygon*)rotatePolygonToCoverBin:(Polygon*)item bin:(Polygon*)bin {
     int smallestNumRedPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
     int optimalRotation = 0;
     
@@ -133,15 +133,15 @@
     
     [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:optimalRotation];
     
-    // Rotate the image and save it back to the polyform
+    // Rotate the image and save it back to the Polygon
     UIImage *rotatedItemImage = [ImageHelper imageRotatedByDegrees:optimalRotation image:item.image];
 
     rotatedItemImage = [rotatedItemImage imageByTrimmingTransparentPixels];
     
-    return [[Polyform alloc] initWithImage:rotatedItemImage];
+    return [[Polygon alloc] initWithImage:rotatedItemImage];
 }
 
-- (int)calculateSurfaceAreaCoverageForBin:(Polyform*)bin item:(Polyform*)item rotation:(int)rotation {
+- (int)calculateSurfaceAreaCoverageForBin:(Polygon*)bin item:(Polygon*)item rotation:(int)rotation {
     // --------------------------------------------------------------------
     // Debug overlay of bin and item
     //    CGPathRef path = createPathRotatedAroundBoundingBoxCenter(item.shape.CGPath, M_PI / 8);
@@ -179,11 +179,11 @@
     return numberOfRedPixels;
 }
 
-- (void)displayBinTemplateLayout:(NSArray*)binPolyforms usingSize:(CGSize)size {
+- (void)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     
-    for (int i = 0; i < binPolyforms.count; i++) {
-        [((Polyform*)[binPolyforms objectAtIndex:i]).shape fill];
+    for (int i = 0; i < binPolygons.count; i++) {
+        [((Polygon*)[binPolygons objectAtIndex:i]).shape fill];
     }
     
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -192,55 +192,55 @@
     self.debugImageView3.image = myImage;
 }
 
-- (NSArray*)binPolyformsForTemplateBasedOnItemPolyforms:(NSArray*)itemPolyforms {
-    NSMutableArray *binPolyforms = [NSMutableArray array];
+- (NSArray*)binPolygonsForTemplateBasedOnItemPolygons:(NSArray*)itemPolygons {
+    NSMutableArray *binPolygons = [NSMutableArray array];
     
     // Left eye
-    Polyform *leftEye = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 150, 150)]];
+    Polygon *leftEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 150, 150)]];
     // Right eye
-    Polyform *rightEye = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 150, 150)]];
+    Polygon *rightEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 150, 150)]];
     // Nose
-    Polyform *nose = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
+    Polygon *nose = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
     // Mouth
-    Polyform *mouth = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 650, 400, 200)]];
+    Polygon *mouth = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 650, 400, 200)]];
     // Left ear
-    Polyform *leftEar = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
+    Polygon *leftEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
     // Right ear
-    Polyform *rightEar = [[Polyform alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
+    Polygon *rightEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
     
-    if (itemPolyforms.count == 3) {
-        [binPolyforms addObject:leftEye];
-        [binPolyforms addObject:rightEye];
-        [binPolyforms addObject:mouth];
-    } else if (itemPolyforms.count >= 4 &&
-               itemPolyforms.count <= 5) {
-        [binPolyforms addObject:leftEye];
-        [binPolyforms addObject:rightEye];
-        [binPolyforms addObject:mouth];
-        [binPolyforms addObject:nose];
-    } else if (itemPolyforms.count >= 6) {
-        [binPolyforms addObject:leftEye];
-        [binPolyforms addObject:rightEye];
-        [binPolyforms addObject:mouth];
-        [binPolyforms addObject:nose];
-        [binPolyforms addObject:leftEar];
-        [binPolyforms addObject:rightEar];
+    if (itemPolygons.count == 3) {
+        [binPolygons addObject:leftEye];
+        [binPolygons addObject:rightEye];
+        [binPolygons addObject:mouth];
+    } else if (itemPolygons.count >= 4 &&
+               itemPolygons.count <= 5) {
+        [binPolygons addObject:leftEye];
+        [binPolygons addObject:rightEye];
+        [binPolygons addObject:mouth];
+        [binPolygons addObject:nose];
+    } else if (itemPolygons.count >= 6) {
+        [binPolygons addObject:leftEye];
+        [binPolygons addObject:rightEye];
+        [binPolygons addObject:mouth];
+        [binPolygons addObject:nose];
+        [binPolygons addObject:leftEar];
+        [binPolygons addObject:rightEar];
     }
     
-    return binPolyforms;
+    return binPolygons;
 }
 
-- (UIImage*)addItemPolyform:(Polyform*)itemPolyform toImage:(UIImage*)image atBinPolyform:(Polyform*)binPolyform {
+- (UIImage*)addItemPolygon:(Polygon*)itemPolygon toImage:(UIImage*)image atBinPolygon:(Polygon*)binPolygon {
     CGSize size = CGSizeMake(1000, 1000);
     UIGraphicsBeginImageContext(size);
     
     CGPoint background = CGPointMake(0, 0);
     [image drawAtPoint:background];
     
-    UIImage *item = itemPolyform.image;
+    UIImage *item = itemPolygon.image;
     
-    double pointX = (binPolyform.shape.bounds.origin.x + binPolyform.centroidX) - itemPolyform.centroidX;
-    double pointY = (binPolyform.shape.bounds.origin.y + binPolyform.centroidY) - itemPolyform.centroidY;
+    double pointX = (binPolygon.shape.bounds.origin.x + binPolygon.centroidX) - itemPolygon.centroidX;
+    double pointY = (binPolygon.shape.bounds.origin.y + binPolygon.centroidY) - itemPolygon.centroidY;
     
     CGPoint itemPoint = CGPointMake(pointX, pointY);
     [item drawAtPoint:itemPoint];
@@ -251,21 +251,16 @@
     return result;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)nextButton:(id)sender {
     self.imageIndex++;
     int currentIndex = self.imageIndex % self.images.count;
     UIImage *currentImage = [self.images objectAtIndex:currentIndex];
     self.debugImageView1.image = currentImage;
-    NSLog(@"Height: %f, Width: %f", currentImage.size.height, currentImage.size.width);
 }
 
 - (IBAction)run:(id)sender {
     self.arcLengthMultiplier = [self.arcLengthTextField.text floatValue];
     [self convertImageToFoodFace];
 }
+
 @end

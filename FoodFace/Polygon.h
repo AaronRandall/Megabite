@@ -1,5 +1,5 @@
 //
-//  Polyform.h
+//  Polygon.h
 //  FoodFace
 //
 //  Created by Aaron Randall on 13/12/2015.
@@ -9,13 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface Polyform : NSObject
-
-// Polyform
-//   - Geometric shape (UIBezierPath)
-//   - AppliedRotation
-//   - SurfaceArea
-//   - Origin (x,y)
+@interface Polygon : NSObject
 
 -(id)initWithImage:(UIImage*)image;
 -(id)initWithShape:(UIBezierPath*)shape;
