@@ -107,10 +107,12 @@
         
         // TODO: filter extracted contours for anomalies (all white, all black, etc)
         // Could consider removing anything that has an average colour ~= to plate average colour after extracting all contours from the plate
-//        
+        
 //        NSDictionary *extractedColours = [boundingBoxImage mainColoursInImageWithdetail:0];
 //        for (UIColor *color in extractedColours.keyEnumerator) {
-//            NSLog(@"Jere %@", color getre);
+//            CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+//            [color getRed:&red green:&green blue:&blue alpha:&alpha];
+//            NSLog(@"Color: %@", color);
 //        }
         
         [self.images addObject:boundingBoxImage];
@@ -439,18 +441,27 @@ struct pixel {
     std::vector<std::vector<cv::Point>> contours;
     cv::vector<cv::Vec4i> hierarchy;
     
+    bool skipNonConvexContours = YES;
+    
     for( int c = 0; c < 3; c++ ) {
         int ch[] = {c, 0};
         mixChannels(&timg, 1, &gray0, 1, ch, 1);
         for( int l = 0; l < N; l++ ) {
             if( l == 0 ) {
                 cv::Canny(gray0, gray, 0, thresh, 3);
-                cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
+                //cv::threshold(gray0, gray, 192.0, 255.0, 1);
                 
                 UIImage *greyImage = [self UIImageFromCVMat:gray];
                 self.debugImageView6.image = greyImage;
+                
+                cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
+                
+                greyImage = [self UIImageFromCVMat:gray];
+                self.debugImageView7.image = greyImage;
             }
             else {
+//                continue;
+                skipNonConvexContours = YES;
                 gray = gray0 >= (l+1)*255/N;
             }
             
@@ -469,11 +480,34 @@ struct pixel {
                                  true
                                  );
                 
-                // Skip small or non-convex objects 
-                if (std::fabs(cv::contourArea(contours[i])) < 2000
-                    || !cv::isContourConvex(approx)
-                    || fabs(contourArea(cv::Mat(contours[i]))) > 250000)
+                std::vector<cv::Point> currentContour = contours[i];
+                cv::Rect x = cv::boundingRect(currentContour);
+                
+                if (x.width > 800 || x.height > 800) {
+                    NSLog(@"Skipping contour due to width/height constraints");
                     continue;
+                }
+                
+                // Skip small or non-convex objects 
+                if (std::fabs(cv::contourArea(contours[i])) < 5000
+                    || fabs(contourArea(cv::Mat(contours[i]))) > 250000) {
+                   // NSLog(@"Skipping contour due to surface area constraints");
+                    continue;
+                }
+                
+//                if(hierarchy[i][2]<0) {
+//                    //Check if there is a child contour
+//                    NSLog(@"Open Contour");
+//                    continue;
+//                } else {
+//                    NSLog(@"Closed Contour");
+//                }
+//                
+//
+                if (skipNonConvexContours && !cv::isContourConvex(approx)) {
+                    //NSLog(@"Skipping contour due to being non-convex");
+                    continue;
+                }
                 
 //                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
 //                    !cv::isContourConvex(approx))

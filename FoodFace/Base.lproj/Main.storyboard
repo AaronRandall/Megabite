@@ -43,10 +43,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lc2-3A-dLq">
-                                <rect key="frame" x="514" y="333" width="234" height="218"/>
-                                <animations/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vaq-bw-2X6">
                                 <rect key="frame" x="322" y="49" width="265" height="249"/>
                                 <animations/>
@@ -63,7 +59,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-P3-maQ">
-                                <rect key="frame" x="20" y="617" width="265" height="249"/>
+                                <rect key="frame" x="524" y="767" width="265" height="249"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkI-sG-Km2">
                                 <rect key="frame" x="427" y="20" width="32" height="30"/>
@@ -86,7 +82,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X61-rc-bXQ">
-                                <rect key="frame" x="20" y="616" width="265" height="249"/>
+                                <rect key="frame" x="555" y="701" width="265" height="249"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L1x-jc-LOd">
                                 <rect key="frame" x="320" y="609" width="118" height="121"/>
@@ -107,13 +103,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
-                                <rect key="frame" x="457" y="614" width="272" height="251"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nZw-ez-PBR">
-                                <rect key="frame" x="267" y="333" width="234" height="217"/>
+                                <rect key="frame" x="497" y="684" width="272" height="251"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQ5-nf-yFa">
-                                <rect key="frame" x="20" y="333" width="236" height="218"/>
+                                <rect key="frame" x="20" y="333" width="378" height="350"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I6t-Cf-f9Z">
+                                <rect key="frame" x="401" y="333" width="377" height="349"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzL-UR-f7L">
                                 <rect key="frame" x="255" y="11" width="30" height="30"/>
@@ -123,10 +119,17 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.02" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-9s-QPZ">
-                                <rect key="frame" x="293" y="11" width="45" height="30"/>
+                                <rect key="frame" x="293" y="11" width="61" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lc2-3A-dLq">
+                                <rect key="frame" x="267" y="684" width="234" height="218"/>
+                                <animations/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nZw-ez-PBR">
+                                <rect key="frame" x="25" y="684" width="234" height="217"/>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -140,6 +143,7 @@
                         <outlet property="debugImageView4" destination="X61-rc-bXQ" id="Wka-eq-BNa"/>
                         <outlet property="debugImageView5" destination="b3w-vl-Ur6" id="9Rr-bH-apO"/>
                         <outlet property="debugImageView6" destination="kQ5-nf-yFa" id="GhN-0p-ZVw"/>
+                        <outlet property="debugImageView7" destination="I6t-Cf-f9Z" id="PrI-Iy-OXh"/>
                         <outlet property="debugImageViewBin" destination="L1x-jc-LOd" id="yhT-Uz-Eja"/>
                         <outlet property="debugImageViewItem" destination="ZwI-z8-r6X" id="tqc-rK-JJv"/>
                         <outlet property="imageView" destination="ABS-3a-ZOc" id="oCw-bB-y1M"/>
