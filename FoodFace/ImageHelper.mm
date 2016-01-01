@@ -7,6 +7,8 @@
 //
 
 #import "ImageHelper.h"
+#import "UIImage+AverageColor.h"
+#import "UIImage+Trim.h"
 
 @implementation ImageHelper
 
@@ -134,6 +136,121 @@
     UIGraphicsEndImageContext();
     
     return finalImage;
+}
+
++ (UIImage*)imageBoundingBox:(UIImage*)image {
+    int boundingBoxRotation = 0;
+    int smallestSurfaceArea = image.size.height * image.size.width;
+    
+    for (int i = 0; i < 180; i++) {
+        // Rotate the image
+        UIImage *tempImage = [self imageRotatedByDegrees:i image:image];
+        
+        // Trim to smallest box
+        tempImage = [tempImage imageByTrimmingTransparentPixels];
+        int currentSurfaceArea = (tempImage.size.height * tempImage.size.width);
+        
+        if (currentSurfaceArea < smallestSurfaceArea) {
+            // The current rotation has a smaller surface area than the previous smallest surface area
+            smallestSurfaceArea = currentSurfaceArea;
+            boundingBoxRotation = i;
+        }
+        
+        // Observe bounding box size
+        //NSLog(@"Rotation: %d, SurfaceArea: %f (%f, %f)", i, (tempImage.size.width * tempImage.size.height),tempImage.size.width, tempImage.size.height);
+    }
+    
+    UIImage *boundingBoxImage = [self imageRotatedByDegrees:boundingBoxRotation image:image];
+    
+    // Trim to smallest box
+    boundingBoxImage = [boundingBoxImage imageByTrimmingTransparentPixels];
+    
+    return boundingBoxImage;
+}
+
++ (CGFloat)degreesToRadians:(CGFloat)degrees
+{
+    return degrees * M_PI / 180;
+}
+
++ (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage*)image {
+    CGFloat radians = [ImageHelper degreesToRadians:degrees];
+    
+    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0, image.size.width, image.size.height)];
+    CGAffineTransform t = CGAffineTransformMakeRotation(radians);
+    rotatedViewBox.transform = t;
+    CGSize rotatedSize = rotatedViewBox.frame.size;
+    
+    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, image.scale);
+    CGContextRef bitmap = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(bitmap, rotatedSize.width / 2, rotatedSize.height / 2);
+    
+    CGContextRotateCTM(bitmap, radians);
+    
+    CGContextScaleCTM(bitmap, 1.0, -1.0);
+    CGContextDrawImage(bitmap, CGRectMake(-image.size.width / 2, -image.size.height / 2 , image.size.width, image.size.height), image.CGImage );
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+struct pixel {
+    unsigned char r, g, b, a;
+};
+
++ (NSUInteger)numberOfRedPixelsInImage:(UIImage*) image
+{
+    NSUInteger numberOfRedPixels = 0;
+    
+    // Allocate a buffer big enough to hold all the pixels
+    
+    struct pixel* pixels = (struct pixel*) calloc(1, image.size.width * image.size.height * sizeof(struct pixel));
+    if (pixels != nil)
+    {
+        // Create a new bitmap
+        
+        CGContextRef context = CGBitmapContextCreate(
+                                                     (void*) pixels,
+                                                     image.size.width,
+                                                     image.size.height,
+                                                     8,
+                                                     image.size.width * 4,
+                                                     CGImageGetColorSpace(image.CGImage),
+                                                     kCGImageAlphaPremultipliedLast
+                                                     );
+        
+        if (context != NULL)
+        {
+            // Draw the image in the bitmap
+            
+            CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, image.size.width, image.size.height), image.CGImage);
+            
+            // Now that we have the image drawn in our own buffer, we can loop over the pixels to
+            // process it. This simple case simply counts all pixels that have a pure red component.
+            
+            // There are probably more efficient and interesting ways to do this. But the important
+            // part is that the pixels buffer can be read directly.
+            
+            NSUInteger numberOfPixels = image.size.width * image.size.height;
+            
+            while (numberOfPixels > 0) {
+                if (pixels->r == 255) {
+                    numberOfRedPixels++;
+                }
+                pixels++;
+                numberOfPixels--;
+            }
+            
+            CGContextRelease(context);
+        }
+        
+        //free(pixels);
+    }
+    
+    return numberOfRedPixels;
 }
 
 @end

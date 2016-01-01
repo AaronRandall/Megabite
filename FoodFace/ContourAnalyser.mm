@@ -9,6 +9,8 @@
 #import "ContourAnalyser.h"
 #import <opencv2/opencv.hpp>
 #import "ImageHelper.h"
+#import "UIImage+AverageColor.h"
+#import "UIImage+Trim.h"
 
 @implementation ContourAnalyser
 
@@ -182,6 +184,27 @@
     
     //    NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
     return secondPassFilteredContours;
+}
+
++ (NSMutableArray*)reduceContoursToBoundingBox:(cv::vector<cv::Mat>)contours {
+    NSMutableArray *boundingBoxImages = [NSMutableArray array];
+    
+    for (int i = 0; i < contours.size(); i++) {
+        UIImage *extractedContour = [ImageHelper UIImageFromCVMat:contours[i]];
+        
+        // Make the black mask of the image transparent
+        UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
+        
+        // Trim to the bounding box
+        UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
+        
+        // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
+        UIImage *boundingBoxImage = [ImageHelper imageBoundingBox:trimmedImage];
+        
+        [boundingBoxImages addObject:boundingBoxImage];
+    }
+    
+    return boundingBoxImages;
 }
 
 @end

@@ -14,5 +14,6 @@
 
 + (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image;
 + (std::vector<std::vector<cv::Point>>)filterContours:(std::vector<std::vector<cv::Point>>)contours;
++ (NSMutableArray*)reduceContoursToBoundingBox:(cv::vector<cv::Mat>)contours;
 
 @end

@@ -23,8 +23,6 @@
 @implementation ViewController {
 }
 
-#define DEGREES_TO_RADIANS(x) (M_PI * (x) / 180.0)
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -44,7 +42,7 @@
     self.images = [NSMutableArray array];
     self.imageIndex = 0;
     
-    // PlateFood, Plate, FoodPlate2, Breakfast, FoodFace2, FoodFace3, FoodFace4 (0.03)
+    // Sample images: PlateFood, Plate, FoodPlate2, Breakfast, FoodFace2, FoodFace3, FoodFace4
     UIImage *image = [UIImage imageNamed:@"FoodFace4"];
     
     // Crop the image to the plate dimensions
@@ -75,20 +73,9 @@
     cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:copyImageMatrix];
     
     // Crop extracted contours to the size of the contour, and make background transparent
-    for (int i = 0; i < extractedContours.size(); i++) {
-        UIImage *extractedContour = [ImageHelper UIImageFromCVMat:extractedContours[i]];
-        
-        // Make the black mask of the image transparent
-        UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
-        
-        // Trim to the bounding box
-        UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
-        
-        // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
-        UIImage *boundingBoxImage = [self imageBoundingBox:trimmedImage];
-        
-        [self.images addObject:boundingBoxImage];
-    }
+    NSMutableArray *boundingBoxContours = [ContourAnalyser reduceContoursToBoundingBox:extractedContours];
+    
+    [self.images addObjectsFromArray:boundingBoxContours];
     
     if (self.images.count > 0) {
         self.debugImageView1.image = self.images[0];
@@ -105,8 +92,7 @@
     NSArray *binPolyforms = [self binPolyformsForTemplateBasedOnItemPolyforms:itemPolyforms];
     
     NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"surfaceArea"
-                                                 ascending:NO];
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"surfaceArea" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     NSArray *sortedBinPolyforms = [binPolyforms sortedArrayUsingDescriptors:sortDescriptors];
     NSArray *sortedItemPolyforms = [itemPolyforms sortedArrayUsingDescriptors:sortDescriptors];
@@ -136,7 +122,6 @@
     
     for (int i = 0; i < 180; i++) {
         int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:i];
-//        NSLog(@"Rotation:%d, Red pixels: %d", i, redPixels);
         
         if (redPixels < smallestNumRedPixels) {
             smallestNumRedPixels = redPixels;
@@ -144,12 +129,12 @@
         }
     }
     
-//    NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
+    // NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
     
     [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:optimalRotation];
     
     // Rotate the image and save it back to the polyform
-    UIImage *rotatedItemImage = [self imageRotatedByDegrees:optimalRotation image:item.image];
+    UIImage *rotatedItemImage = [ImageHelper imageRotatedByDegrees:optimalRotation image:item.image];
 
     rotatedItemImage = [rotatedItemImage imageByTrimmingTransparentPixels];
     
@@ -165,7 +150,7 @@
     // Rotate the UIBezierPath
     int degreesToRotate = rotation;
     UIBezierPath *copyOfItem = [item.shape copy];
-    [copyOfItem applyTransform:CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(degreesToRotate))];
+    [copyOfItem applyTransform:CGAffineTransformMakeRotation([ImageHelper degreesToRadians:degreesToRotate])];
     // Find the rotated path's bounding box
     CGRect boundingBox = CGPathGetPathBoundingBox(copyOfItem.CGPath);
     int rotatedCentroidX = boundingBox.size.width/2;
@@ -184,72 +169,12 @@
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSUInteger numberOfRedPixels = [self processImage: myImage];
+    NSUInteger numberOfRedPixels = [ImageHelper numberOfRedPixelsInImage:myImage];
     
     self.debugImageViewBin.image = bin.image;
-    self.debugImageViewItem.image = [self imageRotatedByDegrees:degreesToRotate image:item.image];
+    self.debugImageViewItem.image = [ImageHelper imageRotatedByDegrees:degreesToRotate image:item.image];
     self.debugImageView4.image = myImage;
     // --------------------------------------------------------------------
-    
-    return numberOfRedPixels;
-}
-
-struct pixel {
-    unsigned char r, g, b, a;
-};
-
-/**
- * Process the image and return the number of pure red pixels in it.
- */
-
-- (NSUInteger) processImage: (UIImage*) image
-{
-    NSUInteger numberOfRedPixels = 0;
-    
-    // Allocate a buffer big enough to hold all the pixels
-    
-    struct pixel* pixels = (struct pixel*) calloc(1, image.size.width * image.size.height * sizeof(struct pixel));
-    if (pixels != nil)
-    {
-        // Create a new bitmap
-        
-        CGContextRef context = CGBitmapContextCreate(
-                                                     (void*) pixels,
-                                                     image.size.width,
-                                                     image.size.height,
-                                                     8,
-                                                     image.size.width * 4,
-                                                     CGImageGetColorSpace(image.CGImage),
-                                                     kCGImageAlphaPremultipliedLast
-                                                     );
-        
-        if (context != NULL)
-        {
-            // Draw the image in the bitmap
-            
-            CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, image.size.width, image.size.height), image.CGImage);
-            
-            // Now that we have the image drawn in our own buffer, we can loop over the pixels to
-            // process it. This simple case simply counts all pixels that have a pure red component.
-            
-            // There are probably more efficient and interesting ways to do this. But the important
-            // part is that the pixels buffer can be read directly.
-            
-            NSUInteger numberOfPixels = image.size.width * image.size.height;
-            
-            while (numberOfPixels > 0) {
-                if (pixels->r == 255) {
-                    numberOfRedPixels++;
-                }
-                pixels++;
-                numberOfPixels--;
-            }
-            
-            CGContextRelease(context);
-        }
-        
-        //free(pixels);
-    }
     
     return numberOfRedPixels;
 }
@@ -265,65 +190,6 @@ struct pixel {
     UIGraphicsEndImageContext();
     
     self.debugImageView3.image = myImage;
-}
-
-- (UIImage*)imageBoundingBox:(UIImage*)image {
-    int boundingBoxRotation = 0;
-    int smallestSurfaceArea = image.size.height * image.size.width;
-    
-    for (int i = 0; i < 180; i++) {
-        // Rotate the image
-        UIImage *tempImage = [self imageRotatedByDegrees:i image:image];
-        
-        // Trim to smallest box
-        tempImage = [tempImage imageByTrimmingTransparentPixels];
-        int currentSurfaceArea = (tempImage.size.height * tempImage.size.width);
-        
-        if (currentSurfaceArea < smallestSurfaceArea) {
-            // The current rotation has a smaller surface area than the previous smallest surface area
-            smallestSurfaceArea = currentSurfaceArea;
-            boundingBoxRotation = i;
-        }
-        
-        // Observe bounding box size
-        //NSLog(@"Rotation: %d, SurfaceArea: %f (%f, %f)", i, (tempImage.size.width * tempImage.size.height),tempImage.size.width, tempImage.size.height);
-    }
-    
-    UIImage *boundingBoxImage = [self imageRotatedByDegrees:boundingBoxRotation image:image];
-    
-    // Trim to smallest box
-    boundingBoxImage = [boundingBoxImage imageByTrimmingTransparentPixels];
-    
-    return boundingBoxImage;
-}
-
-- (CGFloat)degreesToRadians:(CGFloat)degrees
-{
-    return degrees * M_PI / 180;
-}
-
-- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage*)image {
-    CGFloat radians = [self degreesToRadians:degrees];
-    
-    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0, image.size.width, image.size.height)];
-    CGAffineTransform t = CGAffineTransformMakeRotation(radians);
-    rotatedViewBox.transform = t;
-    CGSize rotatedSize = rotatedViewBox.frame.size;
-    
-    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, image.scale);
-    CGContextRef bitmap = UIGraphicsGetCurrentContext();
-    
-    CGContextTranslateCTM(bitmap, rotatedSize.width / 2, rotatedSize.height / 2);
-    
-    CGContextRotateCTM(bitmap, radians);
-    
-    CGContextScaleCTM(bitmap, 1.0, -1.0);
-    CGContextDrawImage(bitmap, CGRectMake(-image.size.width / 2, -image.size.height / 2 , image.size.width, image.size.height), image.CGImage );
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
 }
 
 - (NSArray*)binPolyformsForTemplateBasedOnItemPolyforms:(NSArray*)itemPolyforms {
@@ -388,38 +254,6 @@ struct pixel {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IplImage *)createIplImageFromUIImage:(UIImage *)image {
-    // Getting CGImage from UIImage
-    CGImageRef imageRef = image.CGImage;
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    // Creating temporal IplImage for drawing
-    IplImage *iplimage = cvCreateImage(
-                                       cvSize(image.size.width,image.size.height), IPL_DEPTH_8U, 4
-                                       );
-    // Creating CGContext for temporal IplImage
-    CGContextRef contextRef = CGBitmapContextCreate(
-                                                    iplimage->imageData, iplimage->width, iplimage->height,
-                                                    iplimage->depth, iplimage->widthStep,
-                                                    colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault
-                                                    );
-    // Drawing CGImage to CGContext
-    CGContextDrawImage(
-                       contextRef,
-                       CGRectMake(0, 0, image.size.width, image.size.height),
-                       imageRef
-                       );
-    CGContextRelease(contextRef);
-    CGColorSpaceRelease(colorSpace);
-    
-    // Creating result IplImage
-    IplImage *ret = cvCreateImage(cvGetSize(iplimage), IPL_DEPTH_8U, 3);
-    cvCvtColor(iplimage, ret, CV_RGBA2BGR);
-    cvReleaseImage(&iplimage);
-    
-    return ret;
 }
 
 - (IBAction)nextButton:(id)sender {
