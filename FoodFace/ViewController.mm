@@ -43,7 +43,7 @@
     self.imageIndex = 0;
     
     // Sample images: PlateFood, Plate, FoodPlate2, Breakfast, FoodFace2, FoodFace3, FoodFace4
-    UIImage *image = [UIImage imageNamed:@"FoodFace4"];
+    UIImage *image = [UIImage imageNamed:@"FoodFace7"];
     
     // Crop the image to the plate dimensions
     image = [ImageHelper roundedRectImageFromImage:image size:image.size withCornerRadius:image.size.height/2];
@@ -97,7 +97,7 @@
     NSArray *sortedBinPolygons = [binPolygons sortedArrayUsingDescriptors:sortDescriptors];
     NSArray *sortedItemPolygons = [itemPolygons sortedArrayUsingDescriptors:sortDescriptors];
     
-    UIImage *testImage = [UIImage imageNamed:@"EmptyPlateFood"];
+    UIImage *testImage = [UIImage imageNamed:@"EmptyPlate"];
     
     for (int i = 0; i < sortedBinPolygons.count; i++) {
         Polygon *currentBinPolygon = sortedBinPolygons[i];
