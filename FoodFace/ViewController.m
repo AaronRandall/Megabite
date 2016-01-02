@@ -13,6 +13,8 @@
 @interface ViewController ()
 @end
 
+float const defaultArcMultiplier = 0.02;
+
 @implementation ViewController {
     ImageProcessor *processor;
 }
@@ -34,6 +36,10 @@
     // TODO: benchmarking
 }
 
+- (void)didReceiveMemoryWarning {
+    NSLog(@"Uh oh. Intensive image processing on an iPhone is possibly not a great idea.");
+}
+
 - (void)detectContoursInImage {
     ImageProcessorResult *result = [ImageProcessorResult new];
     float arcLengthMultiplier = [self.arcLengthTextField.text floatValue];
@@ -42,7 +48,9 @@
     result = [processor findContours:arcLengthMultiplier];
     result = [processor filterContours];
     
-    self.debugImageView5.image = result.images[0];
+    if (result.images.count > 0) {
+        self.debugImageView5.image = result.images[0];
+    }
 }
 
 - (void)convertImageToFoodFace {
@@ -53,7 +61,9 @@
     result = [processor boundingBoxImagesToPolygons];
     result = [processor placePolygonsOnTargetTemplate];
     
-    self.debugImageView5.image = result.results[0];
+    if (result.results.count > 0) {
+        self.debugImageView5.image = result.results[0];
+    }
     
     NSLog(@"Processing complete");
 }
@@ -104,10 +114,12 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.cameraImageView.image = chosenImage;
-    
-    [self setImageForImageProcessor:chosenImage];
-    
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
+        [self setImageForImageProcessor:chosenImage];
+        [self detectContoursInImage];
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -115,7 +127,12 @@
 }
 
 - (IBAction)sensitivityStepperValueChanged:(id)sender {
-    self.arcLengthTextField.text = [NSString stringWithFormat:@"%.3f",self.sensitivityStepper.value];
+    [self setArcLengthTestFieldFromFloat:self.sensitivityStepper.value];
     [self detectContoursInImage];
 }
+
+- (void)setArcLengthTestFieldFromFloat:(float)value {
+    self.arcLengthTextField.text = [NSString stringWithFormat:@"%.3f",value];
+}
+
 @end

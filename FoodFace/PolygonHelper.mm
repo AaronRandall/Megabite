@@ -63,12 +63,13 @@
     int smallestNumRedPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
     int optimalRotation = 0;
     
-    for (int i = 0; i < 180; i++) {
-        int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:i];
+    for (int i = 0; i < 6; i++) {
+        int degrees = i * 30;
+        int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
         
         if (redPixels < smallestNumRedPixels) {
             smallestNumRedPixels = redPixels;
-            optimalRotation = i;
+            optimalRotation = degrees;
         }
     }
     
