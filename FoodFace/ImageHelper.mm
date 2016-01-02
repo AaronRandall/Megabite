@@ -142,9 +142,11 @@
     int boundingBoxRotation = 0;
     int smallestSurfaceArea = image.size.height * image.size.width;
     
-    for (int i = 0; i < 180; i++) {
+    // Ratios 5/36, 90/2, 30/6, 20/9, 10/18, etc
+    for (int i = 0; i < 6; i++) {
+        int degrees = i * 30;
         // Rotate the image
-        UIImage *tempImage = [self imageRotatedByDegrees:i image:image];
+        UIImage *tempImage = [self imageRotatedByDegrees:degrees image:image];
         
         // Trim to smallest box
         tempImage = [tempImage imageByTrimmingTransparentPixels];
@@ -153,7 +155,7 @@
         if (currentSurfaceArea < smallestSurfaceArea) {
             // The current rotation has a smaller surface area than the previous smallest surface area
             smallestSurfaceArea = currentSurfaceArea;
-            boundingBoxRotation = i;
+            boundingBoxRotation = degrees;
         }
         
         // Observe bounding box size
@@ -206,8 +208,8 @@ struct pixel {
     NSUInteger numberOfRedPixels = 0;
     
     // Allocate a buffer big enough to hold all the pixels
-    
     struct pixel* pixels = (struct pixel*) calloc(1, image.size.width * image.size.height * sizeof(struct pixel));
+    
     if (pixels != nil)
     {
         // Create a new bitmap
@@ -233,21 +235,18 @@ struct pixel {
             
             // There are probably more efficient and interesting ways to do this. But the important
             // part is that the pixels buffer can be read directly.
-            
             NSUInteger numberOfPixels = image.size.width * image.size.height;
             
-            while (numberOfPixels > 0) {
-                if (pixels->r == 255) {
+            for (int i=0; i<numberOfPixels; i++) {
+                if (pixels[i].r == 255) {
                     numberOfRedPixels++;
                 }
-                pixels++;
-                numberOfPixels--;
             }
             
             CGContextRelease(context);
         }
         
-        //free(pixels);
+        free(pixels);
     }
     
     return numberOfRedPixels;
