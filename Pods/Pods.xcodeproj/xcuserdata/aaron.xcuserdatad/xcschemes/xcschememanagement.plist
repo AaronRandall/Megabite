@@ -9,10 +9,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RSKImageCropper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>321D211230DA3650A3BDDDBD9E029987</key>
+		<key>9B4CFA64C96A40C978B3F0D1BF7EBEE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A3AEE4AC4C61A5C235A77C6521F66A1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RSKImageCropper/RSKImageCropper.h>
 
-@interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDataSource, RSKImageCropViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageView;

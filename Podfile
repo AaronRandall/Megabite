@@ -3,4 +3,5 @@
 
 target 'FoodFace' do
   pod 'OpenCV', '2.4.9'
+  pod 'RSKImageCropper'
 end

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "ImageProcessor.h"
 #import "ImageProcessorResult.h"
+#import <RSKImageCropper/RSKImageCropper.h>
 
 @interface ViewController ()
 @end
@@ -34,6 +35,9 @@ float const defaultArcMultiplier = 0.02;
     // TODO: capture image from camera
     // TODO: show processing progress
     // TODO: benchmarking
+    
+    // TODO: crop image to circle (while taking image)
+    // TODO: support tweaking number of image & polygon rotations allowed (with stepper)
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,20 +109,29 @@ float const defaultArcMultiplier = 0.02;
 - (IBAction)takePhotoButton:(id)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = YES;
+    picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
-    self.cameraImageView.image = chosenImage;
+    UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
+    //self.cameraImageView.image = chosenImage;
 
-    [picker dismissViewControllerAnimated:YES completion:^{
-        [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
-        [self setImageForImageProcessor:chosenImage];
-        [self detectContoursInImage];
+    [picker dismissViewControllerAnimated:NO completion:^{
+//        [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
+//        [self setImageForImageProcessor:chosenImage];
+//        [self detectContoursInImage];
+        
+        RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:chosenImage];
+        imageCropVC.delegate = self;
+        imageCropVC.dataSource = self;
+        imageCropVC.cropMode = RSKImageCropModeCustom;
+//        CGRect bounds=(CGRect){CGPointZero,chosenImage.size};
+//        imageCropVC.maskPath = [UIBezierPath bezierPathWithRoundedRect:bounds
+//                                                          cornerRadius:100.0f];
+        [self presentViewController:imageCropVC animated:NO completion:nil];
     }];
 }
 
@@ -133,6 +146,106 @@ float const defaultArcMultiplier = 0.02;
 
 - (void)setArcLengthTestFieldFromFloat:(float)value {
     self.arcLengthTextField.text = [NSString stringWithFormat:@"%.3f",value];
+}
+
+
+
+
+
+
+// Crop image has been canceled.
+- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self.navigationController popViewControllerAnimated:YES];
+}
+
+// The original image has been cropped.
+- (void)imageCropViewController:(RSKImageCropViewController *)controller
+                   didCropImage:(UIImage *)croppedImage
+                  usingCropRect:(CGRect)cropRect
+{
+//    self.imageView.image = croppedImage;
+//    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.cameraImageView.image = croppedImage;
+        [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
+        [self setImageForImageProcessor:croppedImage];
+        [self detectContoursInImage];
+    }];
+}
+
+// The original image has been cropped. Additionally provides a rotation angle used to produce image.
+- (void)imageCropViewController:(RSKImageCropViewController *)controller
+                   didCropImage:(UIImage *)croppedImage
+                  usingCropRect:(CGRect)cropRect
+                  rotationAngle:(CGFloat)rotationAngle
+{
+//    self.imageView.image = croppedImage;
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.cameraImageView.image = croppedImage;
+        [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
+        [self setImageForImageProcessor:croppedImage];
+        [self detectContoursInImage];
+    }];
+//    [self.navigationController popViewControllerAnimated:YES];
+}
+
+// The original image will be cropped.
+- (void)imageCropViewController:(RSKImageCropViewController *)controller
+                  willCropImage:(UIImage *)originalImage
+{
+    // Use when `applyMaskToCroppedImage` set to YES.
+}
+
+// Returns a custom rect for the mask.
+- (CGRect)imageCropViewControllerCustomMaskRect:(RSKImageCropViewController *)controller
+{
+    CGRect maskRect;
+    
+    CGFloat viewWidth = CGRectGetWidth(self.view.bounds);
+    CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
+    
+    int portraitCircleMaskRectInnerEdgeInset = 1;
+    CGFloat diameter = MIN(viewWidth, viewHeight) - portraitCircleMaskRectInnerEdgeInset * 2;
+    
+    CGSize maskSize = CGSizeMake(diameter, diameter);
+    
+    maskRect = CGRectMake((viewWidth - maskSize.width) * 0.5f,
+                          (viewHeight - maskSize.height) * 0.5f,
+                          maskSize.width,
+                          maskSize.height);
+    
+    return maskRect;
+}
+
+// Returns a custom path for the mask.
+- (UIBezierPath *)imageCropViewControllerCustomMaskPath:(RSKImageCropViewController *)controller
+{
+    CGRect maskRect;
+
+    CGFloat viewWidth = CGRectGetWidth(self.view.bounds);
+    CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
+    
+    int portraitCircleMaskRectInnerEdgeInset = 1;
+    CGFloat diameter = MIN(viewWidth, viewHeight) - portraitCircleMaskRectInnerEdgeInset * 2;
+    
+    CGSize maskSize = CGSizeMake(diameter, diameter);
+    
+    maskRect = CGRectMake((viewWidth - maskSize.width) * 0.5f,
+                               (viewHeight - maskSize.height) * 0.5f,
+                               maskSize.width,
+                               maskSize.height);
+    
+    return [UIBezierPath bezierPathWithOvalInRect:maskRect];
+}
+
+// Returns a custom rect in which the image can be moved.
+- (CGRect)imageCropViewControllerCustomMovementRect:(RSKImageCropViewController *)controller
+{
+    // If the image is not rotated, then the movement rect coincides with the mask rect.
+    return controller.maskRect;
 }
 
 @end
