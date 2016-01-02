@@ -7,30 +7,20 @@
 //
 
 #import "ViewController.h"
-#import <opencv2/opencv.hpp>
-#import "UIImage+Trim.h"
-#import "Polygon.h"
-#import "UIImage+AverageColor.h"
-#import "ContourAnalyser.h"
-#import "ImageHelper.h"
-#import "PolygonHelper.h"
 #import "ImageProcessor.h"
 #import "ImageProcessorResult.h"
 
 @interface ViewController ()
-    @property NSMutableArray *images;
-    @property int imageIndex;
-    @property float arcLengthMultiplier;
 @end
 
 @implementation ViewController {
+    NSMutableArray *debugImages;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.arcLengthMultiplier = 0.02;
-    
+    // self.arcLengthMultiplier = 0.02;
     [self convertImageToFoodFace];
 }
 
@@ -41,7 +31,10 @@
     // TODO: fill extracted regions (holes) on plate
     // TODO: select template based on num. extracted contours
     // TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
-    
+    // TODO: allow for tweaking arc length multiplier and other input values
+    // TODO: capture image from camera
+    // TODO: show processing progress
+    // TODO: benchmarking
     
     UIImage *inputImage = [UIImage imageNamed:@"FoodFace7"];
     ImageProcessor *processor = [[ImageProcessor alloc] initWithImage:inputImage];
@@ -54,11 +47,13 @@
     result = [processor boundingBoxImagesToPolygons];
     result = [processor placePolygonsOnTargetTemplate];
     
+    [debugImages addObjectsFromArray:result.images];
+    
     self.debugImageView5.image = result.results[0];
     
     NSLog(@"Processing complete");
-    
-    
+}
+
 //    
 //    self.images = [NSMutableArray array];
 //    self.imageIndex = 0;
@@ -141,31 +136,31 @@
 //    
 //    // Debug the bin layout
 //    [self displayBinTemplateLayout:sortedBinPolygons usingSize:testImage.size];
-}
-
-- (void)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-    
-    for (int i = 0; i < binPolygons.count; i++) {
-        [((Polygon*)[binPolygons objectAtIndex:i]).shape fill];
-    }
-    
-    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.debugImageView3.image = myImage;
-}
+//}
+//
+//- (void)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
+//    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+//    
+//    for (int i = 0; i < binPolygons.count; i++) {
+//        [((Polygon*)[binPolygons objectAtIndex:i]).shape fill];
+//    }
+//    
+//    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    self.debugImageView3.image = myImage;
+//}
 
 - (IBAction)nextButton:(id)sender {
-    self.imageIndex++;
-    int currentIndex = self.imageIndex % self.images.count;
-    UIImage *currentImage = [self.images objectAtIndex:currentIndex];
-    self.debugImageView1.image = currentImage;
+//    self.imageIndex++;
+//    int currentIndex = self.imageIndex % self.images.count;
+//    UIImage *currentImage = [self.images objectAtIndex:currentIndex];
+//    self.debugImageView1.image = currentImage;
 }
 
 - (IBAction)run:(id)sender {
-    self.arcLengthMultiplier = [self.arcLengthTextField.text floatValue];
-    [self convertImageToFoodFace];
+//    self.arcLengthMultiplier = [self.arcLengthTextField.text floatValue];
+//    [self convertImageToFoodFace];
 }
 
 @end

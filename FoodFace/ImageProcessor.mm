@@ -17,7 +17,9 @@
 @implementation ImageProcessor {
     UIImage *inputImage;
     UIImage *croppedImage;
+    cv::Mat imageMatrix;
     cv::Mat imageMatrixAll;
+    cv::Mat imageMatrixFiltered;
     std::vector<std::vector<cv::Point>> allContours;
     std::vector<std::vector<cv::Point>> filteredContours;
     NSMutableArray *contourImages;
@@ -37,11 +39,11 @@
     croppedImage = [ImageHelper roundedRectImageFromImage:inputImage size:inputImage.size withCornerRadius:inputImage.size.height/2];
     
     // Convert the image into a matrix
-    imageMatrixAll = [ImageHelper cvMatFromUIImage:croppedImage];
-    cv::Mat imageMatrixFiltered = [ImageHelper cvMatFromUIImage:croppedImage];
-    cv::Mat copyImageMatrix = [ImageHelper cvMatFromUIImage:croppedImage];
+    imageMatrix = [ImageHelper cvMatFromUIImage:croppedImage];
+    imageMatrix.copyTo(imageMatrixAll);
+    imageMatrix.copyTo(imageMatrixFiltered);
     
-    return [ImageProcessorResult new];
+    return [self results:@[croppedImage] images:@[]];
 }
 
 -(ImageProcessorResult*)findContours {
@@ -49,28 +51,30 @@
     allContours = [ContourAnalyser findContoursInImage:imageMatrixAll];
     
     // Highlight the contours in the image
-    //cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
+    cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
+    UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
     
-    return [ImageProcessorResult new];
+    return [self results:@[] images:@[highlightedContours]];
 }
 
 -(ImageProcessorResult*)filterContours {
     filteredContours = [ContourAnalyser filterContours:allContours];
     
     // Highlight the contours in the image
-    // cv::Mat cvMatWithSquaresFiltered = [ImageHelper highlightContoursInImage:filteredContours image:imageMatrixFiltered];
+     cv::Mat cvMatWithSquaresFiltered = [ImageHelper highlightContoursInImage:filteredContours image:imageMatrixFiltered];
+    UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresFiltered];
     
-    return [ImageProcessorResult new];
+    return [self results:@[] images:@[highlightedContours]];
 }
 
 -(ImageProcessorResult*)extractContourBoundingBoxImages {
     // Extract highlighted contours
-    cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:imageMatrixAll];
+    cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:imageMatrix];
     
     // Crop extracted contours to the size of the contour, and make background transparent
     contourImages = [ContourAnalyser reduceContoursToBoundingBox:extractedContours];
     
-    return [ImageProcessorResult new];
+    return [self results:@[] images:@[]];
 }
 
 -(ImageProcessorResult*)boundingBoxImagesToPolygons {
@@ -81,7 +85,7 @@
         [extractedPolygons addObject:polygon];
     }
     
-    return [ImageProcessorResult new];
+    return [self results:@[] images:@[]];
 }
 
 -(ImageProcessorResult*)placePolygonsOnTargetTemplate {
@@ -104,7 +108,11 @@
         testImage = [PolygonHelper addItemPolygon:currentExtractedPolygon toImage:testImage atBinPolygon:currentBinPolygon];
     }
     
-    return [[ImageProcessorResult alloc] initWithResults:@[testImage] images:@[@"other"]];
+    return [self results:@[testImage] images:@[]];
+}
+
+-(ImageProcessorResult*)results:(NSArray*)results images:(NSArray*)images {
+    return [[ImageProcessorResult alloc] initWithResults:results images:images];
 }
 
 
