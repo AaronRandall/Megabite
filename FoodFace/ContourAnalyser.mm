@@ -14,7 +14,7 @@
 
 @implementation ContourAnalyser
 
-+ (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image
++ (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image arcLengthMultiplier:(float)arcLengthMultiplier
 {
     std::vector<std::vector<cv::Point>> validContours;
     cv::Mat pyr, timg, gray0(image.size(), CV_8U), gray;
@@ -59,7 +59,7 @@
                 // so user can tweak to get the correct detection
                 cv::approxPolyDP(cv::Mat(contours[i]),
                                  approx,
-                                 cv::arcLength(cv::Mat(contours[i]), true) * 0.02/*self.arcLengthMultiplier*/,
+                                 cv::arcLength(cv::Mat(contours[i]), true) * arcLengthMultiplier,
                                  true
                                  );
                 
@@ -67,7 +67,7 @@
                 cv::Rect x = cv::boundingRect(currentContour);
                 
                 if (x.width > 800 || x.height > 800) {
-                    NSLog(@"Skipping contour due to width/height constraints");
+                    //NSLog(@"Skipping contour due to width/height constraints");
                     continue;
                 }
                 

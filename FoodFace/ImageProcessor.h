@@ -15,7 +15,7 @@
 -(id)initWithImage:(UIImage*)image;
 
 -(ImageProcessorResult*)prepareImage;
--(ImageProcessorResult*)findContours;
+-(ImageProcessorResult*)findContours:(float)arcLengthMultiplier;
 -(ImageProcessorResult*)filterContours;
 -(ImageProcessorResult*)extractContourBoundingBoxImages;
 -(ImageProcessorResult*)boundingBoxImagesToPolygons;

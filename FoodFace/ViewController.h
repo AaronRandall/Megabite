@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageView;
@@ -25,6 +25,11 @@
 - (IBAction)nextButton:(id)sender;
 - (IBAction)run:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *arcLengthTextField;
+@property (strong, nonatomic) IBOutlet UIImageView *cameraImageView;
+- (IBAction)takePhotoButton:(id)sender;
+- (IBAction)detectContours:(id)sender;
+@property (weak, nonatomic) IBOutlet UIStepper *sensitivityStepper;
+- (IBAction)sensitivityStepperValueChanged:(id)sender;
 
 @end
 

@@ -21,5 +21,6 @@
 + (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage*)image;
 + (CGFloat)degreesToRadians:(CGFloat)degrees;
 + (NSUInteger)numberOfRedPixelsInImage:(UIImage*)image;
++ (UIImage *)resizeImage:(UIImage *)image scaledToSize:(CGSize)size;
 
 @end

@@ -35,7 +35,10 @@
 }
 
 -(ImageProcessorResult*)prepareImage {
-    // Crop the image
+    // Resize the image to 1000x1000 pixels
+    inputImage = [ImageHelper resizeImage:inputImage scaledToSize:CGSizeMake(1000, 1000)];
+    
+    // Crop the image to the shape of the plate
     croppedImage = [ImageHelper roundedRectImageFromImage:inputImage size:inputImage.size withCornerRadius:inputImage.size.height/2];
     
     // Convert the image into a matrix
@@ -46,9 +49,9 @@
     return [self results:@[croppedImage] images:@[]];
 }
 
--(ImageProcessorResult*)findContours {
+-(ImageProcessorResult*)findContours:(float)arcLengthMultiplier {
     // Detect all contours within the image matrix, and filter for those that match detection criteria
-    allContours = [ContourAnalyser findContoursInImage:imageMatrixAll];
+    allContours = [ContourAnalyser findContoursInImage:imageMatrixAll arcLengthMultiplier:arcLengthMultiplier];
     
     // Highlight the contours in the image
     cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
@@ -61,10 +64,12 @@
     filteredContours = [ContourAnalyser filterContours:allContours];
     
     // Highlight the contours in the image
-     cv::Mat cvMatWithSquaresFiltered = [ImageHelper highlightContoursInImage:filteredContours image:imageMatrixFiltered];
+    cv::Mat cvMatWithSquaresFiltered = [ImageHelper highlightContoursInImage:filteredContours image:imageMatrixFiltered];
     UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresFiltered];
     
-    return [self results:@[] images:@[highlightedContours]];
+    NSNumber *numFilteredContours = [NSNumber numberWithUnsignedLong:filteredContours.size()];
+    
+    return [self results:@[numFilteredContours] images:@[highlightedContours]];
 }
 
 -(ImageProcessorResult*)extractContourBoundingBoxImages {
