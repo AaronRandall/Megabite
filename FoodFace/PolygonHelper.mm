@@ -144,4 +144,19 @@
     return result;
 }
 
+////    // Debug the bin layout
+////    [self displayBinTemplateLayout:sortedBinPolygons usingSize:testImage.size];
+//- (void)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
+//    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+//
+//    for (int i = 0; i < binPolygons.count; i++) {
+//        [((Polygon*)[binPolygons objectAtIndex:i]).shape fill];
+//    }
+//
+//    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//
+//    self.debugImageView3.image = myImage;
+//}
+
 @end
