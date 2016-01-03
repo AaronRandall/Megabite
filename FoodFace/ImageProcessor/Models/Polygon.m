@@ -10,7 +10,7 @@
 
 @implementation Polygon
 
--(id)initWithImage:(UIImage*)image {
+- (id)initWithImage:(UIImage*)image {
     self = [super init];
     if (self) {
         self.image = image;
@@ -22,7 +22,7 @@
     return self;
 }
 
--(id)initWithShape:(UIBezierPath*)shape {
+- (id)initWithShape:(UIBezierPath*)shape {
     self = [super init];
     if (self) {
         self.shape = shape;
@@ -40,6 +40,5 @@
     }
     return self;
 }
-
 
 @end

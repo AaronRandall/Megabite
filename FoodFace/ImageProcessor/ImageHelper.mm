@@ -12,8 +12,7 @@
 
 @implementation ImageHelper
 
-+ (UIImage *)UIImageFromCVMat:(cv::Mat)cvMat
-{
++ (UIImage *)UIImageFromCVMat:(cv::Mat)cvMat {
     NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
     CGColorSpaceRef colorSpace;
     
@@ -49,8 +48,7 @@
     return finalImage;
 }
 
-+ (cv::Mat)cvMatFromUIImage:(UIImage *)image
-{
++ (cv::Mat)cvMatFromUIImage:(UIImage *)image {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
     CGFloat cols = image.size.width;
     CGFloat rows = image.size.height;
@@ -72,8 +70,7 @@
     return cvMat;
 }
 
-+ (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
-{
++ (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image {
     for ( int i = 0; i< contours.size(); i++ ) {
         // draw contour
         cv::drawContours(image, contours, i, cv::Scalar(255,0,0), 10, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
@@ -96,8 +93,7 @@
     return image;
 }
 
-+ (cv::vector<cv::Mat>)cutContoursFromImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image
-{
++ (cv::vector<cv::Mat>)cutContoursFromImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image {
     cv::vector<cv::Mat> subregions;
     
     for (int i = 0; i < contours.size(); i++)
@@ -170,8 +166,7 @@
     return boundingBoxImage;
 }
 
-+ (CGFloat)degreesToRadians:(CGFloat)degrees
-{
++ (CGFloat)degreesToRadians:(CGFloat)degrees {
     return degrees * M_PI / 180;
 }
 
@@ -203,8 +198,7 @@ struct pixel {
     unsigned char r, g, b, a;
 };
 
-+ (NSUInteger)numberOfRedPixelsInImage:(UIImage*) image
-{
++ (NSUInteger)numberOfRedPixelsInImage:(UIImage*) image {
     NSUInteger numberOfRedPixels = 0;
     
     // Allocate a buffer big enough to hold all the pixels

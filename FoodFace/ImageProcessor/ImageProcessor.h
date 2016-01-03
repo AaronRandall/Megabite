@@ -10,13 +10,12 @@
 
 @interface ImageProcessor : NSObject
 
--(id)initWithImage:(UIImage*)image;
-
--(ImageProcessorResult*)prepareImage;
--(ImageProcessorResult*)findContours:(float)arcLengthMultiplier;
--(ImageProcessorResult*)filterContours;
--(ImageProcessorResult*)extractContourBoundingBoxImages;
--(ImageProcessorResult*)boundingBoxImagesToPolygons;
--(ImageProcessorResult*)placePolygonsOnTargetTemplate;
+- (id)initWithImage:(UIImage*)image;
+- (ImageProcessorResult*)prepareImage;
+- (ImageProcessorResult*)findContours:(float)arcLengthMultiplier;
+- (ImageProcessorResult*)filterContours;
+- (ImageProcessorResult*)extractContourBoundingBoxImages;
+- (ImageProcessorResult*)boundingBoxImagesToPolygons;
+- (ImageProcessorResult*)placePolygonsOnTargetTemplate;
 
 @end

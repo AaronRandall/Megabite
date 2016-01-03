@@ -8,8 +8,8 @@
 
 @interface Polygon : NSObject
 
--(id)initWithImage:(UIImage*)image;
--(id)initWithShape:(UIBezierPath*)shape;
+- (id)initWithImage:(UIImage*)image;
+- (id)initWithShape:(UIBezierPath*)shape;
 
 @property UIImage *image;
 @property UIBezierPath *shape;

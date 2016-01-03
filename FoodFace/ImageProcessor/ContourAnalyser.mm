@@ -14,8 +14,7 @@
 
 @implementation ContourAnalyser
 
-+ (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image arcLengthMultiplier:(float)arcLengthMultiplier
-{
++ (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image arcLengthMultiplier:(float)arcLengthMultiplier {
     std::vector<std::vector<cv::Point>> validContours;
     cv::Mat pyr, timg, gray0(image.size(), CV_8U), gray;
     int thresh = 50, N = 11;
@@ -114,8 +113,7 @@
     return validContours;
 }
 
-+ (std::vector<std::vector<cv::Point>>)filterContours:(std::vector<std::vector<cv::Point>>)contours
-{
++ (std::vector<std::vector<cv::Point>>)filterContours:(std::vector<std::vector<cv::Point>>)contours {
     NSMutableSet *evictedIndexes = [NSMutableSet set];
     
     std::vector<std::vector<cv::Point>> filteredContours;

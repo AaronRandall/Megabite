@@ -28,6 +28,8 @@
  */
 
 @interface UIImage (AverageColor)
+
 - (UIColor *)averageColor;
 - (NSDictionary*)mainColoursInImageWithdetail:(int)detail;
+
 @end

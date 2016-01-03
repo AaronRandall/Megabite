@@ -10,7 +10,7 @@
 
 @implementation ImageProcessorResult
 
--(id)initWithResults:(NSArray*)results images:(NSArray*)images {
+- (id)initWithResults:(NSArray*)results images:(NSArray*)images {
     self = [super init];
     if (self) {
         self.results = results;

@@ -8,7 +8,7 @@
 
 @interface ImageProcessorResult : NSObject
 
--(id)initWithResults:(NSArray*)results images:(NSArray*)images;
+- (id)initWithResults:(NSArray*)results images:(NSArray*)images;
 
 @property (nonatomic, retain) NSArray *results;
 @property (nonatomic, retain) NSArray *images;
