@@ -71,6 +71,13 @@ float const defaultArcMultiplier = 0.02;
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
+- (IBAction)defaultPhoto:(id)sender {
+    UIImage *defaultPhoto = [UIImage imageNamed:@"Food"];
+    self.inputImageView.image = defaultPhoto;
+    [self setImageForImageProcessor:defaultPhoto];
+    [self detectContoursInImage];
+}
+
 - (IBAction)detectContours:(id)sender {
     [self detectContoursInImage];
 }

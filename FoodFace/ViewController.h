@@ -11,6 +11,7 @@
 @interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDataSource, RSKImageCropViewControllerDelegate>
 
 - (IBAction)takePhoto:(id)sender;
+- (IBAction)defaultPhoto:(id)sender;
 - (IBAction)detectContours:(id)sender;
 - (IBAction)convertImage:(id)sender;
 - (IBAction)sensitivityStepperValueChanged:(id)sender;

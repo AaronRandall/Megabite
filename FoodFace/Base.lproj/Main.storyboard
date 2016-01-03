@@ -13,14 +13,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
                                 <rect key="frame" x="56" y="382" width="260" height="260"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzL-UR-f7L">
-                                <rect key="frame" x="271" y="302" width="30" height="30"/>
+                                <rect key="frame" x="286" y="339" width="30" height="30"/>
                                 <state key="normal" title="Run"/>
                                 <connections>
                                     <action selector="convertImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WEe-jl-xz2"/>
@@ -30,17 +30,10 @@
                                 <rect key="frame" x="56" y="34" width="260" height="260"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBR-bf-cbc">
-                                <rect key="frame" x="76" y="302" width="77" height="30"/>
+                                <rect key="frame" x="59" y="302" width="77" height="30"/>
                                 <state key="normal" title="Take photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bYo-xz-gJt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
-                                <rect key="frame" x="187" y="302" width="46" height="30"/>
-                                <state key="normal" title="Detect"/>
-                                <connections>
-                                    <action selector="detectContours:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9vh-m2-Oiy"/>
                                 </connections>
                             </button>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" value="0.02" minimumValue="0.01" maximumValue="0.029999999999999999" stepValue="0.001" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-if-lPk">
@@ -54,10 +47,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
+                                <rect key="frame" x="221" y="339" width="46" height="30"/>
+                                <state key="normal" title="Detect"/>
+                                <connections>
+                                    <action selector="detectContours:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9vh-m2-Oiy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unw-Na-UZC">
+                                <rect key="frame" x="222" y="302" width="94" height="30"/>
+                                <state key="normal" title="Default photo"/>
+                                <connections>
+                                    <action selector="defaultPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xs-I1-ZEU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="arcLengthMultiplierField" destination="6xe-9s-QPZ" id="xk3-f6-vwy"/>
                         <outlet property="inputImageView" destination="VuZ-JD-EQO" id="HU4-LY-nxo"/>
@@ -68,24 +75,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="445" y="516"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="a3c-l6-RcK">
-            <objects>
-                <viewController storyboardIdentifier="mainStoryboard" id="Byz-qJ-a8Y" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UBI-II-Bj0"/>
-                        <viewControllerLayoutGuide type="bottom" id="ToK-Uo-JZD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VEW-Ps-qvL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BAo-3b-W8I" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1255" y="357"/>
         </scene>
     </scenes>
 </document>
