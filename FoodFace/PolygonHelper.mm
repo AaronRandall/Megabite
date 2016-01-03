@@ -120,7 +120,7 @@
 //    self.debugImageView4.image = myImage;
     // --------------------------------------------------------------------
     
-    return numberOfRedPixels;
+    return (int)numberOfRedPixels;
 }
 
 + (UIImage*)addItemPolygon:(Polygon*)itemPolygon toImage:(UIImage*)image atBinPolygon:(Polygon*)binPolygon {

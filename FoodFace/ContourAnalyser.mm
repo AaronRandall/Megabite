@@ -127,7 +127,7 @@
             }
             
             // 0 == perfect match
-            double result = cv::matchShapes(contours[x], contours[y], 1, 1);
+            //double result = cv::matchShapes(contours[x], contours[y], 1, 1);
             //NSLog(@"Comparison result: %f", result);
             //if (result <= 0.5) {
             //    [evictedIndexes addObject:[NSNumber numberWithInt:y]];

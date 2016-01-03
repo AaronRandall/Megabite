@@ -72,7 +72,7 @@
         <!--View Controller-->
         <scene sceneID="a3c-l6-RcK">
             <objects>
-                <viewController id="Byz-qJ-a8Y" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainStoryboard" id="Byz-qJ-a8Y" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UBI-II-Bj0"/>
                         <viewControllerLayoutGuide type="bottom" id="ToK-Uo-JZD"/>
