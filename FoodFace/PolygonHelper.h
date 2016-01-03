@@ -6,9 +6,6 @@
 //  Copyright © 2016 Aaron. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 @class Polygon;
 
 @interface PolygonHelper : NSObject

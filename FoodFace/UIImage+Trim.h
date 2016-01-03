@@ -7,8 +7,6 @@
 //  Copyright (c) 2012 Wrep - http://www.wrep.nl/
 //
 
-#import <UIKit/UIKit.h>
-
 @interface UIImage (Trim)
 
 - (UIImage *)replaceColor:(UIColor*)color withTolerance:(float)tolerance;

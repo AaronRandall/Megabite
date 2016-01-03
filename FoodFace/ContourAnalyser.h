@@ -6,9 +6,7 @@
 //  Copyright © 2016 Aaron. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <opencv2/opencv.hpp>
-#import <UIKit/UIKit.h>
 
 @interface ContourAnalyser : NSObject
 

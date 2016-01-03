@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "ImageProcessor.h"
 #import "ImageProcessorResult.h"
-#import <RSKImageCropper/RSKImageCropper.h>
 
 @interface ViewController ()
 @end
@@ -18,28 +17,6 @@ float const defaultArcMultiplier = 0.02;
 
 @implementation ViewController {
     ImageProcessor *processor;
-}
-
-@synthesize sensitivityStepper;
-
-// TODO: resize input image to fixed size (1000x1000)
-// TODO: Crop image to largest possible circle
-// TODO: detect plate
-// TODO: fill extracted regions (holes) on plate
-// TODO: select template based on num. extracted contours
-// TODO: setup template with bins, bin centroid coordinates, bin surface areas, ordered by surface area (big to small)
-// TODO: allow for tweaking arc length multiplier and other input values
-// TODO: capture image from camera
-// TODO: show processing progress
-// TODO: benchmarking
-
-// TODO: crop image to circle (while taking image)
-// TODO: support tweaking number of image & polygon rotations allowed (with stepper)
-
-# pragma mark - View lifecycle
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
 }
 
 # pragma mark - Image processor

@@ -6,7 +6,6 @@
 //  Copyright © 2015 Aaron. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <RSKImageCropper/RSKImageCropper.h>
 
 @interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDataSource, RSKImageCropViewControllerDelegate>

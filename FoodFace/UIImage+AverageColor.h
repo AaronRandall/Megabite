@@ -28,7 +28,6 @@
  */
 
 #import "UIImage+AverageColor.h"
-#import <UIKit/UIKit.h>
 
 @implementation UIImage (AverageColor)
 

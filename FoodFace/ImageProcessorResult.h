@@ -6,8 +6,6 @@
 //  Copyright © 2016 Aaron. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ImageProcessorResult : NSObject
 
 -(id)initWithResults:(NSArray*)results images:(NSArray*)images;
