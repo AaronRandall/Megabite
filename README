@@ -1,3 +1,5 @@
+// TODO: quick exit from rotation logic if polygon surface area >= target polygon surface area
+// TODO: autolayout main view
 // TODO: detect plate
 // TODO: fill extracted regions (holes) on plate
 // TODO: show processing progress
