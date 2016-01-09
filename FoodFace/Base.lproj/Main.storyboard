@@ -16,57 +16,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
-                                <rect key="frame" x="56" y="382" width="260" height="260"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzL-UR-f7L">
-                                <rect key="frame" x="286" y="339" width="30" height="30"/>
+                                <rect key="frame" x="283" y="616" width="30" height="30"/>
                                 <state key="normal" title="Run"/>
                                 <connections>
                                     <action selector="convertImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WEe-jl-xz2"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VuZ-JD-EQO">
-                                <rect key="frame" x="56" y="34" width="260" height="260"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBR-bf-cbc">
-                                <rect key="frame" x="59" y="302" width="77" height="30"/>
+                                <rect key="frame" x="56" y="579" width="77" height="30"/>
                                 <state key="normal" title="Take photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bYo-xz-gJt"/>
                                 </connections>
                             </button>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" value="0.02" minimumValue="0.01" maximumValue="0.029999999999999999" stepValue="0.001" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-if-lPk">
-                                <rect key="frame" x="59" y="340" width="94" height="29"/>
+                                <rect key="frame" x="56" y="617" width="94" height="29"/>
                                 <connections>
                                     <action selector="sensitivityStepperValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="RYz-rO-zCD"/>
                                 </connections>
                             </stepper>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.020" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-9s-QPZ">
-                                <rect key="frame" x="161" y="340" width="52" height="30"/>
+                                <rect key="frame" x="158" y="617" width="52" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
-                                <rect key="frame" x="221" y="339" width="46" height="30"/>
+                                <rect key="frame" x="218" y="616" width="46" height="30"/>
                                 <state key="normal" title="Detect"/>
                                 <connections>
                                     <action selector="detectContours:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9vh-m2-Oiy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unw-Na-UZC">
-                                <rect key="frame" x="222" y="302" width="94" height="30"/>
+                                <rect key="frame" x="219" y="579" width="94" height="30"/>
                                 <state key="normal" title="Default photo"/>
                                 <connections>
                                     <action selector="defaultPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xs-I1-ZEU"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VuZ-JD-EQO">
+                                <rect key="frame" x="94" y="12" width="187" height="187"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
+                                <rect key="frame" x="94" y="393" width="187" height="187"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZu-ht-T1H">
+                                <rect key="frame" x="94" y="203" width="187" height="187"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="arcLengthMultiplierField" destination="6xe-9s-QPZ" id="xk3-f6-vwy"/>
+                        <outlet property="debugImageView" destination="wZu-ht-T1H" id="6Kj-PW-Wrh"/>
                         <outlet property="inputImageView" destination="VuZ-JD-EQO" id="HU4-LY-nxo"/>
                         <outlet property="outputImageView" destination="b3w-vl-Ur6" id="gGE-Ns-5VX"/>
                         <outlet property="sensitivityStepper" destination="PPX-if-lPk" id="KMk-1g-vsw"/>
@@ -74,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="445" y="516"/>
+            <point key="canvasLocation" x="444.5" y="515.5"/>
         </scene>
     </scenes>
 </document>

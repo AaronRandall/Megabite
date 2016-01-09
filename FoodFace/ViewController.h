@@ -20,5 +20,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *arcLengthMultiplierField;
 @property (weak, nonatomic) IBOutlet UIImageView *inputImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *debugImageView;
 
 @end

@@ -1,0 +1,8 @@
+#include "pop.xcconfig"
+CLANG_CXX_LANGUAGE_STANDARD = ${POP_CLANG_CXX_LANGUAGE_STANDARD}
+CLANG_CXX_LIBRARY = ${POP_CLANG_CXX_LIBRARY}
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/pop" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/OpenCV" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/calib3d" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/contrib" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/core" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/features2d" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/flann" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/highgui" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/imgproc" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/legacy" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/ml" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/nonfree" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/objdetect" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/photo" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/stitching" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/stitching/detail" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/video" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/videostab" "${PODS_ROOT}/Headers/Public/OpenCV/opencv2/world" "${PODS_ROOT}/Headers/Public/RSKImageCropper" "${PODS_ROOT}/Headers/Public/pop"
+OTHER_LDFLAGS = ${POP_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

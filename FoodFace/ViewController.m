@@ -9,14 +9,32 @@
 #import "ViewController.h"
 #import "ImageProcessor.h"
 #import "ImageProcessorResult.h"
+#import <pop/POP.h>
 
 @interface ViewController ()
 @end
 
 float const defaultArcMultiplier = 0.02;
 
+/*
+TODOS:
+ - update ImageProcessor to return all useful images
+ - work out way to animate between all the different image types
+ - last code cleanup
+ - blog post
+*/
+
 @implementation ViewController {
     ImageProcessor *processor;
+    NSMutableArray *outputImages;
+}
+
+# pragma mark - View lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    outputImages = [NSMutableArray array];
 }
 
 # pragma mark - Image processor
@@ -30,7 +48,8 @@ float const defaultArcMultiplier = 0.02;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (result.images.count > 0) {
-                self.outputImageView.image = result.images.firstObject;
+                [outputImages addObject:result.images.firstObject];
+                self.debugImageView.image = result.images.firstObject;
             }
         });
     });
@@ -45,13 +64,36 @@ float const defaultArcMultiplier = 0.02;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (result.results.count > 0) {
+                [outputImages addObject:result.results.firstObject];
                 self.outputImageView.image = result.results.firstObject;
+                //[self runAnimations];
             }
         });
     });
 }
 
+- (void)runAnimations {
+    POPSpringAnimation *sizeAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];
+    sizeAnimation.springBounciness = 10;
+    if (self.inputImageView.bounds.size.width == 250) {
+        sizeAnimation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.width)];
+    }
+    
+    [sizeAnimation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
+        if(finished){
+            NSLog(@"finished");
+            POPBasicAnimation *basicAnimation = [POPBasicAnimation animation];
+            basicAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewAlpha];
+            basicAnimation.toValue= @(1);
+            [self.outputImageView pop_addAnimation:basicAnimation forKey:@"basicAnimation"];
+        }
+    }];
+    
+    [self.inputImageView pop_addAnimation:sizeAnimation forKey:@"sizeAnimation"];
+}
+
 - (void)setImageForImageProcessor:(UIImage*)image {
+    self.inputImageView.image = image;
     processor = [[ImageProcessor alloc] initWithImage:image];
 }
 
@@ -73,7 +115,6 @@ float const defaultArcMultiplier = 0.02;
 
 - (IBAction)defaultPhoto:(id)sender {
     UIImage *defaultPhoto = [UIImage imageNamed:@"Food"];
-    self.inputImageView.image = defaultPhoto;
     [self setImageForImageProcessor:defaultPhoto];
     [self detectContoursInImage];
 }
@@ -121,7 +162,6 @@ float const defaultArcMultiplier = 0.02;
                   usingCropRect:(CGRect)cropRect
                   rotationAngle:(CGFloat)rotationAngle {
     [self dismissViewControllerAnimated:YES completion:^{
-        self.inputImageView.image = croppedImage;
         [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
         [self setImageForImageProcessor:croppedImage];
         [self detectContoursInImage];

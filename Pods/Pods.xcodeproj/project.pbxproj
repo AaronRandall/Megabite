@@ -7,32 +7,92 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		106627BA66A2B759A44175B04690B9A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5141189CCCA481F7B693EB92E9838B /* Foundation.framework */; };
+		09F160052D6F4DF4F769F6A2A351071C /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EC10F21A5E230A911C2C2E5082CDAE4B /* POPAnimationPrivate.h */; };
+		0A0EC9DD90F3AF37E53F7F46A4BE98FD /* POPMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = FDBA33F9EF6A822234DF0ECBA517104F /* POPMath.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0E111996ED8AB07B504AD6200F460C6E /* POP.h in Headers */ = {isa = PBXBuildFile; fileRef = 38C1E5A4A6882760CB349FCABD22A9DC /* POP.h */; };
+		102121906E0867CBC59B51B37A7EA05E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8868E76B0C2B4B5B262EF75FD75DF4C9 /* Foundation.framework */; };
+		106627BA66A2B759A44175B04690B9A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8868E76B0C2B4B5B262EF75FD75DF4C9 /* Foundation.framework */; };
+		11924DA123F63743B409090BFC425AD2 /* POPCGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CC05709207C91767940918CDD4779DC /* POPCGUtils.h */; };
 		16FAD1F58EEC31B01857CC5CAAB8AEF3 /* CGGeometry+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0A101DE768B57A7B12FC7F84409749 /* CGGeometry+RSKImageCropper.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		20D33491B672F9B2BEA73DB6A1ED7180 /* Pods-FoodFace-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B66A020661CE04DEB6DCBD2E872A24 /* Pods-FoodFace-dummy.m */; };
+		1937EC6CD83AA2FAB3455591AB074459 /* POPPropertyAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 134BDC30251FB7A5465C17F603FCAC5F /* POPPropertyAnimationInternal.h */; };
+		1BEBEDAB53B9DB3AD45E1F70637747F9 /* POPSpringSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 6961E549FC85F85EB7560B887B11C928 /* POPSpringSolver.h */; };
+		22030D04E39440FA02B75449A95BF767 /* POPAnimationEventInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785AD09C2208501D5161E950E701889 /* POPAnimationEventInternal.h */; };
+		2AD822A4C6DD9CA6D499CF6955198F4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8868E76B0C2B4B5B262EF75FD75DF4C9 /* Foundation.framework */; };
 		35D067D016531835F9F2B89C9D7F7027 /* RSKTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A90E591CD80106BFC6EE612B48B94ED /* RSKTouchView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3ADD70137F9B6281BCF37B3D61E38BC0 /* POPCustomAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55859B0AF81AF61FE398A79E1105367F /* POPCustomAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3D9D8FFD9E94F25F7FD26F407C7EFC66 /* RSKImageCropViewController+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = AB2CAFFCA194D9DFD2B598DCC0F4F4D5 /* RSKImageCropViewController+Protected.h */; };
+		461ADD1403E940D9DB7BBB5B7323376F /* POPMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C3FE18EB564AF4087573DE6F3F2D3D3 /* POPMath.h */; };
 		49365870833BE4221E17F323F115145F /* RSKImageCropViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0826B6FE8BDE45CA63DD59F704E5C8E6 /* RSKImageCropViewController.h */; };
+		4BA566241FA98C1D5E4A5284D84EAB71 /* POPSpringAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = EB56BE02F1B0412A41C9D9834B04BC30 /* POPSpringAnimationInternal.h */; };
 		4BA6FBDA02D04C7A73519E425561513E /* RSKInternalUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 585840193243A2114C57C1F6881D67BB /* RSKInternalUtility.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5866C0C924A25BB0EF88826D063AD5EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5141189CCCA481F7B693EB92E9838B /* Foundation.framework */; };
+		5520088E66FB2528F595AA617FFC5D9A /* POPAnimationRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A5F7AF86D19E519B94AD6D8CB98CC34 /* POPAnimationRuntime.h */; };
+		59CB94574F710422B4C9CD6D388CCA03 /* POPCustomAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 928EC8B9105DA581C7896C2102E87BE2 /* POPCustomAnimation.h */; };
+		5E3CDE45685C9D2843D55E0089B6A8FC /* POPPropertyAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7EA471114E242A9CB5EFE60337242BBC /* POPPropertyAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		65E2E3622C48D2E001A8026374D98F34 /* UIApplication+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 38402F127F05961341765FFD5CAB3509 /* UIApplication+RSKImageCropper.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		673837380967B43D49322FEF1A2D3C6A /* UIImage+RSKImageCropper.h in Headers */ = {isa = PBXBuildFile; fileRef = B81B0D8C841B41539378B0D0F82ED611 /* UIImage+RSKImageCropper.h */; };
+		6CA1BC25AE2BDB37CC7326F199D89B8F /* POPAnimatableProperty.mm in Sources */ = {isa = PBXBuildFile; fileRef = D129F970B65877327412A3801B4BBDDD /* POPAnimatableProperty.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6E197218F405FA135D9836583417AB3E /* RSKTouchView.h in Headers */ = {isa = PBXBuildFile; fileRef = D9038B1D4452B0A9DC0401A4B3D4EDA9 /* RSKTouchView.h */; };
 		7078F2897A78CA6C3AB74EC7D319A67B /* RSKImageCropper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3416E298A1505E1ED22025147300CA97 /* RSKImageCropper-dummy.m */; };
+		73D668A4EA72D96B69D89DB8EAE61181 /* POPGeometry.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E758E4A924C00A9688E23D85912F5A /* POPGeometry.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		78B39005A56AAA89947D76CAF85C8DCB /* POPAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 77D0456A9D1D23FB7DCBD18E0690A7E4 /* POPAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7B99231436CB0981EC5113A681AF7C8E /* POPAnimationTracerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA58C3428E2A0E2F88C2A0522297274 /* POPAnimationTracerInternal.h */; };
+		7EE77B776CF54D5794EB5D9DB5FCF8D4 /* POPPropertyAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = F81E8633F1E784423FE8B9BE16D38981 /* POPPropertyAnimation.h */; };
+		804C70F77F75F0E75ACC3E3E4B47B727 /* POPLayerExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = 9663A817A809169745F3F8E987FFE076 /* POPLayerExtras.h */; };
+		83BBF916C1F94ADD6C6A94C510120599 /* POPBasicAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3C030C68EF9E6E79BBFB1DB6936B8891 /* POPBasicAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		889E44AEA8752FD2EE9667DD51C6ACD7 /* POPAnimationTracer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC8C52F61A373A5B99403265A9C70147 /* POPAnimationTracer.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		89921C5B783E185CE4809D55A78C3640 /* RSKImageScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C49EB74DD1767D90132D118F761F556 /* RSKImageScrollView.h */; };
+		8C56A05428C43518E0123B85C7ECCFA3 /* POPVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = B5E7F8F5699BEABF9719044A82BB5677 /* POPVector.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8D4769896971F94D0DB9FBACE08BA212 /* RSKImageCropper.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A920C0DA666730FD80A4894A20001B /* RSKImageCropper.h */; };
+		9088AFD3E6C678A42A8E0189F65F73B6 /* POPDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DA3C63E9AD758336342BC51C0BB859 /* POPDefines.h */; };
+		9383D615E2EDEC79C6023B473C1677F8 /* POPAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C461AA6E35C8C30E5ABF49269FACFEE9 /* POPAnimator.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9389A2EB242BAF3934437E2995FED8FB /* POPAnimationExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = FF44082A4BF0E64C8730D0F96AE5C377 /* POPAnimationExtras.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		94BFE73B7E00A0FED987F553B0DCE94E /* POPAnimatableProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 313669CF0D1BF49C96C85FC593F4BC1D /* POPAnimatableProperty.h */; };
+		94FACE1C5E4B42AB129DA7326E4E04F9 /* POPAnimationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F210DEEA777E0BF1995DC3570CC616E /* POPAnimationEvent.h */; };
+		966900CAD39E8B592A35F8401549A86D /* TransformationMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E056FF5C4EC38A55B45FB52F395D72E /* TransformationMatrix.h */; };
+		96A8A3E553ABDF368B8038EE843F6F7F /* TransformationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36DE873E598DA409B4A0397EB1D922A2 /* TransformationMatrix.cpp */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		99F0F8AE566C3E252834E000C28F3BE5 /* POPAnimationEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = E170CE5A5F852AC87CD6DB4E6454B62D /* POPAnimationEvent.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A15DDC0785047AEA4BE5F3B38308B249 /* CGGeometry+RSKImageCropper.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C50BE4ED19437983A43E5525C948D0 /* CGGeometry+RSKImageCropper.h */; };
+		AA0189A6FB9572B5BF87E3B0DD1F872C /* FloatConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C091E831068E3E504A40AC6932B39C87 /* FloatConversion.h */; };
+		AA6468E7A2A37B07F18C9D06719D2B1C /* POPCGUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8CA27FC7F71CFFDFCA6E800917A5028D /* POPCGUtils.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		AAB6D6F7D67249E04C6A1D2A392F7CC0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924AC607FD5A22D7701D6E3FE37783C2 /* UIKit.framework */; };
+		B134EDB169A27368549EE676EB012D1E /* POPLayerExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = 873BF345131435367DF493FB6AC31163 /* POPLayerExtras.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B5B86F0561840C9F3408D9A3CE3BADD0 /* POPDecayAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B0CE575CDDE0B1795BB8B88E0B49ACA0 /* POPDecayAnimationInternal.h */; };
+		B6DA545595D3CE47BC8F81E673889B4B /* UnitBezier.h in Headers */ = {isa = PBXBuildFile; fileRef = 96015F1C746803D9318614B277F71BCB /* UnitBezier.h */; };
+		B9E9A2A0487278882F2DDEF33ED36DD3 /* POPAnimationRuntime.mm in Sources */ = {isa = PBXBuildFile; fileRef = D289BA64092D58C6DD5801B3B1589814 /* POPAnimationRuntime.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BA9989C7128E968BA7D20CFEB392AE9D /* POPBasicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 212068113F29FA47D17730ED388F8706 /* POPBasicAnimation.h */; };
 		BD3C84D9FAA6223DDE40572EBDBEA518 /* RSKInternalUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = ED16708F4ADF6CA7DD1D9929953B188C /* RSKInternalUtility.h */; };
+		BD6626643DD9C3A12AB86F9361EC89DB /* POPAnimatorPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0476012CEBFEB22B5F0926994E6AEEE3 /* POPAnimatorPrivate.h */; };
+		BE267A18590772AAA04953604BC7B310 /* POPAnimationExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B6A53BFD919966B87CD6FBFD89CE1B /* POPAnimationExtras.h */; };
 		BF0CAD77E0CA25E16AAA8BCA14B262E7 /* RSKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4B5BC54399E36562E61FD2DE656563 /* RSKImageCropViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CCA2BA61C4A51B19C543345242C1CABC /* RSKImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98CC9C60F215AD2E5D583787722866F1 /* RSKImageScrollView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D30F2B5E824621E773C5B4FD6B0D2C2E /* UIImage+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C38F96C02CDC4DA4D72C053751A7FE /* UIImage+RSKImageCropper.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D4224969BAFBC6138FFC872CCC829FB9 /* POPDecayAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = B0F7BCEE9A871E1193D694931FA31E17 /* POPDecayAnimation.h */; };
+		D5792E05DB34C9521294B06A622AE040 /* POPAnimationTracer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E88590D291A3C131FC32F9BC9A80038 /* POPAnimationTracer.h */; };
+		D83868EA3920350C53488A4C4F9A5565 /* POPGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 3155A15C877F794FB064A4A0CEEB2F13 /* POPGeometry.h */; };
+		DAE41F3562B372C6ECF47F4F9E112E7B /* POPSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = DF03C26E267D137FC6CE8A849B3DCE4E /* POPSpringAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		DBEF60495B33D1BA4C7BA3C8E3A24968 /* POPSpringAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7371F16336283F2D8BB2A199CD4DDEF5 /* POPSpringAnimation.h */; };
 		DEEF765BCF6BCB3CFAAF9DAA6B1E575E /* UIApplication+RSKImageCropper.h in Headers */ = {isa = PBXBuildFile; fileRef = 05BE2BC544DE403D52EAF417A0672668 /* UIApplication+RSKImageCropper.h */; };
+		E66A972C821119D091B99E54200F7FC0 /* POPAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 94815AA3EE3CBA04CEE85515701AD534 /* POPAnimator.h */; };
+		EB965B246F7206AE338A7DF882400A0E /* POPVector.h in Headers */ = {isa = PBXBuildFile; fileRef = D5CE48778301C24CD288B08DDA441605 /* POPVector.h */; };
+		ED3821443DA3268139C3CE29A592C03C /* POPAction.h in Headers */ = {isa = PBXBuildFile; fileRef = F3A985A006B0CCD0116D8FC53C4D1834 /* POPAction.h */; };
 		EDEAD4B5F8C04F943F8F6C80E1D1BDB2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C836CF2DC2ED37B7DA84BDA393F65645 /* QuartzCore.framework */; };
+		EE52AFDDB4487E30A38D85B3D72EE764 /* POPDecayAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9C0DBA06305067DE51E78DFD3A706AEB /* POPDecayAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F1869B0A07F843009A3268A12F2F96CF /* POPBasicAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F59C51782AE555897A5B92D6B3CECD1 /* POPBasicAnimationInternal.h */; };
+		F353B70A061E08623279B54744E15DA7 /* POPAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = ED596D85957A49EC6092EC8EC38FCE49 /* POPAnimationInternal.h */; };
+		F388B7C3B4B0325048D4B5E4C1BAF904 /* POPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14938EB08280063D294781C3164C8332 /* POPAnimation.h */; };
+		F6DCFDD92246C974D57DEBF40CFAFF18 /* pop-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BC24FC6071211A40874D1575AC13599B /* pop-dummy.m */; };
+		FE76D1894506329B79E92D1078D66A5B /* Pods-FoodFace-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D18FD0AC6E6510AB583A4734C180B6A /* Pods-FoodFace-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		994D451362A532D55B6E2B8EC38391F3 /* PBXContainerItemProxy */ = {
+		4A0316BBE8E66479E679A467C817CA55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 47C800E42623009B7192B025B3DD25A1;
+			remoteInfo = pop;
+		};
+		B3A305914C6817EF9B87083F4DEF2975 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
@@ -42,51 +102,99 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00F32B2E6517AB90BC71FD489410672F /* RSKImageCropper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RSKImageCropper-prefix.pch"; sourceTree = "<group>"; };
+		0476012CEBFEB22B5F0926994E6AEEE3 /* POPAnimatorPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimatorPrivate.h; path = pop/POPAnimatorPrivate.h; sourceTree = "<group>"; };
 		05BE2BC544DE403D52EAF417A0672668 /* UIApplication+RSKImageCropper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+RSKImageCropper.h"; path = "RSKImageCropper/UIApplication+RSKImageCropper.h"; sourceTree = "<group>"; };
 		0826B6FE8BDE45CA63DD59F704E5C8E6 /* RSKImageCropViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSKImageCropViewController.h; path = RSKImageCropper/RSKImageCropViewController.h; sourceTree = "<group>"; };
-		1249AFF61B38A90C360FAD1526FD236C /* Pods-FoodFace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FoodFace.debug.xcconfig"; sourceTree = "<group>"; };
-		1C2B6E97AAD8156B21A1167C90EBF341 /* RSKImageCropper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RSKImageCropper.xcconfig; sourceTree = "<group>"; };
-		207A20A81CEB211DFE7886272498B565 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		23FB2C8851967D7EC0FF8E2527586DB8 /* libPods-FoodFace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodFace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		262CD53B012655A8AEFBEA72A7E7DF20 /* RSKImageCropperStrings.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = RSKImageCropperStrings.bundle; path = RSKImageCropper/RSKImageCropperStrings.bundle; sourceTree = "<group>"; };
-		2D5141189CCCA481F7B693EB92E9838B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		134BDC30251FB7A5465C17F603FCAC5F /* POPPropertyAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPPropertyAnimationInternal.h; path = pop/POPPropertyAnimationInternal.h; sourceTree = "<group>"; };
+		14938EB08280063D294781C3164C8332 /* POPAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimation.h; path = pop/POPAnimation.h; sourceTree = "<group>"; };
+		212068113F29FA47D17730ED388F8706 /* POPBasicAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimation.h; path = pop/POPBasicAnimation.h; sourceTree = "<group>"; };
+		2E056FF5C4EC38A55B45FB52F395D72E /* TransformationMatrix.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TransformationMatrix.h; path = pop/WebCore/TransformationMatrix.h; sourceTree = "<group>"; };
+		2E88590D291A3C131FC32F9BC9A80038 /* POPAnimationTracer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationTracer.h; path = pop/POPAnimationTracer.h; sourceTree = "<group>"; };
+		313669CF0D1BF49C96C85FC593F4BC1D /* POPAnimatableProperty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimatableProperty.h; path = pop/POPAnimatableProperty.h; sourceTree = "<group>"; };
+		3155A15C877F794FB064A4A0CEEB2F13 /* POPGeometry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPGeometry.h; path = pop/POPGeometry.h; sourceTree = "<group>"; };
 		3416E298A1505E1ED22025147300CA97 /* RSKImageCropper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RSKImageCropper-dummy.m"; sourceTree = "<group>"; };
+		36DE873E598DA409B4A0397EB1D922A2 /* TransformationMatrix.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = TransformationMatrix.cpp; path = pop/WebCore/TransformationMatrix.cpp; sourceTree = "<group>"; };
 		38402F127F05961341765FFD5CAB3509 /* UIApplication+RSKImageCropper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+RSKImageCropper.m"; path = "RSKImageCropper/UIApplication+RSKImageCropper.m"; sourceTree = "<group>"; };
+		38C1E5A4A6882760CB349FCABD22A9DC /* POP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POP.h; path = pop/POP.h; sourceTree = "<group>"; };
+		3A5F7AF86D19E519B94AD6D8CB98CC34 /* POPAnimationRuntime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationRuntime.h; path = pop/POPAnimationRuntime.h; sourceTree = "<group>"; };
+		3C030C68EF9E6E79BBFB1DB6936B8891 /* POPBasicAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPBasicAnimation.mm; path = pop/POPBasicAnimation.mm; sourceTree = "<group>"; };
+		3C14EB8F6301D2583FD8CD31EEFDB7C2 /* libPods-FoodFace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodFace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D18FD0AC6E6510AB583A4734C180B6A /* Pods-FoodFace-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FoodFace-dummy.m"; sourceTree = "<group>"; };
 		457CB31A0F95424989D6F20136F700A4 /* Pods-FoodFace-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FoodFace-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4C49EB74DD1767D90132D118F761F556 /* RSKImageScrollView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSKImageScrollView.h; path = RSKImageCropper/RSKImageScrollView.h; sourceTree = "<group>"; };
+		4CC05709207C91767940918CDD4779DC /* POPCGUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPCGUtils.h; path = pop/POPCGUtils.h; sourceTree = "<group>"; };
 		4E3225AF3ECCD1ACB8573735B7629707 /* Pods-FoodFace-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FoodFace-acknowledgements.plist"; sourceTree = "<group>"; };
+		5027E859DBC77699CF7626A594E15123 /* Pods-FoodFace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FoodFace.debug.xcconfig"; sourceTree = "<group>"; };
+		55859B0AF81AF61FE398A79E1105367F /* POPCustomAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPCustomAnimation.mm; path = pop/POPCustomAnimation.mm; sourceTree = "<group>"; };
 		56A920C0DA666730FD80A4894A20001B /* RSKImageCropper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSKImageCropper.h; path = RSKImageCropper/RSKImageCropper.h; sourceTree = "<group>"; };
+		5785AD09C2208501D5161E950E701889 /* POPAnimationEventInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationEventInternal.h; path = pop/POPAnimationEventInternal.h; sourceTree = "<group>"; };
+		5790A052BC814C2125A789E772DE64EA /* RSKImageCropper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RSKImageCropper.xcconfig; sourceTree = "<group>"; };
 		585840193243A2114C57C1F6881D67BB /* RSKInternalUtility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RSKInternalUtility.m; path = RSKImageCropper/RSKInternalUtility.m; sourceTree = "<group>"; };
+		5AABEAB40B785094AA4B3680A82E2F3B /* pop-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "pop-Private.xcconfig"; sourceTree = "<group>"; };
 		63C50BE4ED19437983A43E5525C948D0 /* CGGeometry+RSKImageCropper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CGGeometry+RSKImageCropper.h"; path = "RSKImageCropper/CGGeometry+RSKImageCropper.h"; sourceTree = "<group>"; };
+		6961E549FC85F85EB7560B887B11C928 /* POPSpringSolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringSolver.h; path = pop/POPSpringSolver.h; sourceTree = "<group>"; };
 		6C38482A123BD86978BCE8AD10508020 /* Pods-FoodFace-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FoodFace-resources.sh"; sourceTree = "<group>"; };
+		7371F16336283F2D8BB2A199CD4DDEF5 /* POPSpringAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringAnimation.h; path = pop/POPSpringAnimation.h; sourceTree = "<group>"; };
+		77D0456A9D1D23FB7DCBD18E0690A7E4 /* POPAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimation.mm; path = pop/POPAnimation.mm; sourceTree = "<group>"; };
+		7EA471114E242A9CB5EFE60337242BBC /* POPPropertyAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPPropertyAnimation.mm; path = pop/POPPropertyAnimation.mm; sourceTree = "<group>"; };
+		7F59C51782AE555897A5B92D6B3CECD1 /* POPBasicAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimationInternal.h; path = pop/POPBasicAnimationInternal.h; sourceTree = "<group>"; };
 		84C38F96C02CDC4DA4D72C053751A7FE /* UIImage+RSKImageCropper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RSKImageCropper.m"; path = "RSKImageCropper/UIImage+RSKImageCropper.m"; sourceTree = "<group>"; };
-		88B66A020661CE04DEB6DCBD2E872A24 /* Pods-FoodFace-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FoodFace-dummy.m"; sourceTree = "<group>"; };
+		873BF345131435367DF493FB6AC31163 /* POPLayerExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPLayerExtras.mm; path = pop/POPLayerExtras.mm; sourceTree = "<group>"; };
+		8868E76B0C2B4B5B262EF75FD75DF4C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		8CA27FC7F71CFFDFCA6E800917A5028D /* POPCGUtils.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPCGUtils.mm; path = pop/POPCGUtils.mm; sourceTree = "<group>"; };
 		8D4B5BC54399E36562E61FD2DE656563 /* RSKImageCropViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RSKImageCropViewController.m; path = RSKImageCropper/RSKImageCropViewController.m; sourceTree = "<group>"; };
+		90DA3C63E9AD758336342BC51C0BB859 /* POPDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDefines.h; path = pop/POPDefines.h; sourceTree = "<group>"; };
 		924AC607FD5A22D7701D6E3FE37783C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		928EC8B9105DA581C7896C2102E87BE2 /* POPCustomAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPCustomAnimation.h; path = pop/POPCustomAnimation.h; sourceTree = "<group>"; };
+		94815AA3EE3CBA04CEE85515701AD534 /* POPAnimator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimator.h; path = pop/POPAnimator.h; sourceTree = "<group>"; };
+		96015F1C746803D9318614B277F71BCB /* UnitBezier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnitBezier.h; path = pop/WebCore/UnitBezier.h; sourceTree = "<group>"; };
+		9663A817A809169745F3F8E987FFE076 /* POPLayerExtras.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPLayerExtras.h; path = pop/POPLayerExtras.h; sourceTree = "<group>"; };
 		98CC9C60F215AD2E5D583787722866F1 /* RSKImageScrollView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RSKImageScrollView.m; path = RSKImageCropper/RSKImageScrollView.m; sourceTree = "<group>"; };
 		9A90E591CD80106BFC6EE612B48B94ED /* RSKTouchView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RSKTouchView.m; path = RSKImageCropper/RSKTouchView.m; sourceTree = "<group>"; };
+		9C0DBA06305067DE51E78DFD3A706AEB /* POPDecayAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPDecayAnimation.mm; path = pop/POPDecayAnimation.mm; sourceTree = "<group>"; };
+		9C3FE18EB564AF4087573DE6F3F2D3D3 /* POPMath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPMath.h; path = pop/POPMath.h; sourceTree = "<group>"; };
+		9DA58C3428E2A0E2F88C2A0522297274 /* POPAnimationTracerInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationTracerInternal.h; path = pop/POPAnimationTracerInternal.h; sourceTree = "<group>"; };
+		9F210DEEA777E0BF1995DC3570CC616E /* POPAnimationEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationEvent.h; path = pop/POPAnimationEvent.h; sourceTree = "<group>"; };
+		A42EBF4FDD2D5AA16FCD758564D29ABC /* libpop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpop.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5E758E4A924C00A9688E23D85912F5A /* POPGeometry.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPGeometry.mm; path = pop/POPGeometry.mm; sourceTree = "<group>"; };
 		AB2CAFFCA194D9DFD2B598DCC0F4F4D5 /* RSKImageCropViewController+Protected.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RSKImageCropViewController+Protected.h"; path = "RSKImageCropper/RSKImageCropViewController+Protected.h"; sourceTree = "<group>"; };
 		AC0A101DE768B57A7B12FC7F84409749 /* CGGeometry+RSKImageCropper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CGGeometry+RSKImageCropper.m"; path = "RSKImageCropper/CGGeometry+RSKImageCropper.m"; sourceTree = "<group>"; };
+		B0CE575CDDE0B1795BB8B88E0B49ACA0 /* POPDecayAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDecayAnimationInternal.h; path = pop/POPDecayAnimationInternal.h; sourceTree = "<group>"; };
+		B0F7BCEE9A871E1193D694931FA31E17 /* POPDecayAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDecayAnimation.h; path = pop/POPDecayAnimation.h; sourceTree = "<group>"; };
+		B5E7F8F5699BEABF9719044A82BB5677 /* POPVector.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPVector.mm; path = pop/POPVector.mm; sourceTree = "<group>"; };
 		B81B0D8C841B41539378B0D0F82ED611 /* UIImage+RSKImageCropper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+RSKImageCropper.h"; path = "RSKImageCropper/UIImage+RSKImageCropper.h"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BB49539BC6E0546FC572FD7ED26396FD /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		BC24FC6071211A40874D1575AC13599B /* pop-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "pop-dummy.m"; sourceTree = "<group>"; };
+		C091E831068E3E504A40AC6932B39C87 /* FloatConversion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FloatConversion.h; path = pop/WebCore/FloatConversion.h; sourceTree = "<group>"; };
+		C1B6A53BFD919966B87CD6FBFD89CE1B /* POPAnimationExtras.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationExtras.h; path = pop/POPAnimationExtras.h; sourceTree = "<group>"; };
+		C2419F454C8C627AC951154C58F65D46 /* RSKImageCropperStrings.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = RSKImageCropperStrings.bundle; path = RSKImageCropper/RSKImageCropperStrings.bundle; sourceTree = "<group>"; };
+		C461AA6E35C8C30E5ABF49269FACFEE9 /* POPAnimator.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimator.mm; path = pop/POPAnimator.mm; sourceTree = "<group>"; };
 		C836CF2DC2ED37B7DA84BDA393F65645 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		CC8C52F61A373A5B99403265A9C70147 /* POPAnimationTracer.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationTracer.mm; path = pop/POPAnimationTracer.mm; sourceTree = "<group>"; };
+		D129F970B65877327412A3801B4BBDDD /* POPAnimatableProperty.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimatableProperty.mm; path = pop/POPAnimatableProperty.mm; sourceTree = "<group>"; };
+		D289BA64092D58C6DD5801B3B1589814 /* POPAnimationRuntime.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationRuntime.mm; path = pop/POPAnimationRuntime.mm; sourceTree = "<group>"; };
+		D4EFFF513256017163E03E943BEC081A /* Pods-FoodFace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FoodFace.release.xcconfig"; sourceTree = "<group>"; };
+		D5CE48778301C24CD288B08DDA441605 /* POPVector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPVector.h; path = pop/POPVector.h; sourceTree = "<group>"; };
+		D8EDC0E2891340B636D2C6B038E5B1FF /* pop-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "pop-prefix.pch"; sourceTree = "<group>"; };
 		D9038B1D4452B0A9DC0401A4B3D4EDA9 /* RSKTouchView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSKTouchView.h; path = RSKImageCropper/RSKTouchView.h; sourceTree = "<group>"; };
 		D97CC7E87748033315C248488EBC1E89 /* libRSKImageCropper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRSKImageCropper.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6D5233AF1498958580BCE8FF09BFA63 /* Pods-FoodFace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FoodFace.release.xcconfig"; sourceTree = "<group>"; };
-		ECEEF7A1C63042064A13B537E27D10DC /* RSKImageCropper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RSKImageCropper-prefix.pch"; sourceTree = "<group>"; };
+		DF03C26E267D137FC6CE8A849B3DCE4E /* POPSpringAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPSpringAnimation.mm; path = pop/POPSpringAnimation.mm; sourceTree = "<group>"; };
+		E170CE5A5F852AC87CD6DB4E6454B62D /* POPAnimationEvent.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationEvent.mm; path = pop/POPAnimationEvent.mm; sourceTree = "<group>"; };
+		EB56BE02F1B0412A41C9D9834B04BC30 /* POPSpringAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringAnimationInternal.h; path = pop/POPSpringAnimationInternal.h; sourceTree = "<group>"; };
+		EC10F21A5E230A911C2C2E5082CDAE4B /* POPAnimationPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationPrivate.h; path = pop/POPAnimationPrivate.h; sourceTree = "<group>"; };
 		ED16708F4ADF6CA7DD1D9929953B188C /* RSKInternalUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSKInternalUtility.h; path = RSKImageCropper/RSKInternalUtility.h; sourceTree = "<group>"; };
+		ED596D85957A49EC6092EC8EC38FCE49 /* POPAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationInternal.h; path = pop/POPAnimationInternal.h; sourceTree = "<group>"; };
+		F3A985A006B0CCD0116D8FC53C4D1834 /* POPAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAction.h; path = pop/POPAction.h; sourceTree = "<group>"; };
+		F6741A156775A34C9694212051540589 /* pop.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = pop.xcconfig; sourceTree = "<group>"; };
+		F81E8633F1E784423FE8B9BE16D38981 /* POPPropertyAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPPropertyAnimation.h; path = pop/POPPropertyAnimation.h; sourceTree = "<group>"; };
 		FD9F77567631EB51473DA3E7A9436E93 /* RSKImageCropper-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "RSKImageCropper-Private.xcconfig"; sourceTree = "<group>"; };
+		FDBA33F9EF6A822234DF0ECBA517104F /* POPMath.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPMath.mm; path = pop/POPMath.mm; sourceTree = "<group>"; };
+		FF44082A4BF0E64C8730D0F96AE5C377 /* POPAnimationExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationExtras.mm; path = pop/POPAnimationExtras.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		25AEE5C0A7B3F3954E77E19CA767CCE8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5866C0C924A25BB0EF88826D063AD5EC /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		45FFA75B2D309A1EB9216974C5DDA07F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,6 +202,22 @@
 				106627BA66A2B759A44175B04690B9A1 /* Foundation.framework in Frameworks */,
 				EDEAD4B5F8C04F943F8F6C80E1D1BDB2 /* QuartzCore.framework in Frameworks */,
 				AAB6D6F7D67249E04C6A1D2A392F7CC0 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C45497CBD83A66C8FBF1289DF39CE3D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD822A4C6DD9CA6D499CF6955198F4A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F70094250828D264A91D771429AE3652 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				102121906E0867CBC59B51B37A7EA05E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,96 +232,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4C2694D24C8D86D11D99C36AFDF4B14C /* Frameworks */ = {
+		204B1AFEE6626E526EC7CCFCFC19F558 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				207A20A81CEB211DFE7886272498B565 /* opencv2.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4EEA147618D5E0971E30C422E771DF2B /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1C2B6E97AAD8156B21A1167C90EBF341 /* RSKImageCropper.xcconfig */,
-				FD9F77567631EB51473DA3E7A9436E93 /* RSKImageCropper-Private.xcconfig */,
-				3416E298A1505E1ED22025147300CA97 /* RSKImageCropper-dummy.m */,
-				ECEEF7A1C63042064A13B537E27D10DC /* RSKImageCropper-prefix.pch */,
+				F6741A156775A34C9694212051540589 /* pop.xcconfig */,
+				5AABEAB40B785094AA4B3680A82E2F3B /* pop-Private.xcconfig */,
+				BC24FC6071211A40874D1575AC13599B /* pop-dummy.m */,
+				D8EDC0E2891340B636D2C6B038E5B1FF /* pop-prefix.pch */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/RSKImageCropper";
+			path = "../Target Support Files/pop";
 			sourceTree = "<group>";
 		};
-		4F630722B4389B48C2EADA7CAA53730C /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				6A1CD9CE7345522EFE6F6E6E04CBB742 /* Pods-FoodFace */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		64F024328420545A9A70B81EC0160AA9 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				2D5141189CCCA481F7B693EB92E9838B /* Foundation.framework */,
-				C836CF2DC2ED37B7DA84BDA393F65645 /* QuartzCore.framework */,
-				924AC607FD5A22D7701D6E3FE37783C2 /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		6A1CD9CE7345522EFE6F6E6E04CBB742 /* Pods-FoodFace */ = {
-			isa = PBXGroup;
-			children = (
-				457CB31A0F95424989D6F20136F700A4 /* Pods-FoodFace-acknowledgements.markdown */,
-				4E3225AF3ECCD1ACB8573735B7629707 /* Pods-FoodFace-acknowledgements.plist */,
-				88B66A020661CE04DEB6DCBD2E872A24 /* Pods-FoodFace-dummy.m */,
-				6C38482A123BD86978BCE8AD10508020 /* Pods-FoodFace-resources.sh */,
-				1249AFF61B38A90C360FAD1526FD236C /* Pods-FoodFace.debug.xcconfig */,
-				E6D5233AF1498958580BCE8FF09BFA63 /* Pods-FoodFace.release.xcconfig */,
-			);
-			name = "Pods-FoodFace";
-			path = "Target Support Files/Pods-FoodFace";
-			sourceTree = "<group>";
-		};
-		6E0576027BA0377208C30DF234F1A358 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				262CD53B012655A8AEFBEA72A7E7DF20 /* RSKImageCropperStrings.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		78DF802A4053511187191FAFAE419338 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FBED06C843244B323BBDB988092D9A70 /* OpenCV */,
-				FA1CF18D659856054D2C3A0E378E567C /* RSKImageCropper */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
-				78DF802A4053511187191FAFAE419338 /* Pods */,
-				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
-				4F630722B4389B48C2EADA7CAA53730C /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				23FB2C8851967D7EC0FF8E2527586DB8 /* libPods-FoodFace.a */,
-				D97CC7E87748033315C248488EBC1E89 /* libRSKImageCropper.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		FA1CF18D659856054D2C3A0E378E567C /* RSKImageCropper */ = {
+		34EBE9F7FC5650B9A67C3C377EF18F51 /* RSKImageCropper */ = {
 			isa = PBXGroup;
 			children = (
 				63C50BE4ED19437983A43E5525C948D0 /* CGGeometry+RSKImageCropper.h */,
@@ -216,16 +263,166 @@
 				38402F127F05961341765FFD5CAB3509 /* UIApplication+RSKImageCropper.m */,
 				B81B0D8C841B41539378B0D0F82ED611 /* UIImage+RSKImageCropper.h */,
 				84C38F96C02CDC4DA4D72C053751A7FE /* UIImage+RSKImageCropper.m */,
-				6E0576027BA0377208C30DF234F1A358 /* Resources */,
-				4EEA147618D5E0971E30C422E771DF2B /* Support Files */,
+				6EA3A12EB028D04C3F1BEFE5FECB601E /* Resources */,
+				BB3E29AB82FCD5E36B2EAA119ACCE4FF /* Support Files */,
 			);
 			path = RSKImageCropper;
 			sourceTree = "<group>";
 		};
-		FBED06C843244B323BBDB988092D9A70 /* OpenCV */ = {
+		4F630722B4389B48C2EADA7CAA53730C /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				4C2694D24C8D86D11D99C36AFDF4B14C /* Frameworks */,
+				6A1CD9CE7345522EFE6F6E6E04CBB742 /* Pods-FoodFace */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		64F024328420545A9A70B81EC0160AA9 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8868E76B0C2B4B5B262EF75FD75DF4C9 /* Foundation.framework */,
+				C836CF2DC2ED37B7DA84BDA393F65645 /* QuartzCore.framework */,
+				924AC607FD5A22D7701D6E3FE37783C2 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		6A1CD9CE7345522EFE6F6E6E04CBB742 /* Pods-FoodFace */ = {
+			isa = PBXGroup;
+			children = (
+				457CB31A0F95424989D6F20136F700A4 /* Pods-FoodFace-acknowledgements.markdown */,
+				4E3225AF3ECCD1ACB8573735B7629707 /* Pods-FoodFace-acknowledgements.plist */,
+				3D18FD0AC6E6510AB583A4734C180B6A /* Pods-FoodFace-dummy.m */,
+				6C38482A123BD86978BCE8AD10508020 /* Pods-FoodFace-resources.sh */,
+				5027E859DBC77699CF7626A594E15123 /* Pods-FoodFace.debug.xcconfig */,
+				D4EFFF513256017163E03E943BEC081A /* Pods-FoodFace.release.xcconfig */,
+			);
+			name = "Pods-FoodFace";
+			path = "Target Support Files/Pods-FoodFace";
+			sourceTree = "<group>";
+		};
+		6EA3A12EB028D04C3F1BEFE5FECB601E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C2419F454C8C627AC951154C58F65D46 /* RSKImageCropperStrings.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				D1DAA033C97B6A4D25EF1F06D97779FF /* Pods */,
+				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
+				4F630722B4389B48C2EADA7CAA53730C /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9D0160A948E831ABD991827410AFFD45 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB49539BC6E0546FC572FD7ED26396FD /* opencv2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB3E29AB82FCD5E36B2EAA119ACCE4FF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5790A052BC814C2125A789E772DE64EA /* RSKImageCropper.xcconfig */,
+				FD9F77567631EB51473DA3E7A9436E93 /* RSKImageCropper-Private.xcconfig */,
+				3416E298A1505E1ED22025147300CA97 /* RSKImageCropper-dummy.m */,
+				00F32B2E6517AB90BC71FD489410672F /* RSKImageCropper-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/RSKImageCropper";
+			sourceTree = "<group>";
+		};
+		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C14EB8F6301D2583FD8CD31EEFDB7C2 /* libPods-FoodFace.a */,
+				D97CC7E87748033315C248488EBC1E89 /* libRSKImageCropper.a */,
+				A42EBF4FDD2D5AA16FCD758564D29ABC /* libpop.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1DAA033C97B6A4D25EF1F06D97779FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E8905519A6B9868FCBA485EB55B8BBA0 /* OpenCV */,
+				34EBE9F7FC5650B9A67C3C377EF18F51 /* RSKImageCropper */,
+				E3BED22F8DDA03CFDB18E848B1FF7357 /* pop */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E3BED22F8DDA03CFDB18E848B1FF7357 /* pop */ = {
+			isa = PBXGroup;
+			children = (
+				C091E831068E3E504A40AC6932B39C87 /* FloatConversion.h */,
+				38C1E5A4A6882760CB349FCABD22A9DC /* POP.h */,
+				F3A985A006B0CCD0116D8FC53C4D1834 /* POPAction.h */,
+				313669CF0D1BF49C96C85FC593F4BC1D /* POPAnimatableProperty.h */,
+				D129F970B65877327412A3801B4BBDDD /* POPAnimatableProperty.mm */,
+				14938EB08280063D294781C3164C8332 /* POPAnimation.h */,
+				77D0456A9D1D23FB7DCBD18E0690A7E4 /* POPAnimation.mm */,
+				9F210DEEA777E0BF1995DC3570CC616E /* POPAnimationEvent.h */,
+				E170CE5A5F852AC87CD6DB4E6454B62D /* POPAnimationEvent.mm */,
+				5785AD09C2208501D5161E950E701889 /* POPAnimationEventInternal.h */,
+				C1B6A53BFD919966B87CD6FBFD89CE1B /* POPAnimationExtras.h */,
+				FF44082A4BF0E64C8730D0F96AE5C377 /* POPAnimationExtras.mm */,
+				ED596D85957A49EC6092EC8EC38FCE49 /* POPAnimationInternal.h */,
+				EC10F21A5E230A911C2C2E5082CDAE4B /* POPAnimationPrivate.h */,
+				3A5F7AF86D19E519B94AD6D8CB98CC34 /* POPAnimationRuntime.h */,
+				D289BA64092D58C6DD5801B3B1589814 /* POPAnimationRuntime.mm */,
+				2E88590D291A3C131FC32F9BC9A80038 /* POPAnimationTracer.h */,
+				CC8C52F61A373A5B99403265A9C70147 /* POPAnimationTracer.mm */,
+				9DA58C3428E2A0E2F88C2A0522297274 /* POPAnimationTracerInternal.h */,
+				94815AA3EE3CBA04CEE85515701AD534 /* POPAnimator.h */,
+				C461AA6E35C8C30E5ABF49269FACFEE9 /* POPAnimator.mm */,
+				0476012CEBFEB22B5F0926994E6AEEE3 /* POPAnimatorPrivate.h */,
+				212068113F29FA47D17730ED388F8706 /* POPBasicAnimation.h */,
+				3C030C68EF9E6E79BBFB1DB6936B8891 /* POPBasicAnimation.mm */,
+				7F59C51782AE555897A5B92D6B3CECD1 /* POPBasicAnimationInternal.h */,
+				4CC05709207C91767940918CDD4779DC /* POPCGUtils.h */,
+				8CA27FC7F71CFFDFCA6E800917A5028D /* POPCGUtils.mm */,
+				928EC8B9105DA581C7896C2102E87BE2 /* POPCustomAnimation.h */,
+				55859B0AF81AF61FE398A79E1105367F /* POPCustomAnimation.mm */,
+				B0F7BCEE9A871E1193D694931FA31E17 /* POPDecayAnimation.h */,
+				9C0DBA06305067DE51E78DFD3A706AEB /* POPDecayAnimation.mm */,
+				B0CE575CDDE0B1795BB8B88E0B49ACA0 /* POPDecayAnimationInternal.h */,
+				90DA3C63E9AD758336342BC51C0BB859 /* POPDefines.h */,
+				3155A15C877F794FB064A4A0CEEB2F13 /* POPGeometry.h */,
+				A5E758E4A924C00A9688E23D85912F5A /* POPGeometry.mm */,
+				9663A817A809169745F3F8E987FFE076 /* POPLayerExtras.h */,
+				873BF345131435367DF493FB6AC31163 /* POPLayerExtras.mm */,
+				9C3FE18EB564AF4087573DE6F3F2D3D3 /* POPMath.h */,
+				FDBA33F9EF6A822234DF0ECBA517104F /* POPMath.mm */,
+				F81E8633F1E784423FE8B9BE16D38981 /* POPPropertyAnimation.h */,
+				7EA471114E242A9CB5EFE60337242BBC /* POPPropertyAnimation.mm */,
+				134BDC30251FB7A5465C17F603FCAC5F /* POPPropertyAnimationInternal.h */,
+				7371F16336283F2D8BB2A199CD4DDEF5 /* POPSpringAnimation.h */,
+				DF03C26E267D137FC6CE8A849B3DCE4E /* POPSpringAnimation.mm */,
+				EB56BE02F1B0412A41C9D9834B04BC30 /* POPSpringAnimationInternal.h */,
+				6961E549FC85F85EB7560B887B11C928 /* POPSpringSolver.h */,
+				D5CE48778301C24CD288B08DDA441605 /* POPVector.h */,
+				B5E7F8F5699BEABF9719044A82BB5677 /* POPVector.mm */,
+				36DE873E598DA409B4A0397EB1D922A2 /* TransformationMatrix.cpp */,
+				2E056FF5C4EC38A55B45FB52F395D72E /* TransformationMatrix.h */,
+				96015F1C746803D9318614B277F71BCB /* UnitBezier.h */,
+				204B1AFEE6626E526EC7CCFCFC19F558 /* Support Files */,
+			);
+			path = pop;
+			sourceTree = "<group>";
+		};
+		E8905519A6B9868FCBA485EB55B8BBA0 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				9D0160A948E831ABD991827410AFFD45 /* Frameworks */,
 			);
 			path = OpenCV;
 			sourceTree = "<group>";
@@ -233,6 +430,46 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		725D774220C4DF53E7316E8623730814 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0189A6FB9572B5BF87E3B0DD1F872C /* FloatConversion.h in Headers */,
+				0E111996ED8AB07B504AD6200F460C6E /* POP.h in Headers */,
+				ED3821443DA3268139C3CE29A592C03C /* POPAction.h in Headers */,
+				94BFE73B7E00A0FED987F553B0DCE94E /* POPAnimatableProperty.h in Headers */,
+				F388B7C3B4B0325048D4B5E4C1BAF904 /* POPAnimation.h in Headers */,
+				94FACE1C5E4B42AB129DA7326E4E04F9 /* POPAnimationEvent.h in Headers */,
+				22030D04E39440FA02B75449A95BF767 /* POPAnimationEventInternal.h in Headers */,
+				BE267A18590772AAA04953604BC7B310 /* POPAnimationExtras.h in Headers */,
+				F353B70A061E08623279B54744E15DA7 /* POPAnimationInternal.h in Headers */,
+				09F160052D6F4DF4F769F6A2A351071C /* POPAnimationPrivate.h in Headers */,
+				5520088E66FB2528F595AA617FFC5D9A /* POPAnimationRuntime.h in Headers */,
+				D5792E05DB34C9521294B06A622AE040 /* POPAnimationTracer.h in Headers */,
+				7B99231436CB0981EC5113A681AF7C8E /* POPAnimationTracerInternal.h in Headers */,
+				E66A972C821119D091B99E54200F7FC0 /* POPAnimator.h in Headers */,
+				BD6626643DD9C3A12AB86F9361EC89DB /* POPAnimatorPrivate.h in Headers */,
+				BA9989C7128E968BA7D20CFEB392AE9D /* POPBasicAnimation.h in Headers */,
+				F1869B0A07F843009A3268A12F2F96CF /* POPBasicAnimationInternal.h in Headers */,
+				11924DA123F63743B409090BFC425AD2 /* POPCGUtils.h in Headers */,
+				59CB94574F710422B4C9CD6D388CCA03 /* POPCustomAnimation.h in Headers */,
+				D4224969BAFBC6138FFC872CCC829FB9 /* POPDecayAnimation.h in Headers */,
+				B5B86F0561840C9F3408D9A3CE3BADD0 /* POPDecayAnimationInternal.h in Headers */,
+				9088AFD3E6C678A42A8E0189F65F73B6 /* POPDefines.h in Headers */,
+				D83868EA3920350C53488A4C4F9A5565 /* POPGeometry.h in Headers */,
+				804C70F77F75F0E75ACC3E3E4B47B727 /* POPLayerExtras.h in Headers */,
+				461ADD1403E940D9DB7BBB5B7323376F /* POPMath.h in Headers */,
+				7EE77B776CF54D5794EB5D9DB5FCF8D4 /* POPPropertyAnimation.h in Headers */,
+				1937EC6CD83AA2FAB3455591AB074459 /* POPPropertyAnimationInternal.h in Headers */,
+				DBEF60495B33D1BA4C7BA3C8E3A24968 /* POPSpringAnimation.h in Headers */,
+				4BA566241FA98C1D5E4A5284D84EAB71 /* POPSpringAnimationInternal.h in Headers */,
+				1BEBEDAB53B9DB3AD45E1F70637747F9 /* POPSpringSolver.h in Headers */,
+				EB965B246F7206AE338A7DF882400A0E /* POPVector.h in Headers */,
+				966900CAD39E8B592A35F8401549A86D /* TransformationMatrix.h in Headers */,
+				B6DA545595D3CE47BC8F81E673889B4B /* UnitBezier.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B1DAD47E07673F18B80E915A706D400C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,21 +489,21 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9B4CFA64C96A40C978B3F0D1BF7EBEE4 /* Pods-FoodFace */ = {
+		47C800E42623009B7192B025B3DD25A1 /* pop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8BE0E4A6961B07F52D0296AE7F91C6 /* Build configuration list for PBXNativeTarget "Pods-FoodFace" */;
+			buildConfigurationList = 62C75DE36F62F6DD244D1001268287F5 /* Build configuration list for PBXNativeTarget "pop" */;
 			buildPhases = (
-				7A9CE1CF6B059B36578512187DD8DF95 /* Sources */,
-				25AEE5C0A7B3F3954E77E19CA767CCE8 /* Frameworks */,
+				CDA250D235AC097BEA5BFA50BAFA5EC2 /* Sources */,
+				8C45497CBD83A66C8FBF1289DF39CE3D /* Frameworks */,
+				725D774220C4DF53E7316E8623730814 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B975A50C7B0817696F547C80C05F5127 /* PBXTargetDependency */,
 			);
-			name = "Pods-FoodFace";
-			productName = "Pods-FoodFace";
-			productReference = 23FB2C8851967D7EC0FF8E2527586DB8 /* libPods-FoodFace.a */;
+			name = pop;
+			productName = pop;
+			productReference = A42EBF4FDD2D5AA16FCD758564D29ABC /* libpop.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		A3AEE4AC4C61A5C235A77C6521F66A1B /* RSKImageCropper */ = {
@@ -284,6 +521,24 @@
 			name = RSKImageCropper;
 			productName = RSKImageCropper;
 			productReference = D97CC7E87748033315C248488EBC1E89 /* libRSKImageCropper.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F684B47683B9031E34A42143A724B2F2 /* Pods-FoodFace */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 708E8158324147F2608B9372FF6D5957 /* Build configuration list for PBXNativeTarget "Pods-FoodFace" */;
+			buildPhases = (
+				D08CBA3E7D1C1A0739B1203CAD1649A9 /* Sources */,
+				F70094250828D264A91D771429AE3652 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D98E110330A3B0090A336CD3D7B7118 /* PBXTargetDependency */,
+				857B9842716E92F60FBF9E063B34A813 /* PBXTargetDependency */,
+			);
+			name = "Pods-FoodFace";
+			productName = "Pods-FoodFace";
+			productReference = 3C14EB8F6301D2583FD8CD31EEFDB7C2 /* libPods-FoodFace.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -307,21 +562,14 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B4CFA64C96A40C978B3F0D1BF7EBEE4 /* Pods-FoodFace */,
+				F684B47683B9031E34A42143A724B2F2 /* Pods-FoodFace */,
 				A3AEE4AC4C61A5C235A77C6521F66A1B /* RSKImageCropper */,
+				47C800E42623009B7192B025B3DD25A1 /* pop */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7A9CE1CF6B059B36578512187DD8DF95 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				20D33491B672F9B2BEA73DB6A1ED7180 /* Pods-FoodFace-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		86262064510C18F606D93069AAAE7CE1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,50 +585,58 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDA250D235AC097BEA5BFA50BAFA5EC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CA1BC25AE2BDB37CC7326F199D89B8F /* POPAnimatableProperty.mm in Sources */,
+				78B39005A56AAA89947D76CAF85C8DCB /* POPAnimation.mm in Sources */,
+				99F0F8AE566C3E252834E000C28F3BE5 /* POPAnimationEvent.mm in Sources */,
+				9389A2EB242BAF3934437E2995FED8FB /* POPAnimationExtras.mm in Sources */,
+				B9E9A2A0487278882F2DDEF33ED36DD3 /* POPAnimationRuntime.mm in Sources */,
+				889E44AEA8752FD2EE9667DD51C6ACD7 /* POPAnimationTracer.mm in Sources */,
+				9383D615E2EDEC79C6023B473C1677F8 /* POPAnimator.mm in Sources */,
+				83BBF916C1F94ADD6C6A94C510120599 /* POPBasicAnimation.mm in Sources */,
+				AA6468E7A2A37B07F18C9D06719D2B1C /* POPCGUtils.mm in Sources */,
+				3ADD70137F9B6281BCF37B3D61E38BC0 /* POPCustomAnimation.mm in Sources */,
+				EE52AFDDB4487E30A38D85B3D72EE764 /* POPDecayAnimation.mm in Sources */,
+				73D668A4EA72D96B69D89DB8EAE61181 /* POPGeometry.mm in Sources */,
+				B134EDB169A27368549EE676EB012D1E /* POPLayerExtras.mm in Sources */,
+				0A0EC9DD90F3AF37E53F7F46A4BE98FD /* POPMath.mm in Sources */,
+				5E3CDE45685C9D2843D55E0089B6A8FC /* POPPropertyAnimation.mm in Sources */,
+				DAE41F3562B372C6ECF47F4F9E112E7B /* POPSpringAnimation.mm in Sources */,
+				8C56A05428C43518E0123B85C7ECCFA3 /* POPVector.mm in Sources */,
+				96A8A3E553ABDF368B8038EE843F6F7F /* TransformationMatrix.cpp in Sources */,
+				F6DCFDD92246C974D57DEBF40CFAFF18 /* pop-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08CBA3E7D1C1A0739B1203CAD1649A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE76D1894506329B79E92D1078D66A5B /* Pods-FoodFace-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B975A50C7B0817696F547C80C05F5127 /* PBXTargetDependency */ = {
+		5D98E110330A3B0090A336CD3D7B7118 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RSKImageCropper;
 			target = A3AEE4AC4C61A5C235A77C6521F66A1B /* RSKImageCropper */;
-			targetProxy = 994D451362A532D55B6E2B8EC38391F3 /* PBXContainerItemProxy */;
+			targetProxy = B3A305914C6817EF9B87083F4DEF2975 /* PBXContainerItemProxy */;
+		};
+		857B9842716E92F60FBF9E063B34A813 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = pop;
+			target = 47C800E42623009B7192B025B3DD25A1 /* pop */;
+			targetProxy = 4A0316BBE8E66479E679A467C817CA55 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		52C39230023441A47B028BF9F3F36588 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1249AFF61B38A90C360FAD1526FD236C /* Pods-FoodFace.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		57C2C561536D1D7E36CA0F70C43EC603 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6D5233AF1498958580BCE8FF09BFA63 /* Pods-FoodFace.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -419,6 +675,22 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
+		};
+		60DE5500BF969A0D17A617C2E4597711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AABEAB40B785094AA4B3680A82E2F3B /* pop-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
 		};
 		74857149DC1E0D599B8A01A78349A926 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -470,6 +742,54 @@
 			};
 			name = Debug;
 		};
+		E69EFF8AAAC9CEFE6A33102476292CA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AABEAB40B785094AA4B3680A82E2F3B /* pop-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECC9F96925D68F8C27C694140694FB0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5027E859DBC77699CF7626A594E15123 /* Pods-FoodFace.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F7709991BA7C12A352782441296096E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4EFFF513256017163E03E943BEC081A /* Pods-FoodFace.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		FA8B3FF8D0B8A35D75BA1345D7BD6261 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FD9F77567631EB51473DA3E7A9436E93 /* RSKImageCropper-Private.xcconfig */;
@@ -507,11 +827,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8BE0E4A6961B07F52D0296AE7F91C6 /* Build configuration list for PBXNativeTarget "Pods-FoodFace" */ = {
+		62C75DE36F62F6DD244D1001268287F5 /* Build configuration list for PBXNativeTarget "pop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				52C39230023441A47B028BF9F3F36588 /* Debug */,
-				57C2C561536D1D7E36CA0F70C43EC603 /* Release */,
+				E69EFF8AAAC9CEFE6A33102476292CA8 /* Debug */,
+				60DE5500BF969A0D17A617C2E4597711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		708E8158324147F2608B9372FF6D5957 /* Build configuration list for PBXNativeTarget "Pods-FoodFace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECC9F96925D68F8C27C694140694FB0E /* Debug */,
+				F7709991BA7C12A352782441296096E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

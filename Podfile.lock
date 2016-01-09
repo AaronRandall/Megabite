@@ -1,13 +1,16 @@
 PODS:
   - OpenCV (2.4.9)
+  - pop (1.0.8)
   - RSKImageCropper (1.4.1)
 
 DEPENDENCIES:
   - OpenCV (= 2.4.9)
+  - pop (~> 1.0)
   - RSKImageCropper
 
 SPEC CHECKSUMS:
   OpenCV: bb17904e55fc19b1f0f6c3e29bc04a7dd31eddb9
+  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
 
 COCOAPODS: 0.38.2

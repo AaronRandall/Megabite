@@ -7,4 +7,5 @@ inhibit_all_warnings!
 target 'FoodFace' do
   pod 'OpenCV', '2.4.9'
   pod 'RSKImageCropper'
+  pod 'pop', '~> 1.0'
 end

@@ -7,25 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		73EB6CBE1C1CD8BF00C314B9 /* UIImage+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 73EB6CBD1C1CD8BF00C314B9 /* UIImage+Trim.m */; };
-		73EB6CC31C1DE66D00C314B9 /* Polygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73EB6CC21C1DE66D00C314B9 /* Polygon.m */; };
+		734655D3F0D3BFD4949D6AC5 /* libPods-FoodFace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A62FEEC8C6D51BF860D69A /* libPods-FoodFace.a */; };
 		73EB6CC51C1DE6A700C314B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EB6CC41C1DE6A700C314B9 /* UIKit.framework */; };
 		9383216E1BDF9482005F681D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9383216D1BDF9482005F681D /* main.m */; };
 		938321711BDF9482005F681D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321701BDF9482005F681D /* AppDelegate.m */; };
 		938321741BDF9482005F681D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321731BDF9482005F681D /* ViewController.m */; };
 		938321771BDF9482005F681D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 938321751BDF9482005F681D /* Main.storyboard */; };
-		938321791BDF9482005F681D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938321781BDF9482005F681D /* Assets.xcassets */; };
 		9383217C1BDF9482005F681D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9383217A1BDF9482005F681D /* LaunchScreen.storyboard */; };
 		938321871BDF9482005F681D /* FoodFaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321861BDF9482005F681D /* FoodFaceTests.m */; };
 		938321921BDF9482005F681D /* FoodFaceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 938321911BDF9482005F681D /* FoodFaceUITests.m */; };
-		939655CE1C359F9500D56C6B /* UIImage+AverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */; };
-		93F1EF001C37088B0084A372 /* ContourAnalyser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93F1EEFF1C37088B0084A372 /* ContourAnalyser.mm */; };
-		93F1EF031C3709C50084A372 /* ImageHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93F1EF021C3709C50084A372 /* ImageHelper.mm */; };
-		93FBBCE61C37D46A008FADC7 /* PolygonHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93FBBCE51C37D46A008FADC7 /* PolygonHelper.mm */; };
-		93FBBCE91C37D89A008FADC7 /* PlatetimeProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBBCE81C37D89A008FADC7 /* PlatetimeProcessor.m */; };
-		93FBBCED1C37DE52008FADC7 /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93FBBCEC1C37DE52008FADC7 /* ImageProcessor.mm */; };
-		93FBBCF01C37DEEC008FADC7 /* ImageProcessorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBBCEF1C37DEEC008FADC7 /* ImageProcessorResult.m */; };
-		ABBF38A0EA53153904F342EE /* libPods-FoodFace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658810F0EB1C6D56AEE96871 /* libPods-FoodFace.a */; };
+		93B1B2C51C39B88E00280992 /* UIImage+AverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2B41C39B88E00280992 /* UIImage+AverageColor.m */; };
+		93B1B2C61C39B88E00280992 /* UIImage+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2B61C39B88E00280992 /* UIImage+Trim.m */; };
+		93B1B2C71C39B88E00280992 /* ContourAnalyser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2B91C39B88E00280992 /* ContourAnalyser.mm */; };
+		93B1B2C81C39B88E00280992 /* ImageHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2BB1C39B88E00280992 /* ImageHelper.mm */; };
+		93B1B2C91C39B88E00280992 /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2BD1C39B88E00280992 /* ImageProcessor.mm */; };
+		93B1B2CA1C39B88E00280992 /* ImageProcessorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2C01C39B88E00280992 /* ImageProcessorResult.m */; };
+		93B1B2CB1C39B88E00280992 /* Polygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2C21C39B88E00280992 /* Polygon.m */; };
+		93B1B2CC1C39B88E00280992 /* PolygonHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93B1B2C41C39B88E00280992 /* PolygonHelper.mm */; };
+		93C242E21C39C4E100B07564 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93C242E11C39C4E100B07564 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,11 +46,7 @@
 
 /* Begin PBXFileReference section */
 		3F1B9D9BF3CAA192D517E9D6 /* Pods-FoodFace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodFace.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodFace/Pods-FoodFace.release.xcconfig"; sourceTree = "<group>"; };
-		658810F0EB1C6D56AEE96871 /* libPods-FoodFace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodFace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		73EB6CBC1C1CD8BF00C314B9 /* UIImage+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Trim.h"; sourceTree = "<group>"; };
-		73EB6CBD1C1CD8BF00C314B9 /* UIImage+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Trim.m"; sourceTree = "<group>"; };
-		73EB6CC11C1DE66D00C314B9 /* Polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Polygon.h; sourceTree = "<group>"; };
-		73EB6CC21C1DE66D00C314B9 /* Polygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Polygon.m; sourceTree = "<group>"; };
+		72A62FEEC8C6D51BF860D69A /* libPods-FoodFace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodFace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EB6CC41C1DE6A700C314B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8E0BD7E53F778412F0991262 /* Pods-FoodFace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodFace.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodFace/Pods-FoodFace.debug.xcconfig"; sourceTree = "<group>"; };
 		938321691BDF9482005F681D /* FoodFace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodFace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +56,6 @@
 		938321721BDF9482005F681D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		938321731BDF9482005F681D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		938321761BDF9482005F681D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		938321781BDF9482005F681D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9383217B1BDF9482005F681D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9383217D1BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		938321821BDF9482005F681D /* FoodFaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodFaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,20 +64,24 @@
 		9383218D1BDF9482005F681D /* FoodFaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodFaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		938321911BDF9482005F681D /* FoodFaceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodFaceUITests.m; sourceTree = "<group>"; };
 		938321931BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		939655CC1C359F9500D56C6B /* UIImage+AverageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AverageColor.h"; sourceTree = "<group>"; };
-		939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AverageColor.m"; sourceTree = "<group>"; };
-		93F1EEFE1C37088B0084A372 /* ContourAnalyser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContourAnalyser.h; sourceTree = "<group>"; };
-		93F1EEFF1C37088B0084A372 /* ContourAnalyser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContourAnalyser.mm; sourceTree = "<group>"; };
-		93F1EF011C3709C50084A372 /* ImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
-		93F1EF021C3709C50084A372 /* ImageHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageHelper.mm; sourceTree = "<group>"; };
-		93FBBCE41C37D46A008FADC7 /* PolygonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolygonHelper.h; sourceTree = "<group>"; };
-		93FBBCE51C37D46A008FADC7 /* PolygonHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PolygonHelper.mm; sourceTree = "<group>"; };
-		93FBBCE71C37D89A008FADC7 /* PlatetimeProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatetimeProcessor.h; sourceTree = "<group>"; };
-		93FBBCE81C37D89A008FADC7 /* PlatetimeProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatetimeProcessor.m; sourceTree = "<group>"; };
-		93FBBCEB1C37DE52008FADC7 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
-		93FBBCEC1C37DE52008FADC7 /* ImageProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageProcessor.mm; sourceTree = "<group>"; };
-		93FBBCEE1C37DEEC008FADC7 /* ImageProcessorResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessorResult.h; sourceTree = "<group>"; };
-		93FBBCEF1C37DEEC008FADC7 /* ImageProcessorResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessorResult.m; sourceTree = "<group>"; };
+		93B1B2B31C39B88E00280992 /* UIImage+AverageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AverageColor.h"; sourceTree = "<group>"; };
+		93B1B2B41C39B88E00280992 /* UIImage+AverageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AverageColor.m"; sourceTree = "<group>"; };
+		93B1B2B51C39B88E00280992 /* UIImage+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Trim.h"; sourceTree = "<group>"; };
+		93B1B2B61C39B88E00280992 /* UIImage+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Trim.m"; sourceTree = "<group>"; };
+		93B1B2B81C39B88E00280992 /* ContourAnalyser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContourAnalyser.h; sourceTree = "<group>"; };
+		93B1B2B91C39B88E00280992 /* ContourAnalyser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContourAnalyser.mm; sourceTree = "<group>"; };
+		93B1B2BA1C39B88E00280992 /* ImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
+		93B1B2BB1C39B88E00280992 /* ImageHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageHelper.mm; sourceTree = "<group>"; };
+		93B1B2BC1C39B88E00280992 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
+		93B1B2BD1C39B88E00280992 /* ImageProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageProcessor.mm; sourceTree = "<group>"; };
+		93B1B2BF1C39B88E00280992 /* ImageProcessorResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessorResult.h; sourceTree = "<group>"; };
+		93B1B2C01C39B88E00280992 /* ImageProcessorResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessorResult.m; sourceTree = "<group>"; };
+		93B1B2C11C39B88E00280992 /* Polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Polygon.h; sourceTree = "<group>"; };
+		93B1B2C21C39B88E00280992 /* Polygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Polygon.m; sourceTree = "<group>"; };
+		93B1B2C31C39B88E00280992 /* PolygonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolygonHelper.h; sourceTree = "<group>"; };
+		93B1B2C41C39B88E00280992 /* PolygonHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PolygonHelper.mm; sourceTree = "<group>"; };
+		93C242E11C39C4E100B07564 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		93EE807A1C39A9D1007B5EA7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73EB6CC51C1DE6A700C314B9 /* UIKit.framework in Frameworks */,
-				ABBF38A0EA53153904F342EE /* libPods-FoodFace.a in Frameworks */,
+				734655D3F0D3BFD4949D6AC5 /* libPods-FoodFace.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,33 +145,18 @@
 		9383216B1BDF9482005F681D /* FoodFace */ = {
 			isa = PBXGroup;
 			children = (
+				93B1B2B71C39B88E00280992 /* ImageProcessor */,
+				93B1B2B21C39B88E00280992 /* Categories */,
+				9383216C1BDF9482005F681D /* Supporting Files */,
 				9383216F1BDF9482005F681D /* AppDelegate.h */,
 				938321701BDF9482005F681D /* AppDelegate.m */,
 				938321721BDF9482005F681D /* ViewController.h */,
 				938321731BDF9482005F681D /* ViewController.m */,
 				938321751BDF9482005F681D /* Main.storyboard */,
-				73EB6CBC1C1CD8BF00C314B9 /* UIImage+Trim.h */,
-				73EB6CBD1C1CD8BF00C314B9 /* UIImage+Trim.m */,
-				938321781BDF9482005F681D /* Assets.xcassets */,
 				9383217A1BDF9482005F681D /* LaunchScreen.storyboard */,
 				9383217D1BDF9482005F681D /* Info.plist */,
-				9383216C1BDF9482005F681D /* Supporting Files */,
-				73EB6CC11C1DE66D00C314B9 /* Polygon.h */,
-				73EB6CC21C1DE66D00C314B9 /* Polygon.m */,
-				939655CC1C359F9500D56C6B /* UIImage+AverageColor.h */,
-				939655CD1C359F9500D56C6B /* UIImage+AverageColor.m */,
-				93F1EEFE1C37088B0084A372 /* ContourAnalyser.h */,
-				93F1EEFF1C37088B0084A372 /* ContourAnalyser.mm */,
-				93F1EF011C3709C50084A372 /* ImageHelper.h */,
-				93F1EF021C3709C50084A372 /* ImageHelper.mm */,
-				93FBBCE41C37D46A008FADC7 /* PolygonHelper.h */,
-				93FBBCE51C37D46A008FADC7 /* PolygonHelper.mm */,
-				93FBBCE71C37D89A008FADC7 /* PlatetimeProcessor.h */,
-				93FBBCE81C37D89A008FADC7 /* PlatetimeProcessor.m */,
-				93FBBCEB1C37DE52008FADC7 /* ImageProcessor.h */,
-				93FBBCEC1C37DE52008FADC7 /* ImageProcessor.mm */,
-				93FBBCEE1C37DEEC008FADC7 /* ImageProcessorResult.h */,
-				93FBBCEF1C37DEEC008FADC7 /* ImageProcessorResult.m */,
+				93EE807A1C39A9D1007B5EA7 /* PrefixHeader.pch */,
+				93C242E11C39C4E100B07564 /* Assets.xcassets */,
 			);
 			path = FoodFace;
 			sourceTree = "<group>";
@@ -204,11 +187,49 @@
 			path = FoodFaceUITests;
 			sourceTree = "<group>";
 		};
+		93B1B2B21C39B88E00280992 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				93B1B2B31C39B88E00280992 /* UIImage+AverageColor.h */,
+				93B1B2B41C39B88E00280992 /* UIImage+AverageColor.m */,
+				93B1B2B51C39B88E00280992 /* UIImage+Trim.h */,
+				93B1B2B61C39B88E00280992 /* UIImage+Trim.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		93B1B2B71C39B88E00280992 /* ImageProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				93B1B2BE1C39B88E00280992 /* Models */,
+				93B1B2BC1C39B88E00280992 /* ImageProcessor.h */,
+				93B1B2BD1C39B88E00280992 /* ImageProcessor.mm */,
+				93B1B2B81C39B88E00280992 /* ContourAnalyser.h */,
+				93B1B2B91C39B88E00280992 /* ContourAnalyser.mm */,
+				93B1B2BA1C39B88E00280992 /* ImageHelper.h */,
+				93B1B2BB1C39B88E00280992 /* ImageHelper.mm */,
+				93B1B2C31C39B88E00280992 /* PolygonHelper.h */,
+				93B1B2C41C39B88E00280992 /* PolygonHelper.mm */,
+			);
+			path = ImageProcessor;
+			sourceTree = "<group>";
+		};
+		93B1B2BE1C39B88E00280992 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				93B1B2C11C39B88E00280992 /* Polygon.h */,
+				93B1B2C21C39B88E00280992 /* Polygon.m */,
+				93B1B2BF1C39B88E00280992 /* ImageProcessorResult.h */,
+				93B1B2C01C39B88E00280992 /* ImageProcessorResult.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		A8B65B8CC9F08EE5E8A54CCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				73EB6CC41C1DE6A700C314B9 /* UIKit.framework */,
-				658810F0EB1C6D56AEE96871 /* libPods-FoodFace.a */,
+				72A62FEEC8C6D51BF860D69A /* libPods-FoodFace.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -319,7 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9383217C1BDF9482005F681D /* LaunchScreen.storyboard in Resources */,
-				938321791BDF9482005F681D /* Assets.xcassets in Resources */,
+				93C242E21C39C4E100B07564 /* Assets.xcassets in Resources */,
 				938321771BDF9482005F681D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,18 +399,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73EB6CC31C1DE66D00C314B9 /* Polygon.m in Sources */,
-				93FBBCED1C37DE52008FADC7 /* ImageProcessor.mm in Sources */,
+				93B1B2CB1C39B88E00280992 /* Polygon.m in Sources */,
 				938321741BDF9482005F681D /* ViewController.m in Sources */,
-				73EB6CBE1C1CD8BF00C314B9 /* UIImage+Trim.m in Sources */,
-				93F1EF031C3709C50084A372 /* ImageHelper.mm in Sources */,
-				939655CE1C359F9500D56C6B /* UIImage+AverageColor.m in Sources */,
 				938321711BDF9482005F681D /* AppDelegate.m in Sources */,
-				93FBBCF01C37DEEC008FADC7 /* ImageProcessorResult.m in Sources */,
-				93FBBCE91C37D89A008FADC7 /* PlatetimeProcessor.m in Sources */,
+				93B1B2C61C39B88E00280992 /* UIImage+Trim.m in Sources */,
 				9383216E1BDF9482005F681D /* main.m in Sources */,
-				93FBBCE61C37D46A008FADC7 /* PolygonHelper.mm in Sources */,
-				93F1EF001C37088B0084A372 /* ContourAnalyser.mm in Sources */,
+				93B1B2C91C39B88E00280992 /* ImageProcessor.mm in Sources */,
+				93B1B2C51C39B88E00280992 /* UIImage+AverageColor.m in Sources */,
+				93B1B2C71C39B88E00280992 /* ContourAnalyser.mm in Sources */,
+				93B1B2CA1C39B88E00280992 /* ImageProcessorResult.m in Sources */,
+				93B1B2C81C39B88E00280992 /* ImageHelper.mm in Sources */,
+				93B1B2CC1C39B88E00280992 /* PolygonHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,9 +549,13 @@
 			baseConfigurationReference = 8E0BD7E53F778412F0991262 /* Pods-FoodFace.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = FoodFace/PrefixHeader.pch;
 				INFOPLIST_FILE = FoodFace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Aaron.FoodFace;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaronrandall.iphone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -542,9 +566,13 @@
 			baseConfigurationReference = 3F1B9D9BF3CAA192D517E9D6 /* Pods-FoodFace.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = FoodFace/PrefixHeader.pch;
 				INFOPLIST_FILE = FoodFace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Aaron.FoodFace;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaronrandall.iphone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
