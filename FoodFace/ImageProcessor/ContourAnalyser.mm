@@ -14,9 +14,25 @@
 
 @implementation ContourAnalyser
 
+static NSMutableArray* debugImages;
+
++ (NSMutableArray*)getDebugImages {
+    return debugImages;
+}
+
++ (void)addDebugImage:(UIImage*)debugImage {
+    if (debugImages == nil) {
+        debugImages = [NSMutableArray array];
+    }
+    
+    [debugImages addObject:debugImage];
+}
+
 + (std::vector<std::vector<cv::Point>>)findContoursInImage:(cv::Mat)image arcLengthMultiplier:(float)arcLengthMultiplier {
+    debugImages = nil;
+    
     std::vector<std::vector<cv::Point>> validContours;
-    cv::Mat pyr, timg, gray0(image.size(), CV_8U), gray;
+    cv::Mat pyr, timg;
     int thresh = 50, N = 11;
     cv::pyrDown(image, pyr, cv::Size(image.cols/2, image.rows/2));
     cv::pyrUp(pyr, timg, image.size());
@@ -25,6 +41,9 @@
     
     bool skipNonConvexContours = YES;
     
+    cv::Mat gray0(image.size(), CV_8U);
+    cv::Mat gray;
+    
     for( int c = 0; c < 3; c++ ) {
         int ch[] = {c, 0};
         mixChannels(&timg, 1, &gray0, 1, ch, 1);
@@ -32,14 +51,7 @@
             if( l == 0 ) {
                 cv::Canny(gray0, gray, 0, thresh, 3);
                 //cv::threshold(gray0, gray, 192.0, 255.0, 1);
-                
-                UIImage *greyImage = [ImageHelper UIImageFromCVMat:gray];
-                //self.debugImageView6.image = greyImage;
-                
                 cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
-                
-                greyImage = [ImageHelper UIImageFromCVMat:gray];
-                //self.debugImageView7.image = greyImage;
             }
             else {
                 //                continue;
@@ -47,9 +59,13 @@
                 gray = gray0 >= (l+1)*255/N;
             }
             
-            cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+            // Only record debug images for the first channel
+            if (c == 0) {
+                [self addDebugImage:[ImageHelper UIImageFromCVMat:gray]];
+            }
             
             // hierarchy is ordered as: [Next, Previous, First_Child, Parent]
+            cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
             
             std::vector<cv::Point> approx;
             for( size_t i = 0; i < contours.size(); i++ )
@@ -185,6 +201,7 @@
 }
 
 + (NSMutableArray*)reduceContoursToBoundingBox:(cv::vector<cv::Mat>)contours {
+    debugImages = nil;
     NSMutableArray *boundingBoxImages = [NSMutableArray array];
     
     for (int i = 0; i < contours.size(); i++) {
@@ -192,6 +209,8 @@
         
         // Make the black mask of the image transparent
         UIImage *originalImage = [extractedContour replaceColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f] withTolerance:0.0f];
+        
+        [self addDebugImage:originalImage];
         
         // Trim to the bounding box
         UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];

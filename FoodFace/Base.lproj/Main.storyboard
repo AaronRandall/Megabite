@@ -56,13 +56,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VuZ-JD-EQO">
-                                <rect key="frame" x="94" y="12" width="187" height="187"/>
+                                <rect key="frame" x="20" y="28" width="335" height="335"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
-                                <rect key="frame" x="94" y="393" width="187" height="187"/>
+                                <rect key="frame" x="-11" y="397" width="187" height="187"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZu-ht-T1H">
-                                <rect key="frame" x="94" y="203" width="187" height="187"/>
+                                <rect key="frame" x="20" y="28" width="335" height="335"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

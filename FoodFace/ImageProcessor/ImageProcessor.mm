@@ -51,7 +51,7 @@
     imageMatrixOriginal = [ImageHelper cvMatFromUIImage:inputImage];
     
     // Return the resized and cropped image
-    return [self results:@[croppedImage] images:@[]];
+    return [self results:@[] images:@[croppedImage]];
 }
 
 -(ImageProcessorResult*)findContours:(float)arcLengthMultiplier {
@@ -62,8 +62,11 @@
     cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
     UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
     
-    // Return a debug image of all contours highlighted on the original image
-    return [self results:@[] images:@[highlightedContours]];
+    NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
+    [debugImages addObject:highlightedContours];
+    
+    // Return all debug images (including all contours highlighted on the original image
+    return [self results:debugImages images:@[]];
 }
 
 -(ImageProcessorResult*)filterContours {
@@ -87,7 +90,9 @@
     // Crop extracted contours to their minimum bounding box, and make background transparent
     contourImages = [ContourAnalyser reduceContoursToBoundingBox:extractedContours];
     
-    return [self results:@[] images:@[]];
+    NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
+    
+    return [self results:contourImages images:debugImages];
 }
 
 -(ImageProcessorResult*)boundingBoxImagesToPolygons {
