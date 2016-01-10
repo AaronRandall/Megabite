@@ -12,8 +12,7 @@
 
 - (IBAction)takePhoto:(id)sender;
 - (IBAction)defaultPhoto:(id)sender;
-- (IBAction)detectContours:(id)sender;
-- (IBAction)convertImage:(id)sender;
+- (IBAction)run:(id)sender;
 - (IBAction)sensitivityStepperValueChanged:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIStepper *sensitivityStepper;
@@ -21,6 +20,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *inputImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *inputThumbnailImageView;
 
 @end
