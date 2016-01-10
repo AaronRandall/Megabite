@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *inputImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *debugImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *inputThumbnailImageView;
 
 @end

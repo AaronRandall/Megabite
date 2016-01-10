@@ -18,17 +18,29 @@ float const defaultArcMultiplier = 0.02;
 
 /*
 TODOS:
- - update ImageProcessor to return all useful images
  - optimise rotatePolygonToCoverPolygon to stop rotating if covered target surface area == target total surface area
     - investigate increasing the # supported rotations once this is done to see if the face can be better arranged
     - also investigate supporting tweaking this value from a user input
- - work out way to animate between all the different image types
- - last code cleanup
- - blog post
 */
 
 @implementation ViewController {
     ImageProcessor *processor;
+}
+
+# pragma mark - View lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Make the debug image view circular
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.debugImageView.frame.size.width, self.debugImageView.frame.size.height) cornerRadius:MAX(self.debugImageView.frame.size.width, self.debugImageView.frame.size.height)];
+    circle.path = circularPath.CGPath;
+    circle.fillColor = [UIColor blackColor].CGColor;
+    circle.strokeColor = [UIColor blackColor].CGColor;
+    circle.lineWidth = 0;
+    
+    self.debugImageView.layer.mask=circle;
 }
 
 # pragma mark - Image processor
@@ -41,11 +53,14 @@ TODOS:
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (findContoursResult.results.count > 0) {
-                self.debugImageView.image = findContoursResult.results.firstObject;
+                self.debugImageView.image = prepareImageResult.images.firstObject;;
                 
                 NSMutableArray *debugImages = [NSMutableArray arrayWithArray:findContoursResult.results];
-                [debugImages addObjectsFromArray:filterContoursResult.images];
-                [self runAnimationsForImages:debugImages];
+                // Show the contours highlighted
+                //[debugImages addObjectsFromArray:filterContoursResult.images];
+                //[self runFadeAnimationsForImages:debugImages completion:^{
+                    [self convertImageToFoodFace];
+                //}];
             }
         });
     });
@@ -59,8 +74,61 @@ TODOS:
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (placePolygonsOnTargetTemplateResult.results.count > 0) {
-                self.outputImageView.image = placePolygonsOnTargetTemplateResult.results.firstObject;
-                [self runPopAnimationsForImages:extractContourBoundingBoxImagesResult.images];
+                //self.outputImageView.image = placePolygonsOnTargetTemplateResult.results.firstObject;
+                
+                NSMutableArray *debugImages = [NSMutableArray arrayWithArray:extractContourBoundingBoxImagesResult.images];
+//                [debugImages addObject:placePolygonsOnTargetTemplateResult.results.firstObject];
+                
+                [self runPopAnimationsForImages:debugImages];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (debugImages.count/2.f * NSEC_PER_SEC) + (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+                    
+                    self.outputImageView.alpha = 0;
+                    [UIView animateWithDuration:5.0 animations:^(void) {
+                        self.outputImageView.alpha = 1;
+                    }];
+                    
+                                        self.outputImageView.image = nil;
+                    
+                                        CABasicAnimation* spinAnimationOriginal = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+                                        spinAnimationOriginal.toValue = [NSNumber numberWithFloat:10*M_PI];
+                                        spinAnimationOriginal.duration = 5;
+                                        spinAnimationOriginal.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                                        spinAnimationOriginal.removedOnCompletion = YES;
+                                        spinAnimationOriginal.fillMode = kCAFillModeForwards;
+                                        [self.debugImageView.layer addAnimation:spinAnimationOriginal forKey:@"spinAnimationOriginal"];
+                    
+                    
+                    
+                                        self.outputImageView.image = placePolygonsOnTargetTemplateResult.results.firstObject;
+                                        CABasicAnimation* spinAnimationNew = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+//                                        spinAnimationNew.beginTime = CACurrentMediaTime() + 1.0f;
+                                        spinAnimationNew.toValue = [NSNumber numberWithFloat:10*M_PI];
+                                        spinAnimationNew.duration = 5;
+                                        spinAnimationNew.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                                        spinAnimationNew.removedOnCompletion = YES;
+                                        spinAnimationNew.fillMode = kCAFillModeForwards;
+                    
+//                    
+//                                        CABasicAnimation *fadeAnim=[CABasicAnimation animationWithKeyPath:@"opacity"];
+//                                        fadeAnim.fromValue=[NSNumber numberWithDouble:0.0];
+//                                        fadeAnim.toValue=[NSNumber numberWithDouble:1.0];
+//                    
+//                    CAAnimationGroup *group = [CAAnimationGroup animation];
+//                    group.duration = 4;
+//                    group.repeatCount = 0;
+//                    group.autoreverses = NO;
+//                    group.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//                    group.animations = @[spinAnimationNew];
+                    
+                    [self.outputImageView.layer addAnimation:spinAnimationNew forKey:@"allMyAnimations"];
+                    
+                    
+//                                        [self.self.outputImageView.layer addAnimation:spinAnimationNew forKey:@"spinAnimationNew"];
+                    
+                    
+                });
             }
         });
     });
@@ -69,39 +137,21 @@ TODOS:
 - (void)runPopAnimationsForImages:(NSArray*)images {
     for (int i = 0; i < images.count; i++) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, i/2.f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            NSLog(@"Getting next animation");
-            self.debugImageView.image = images[i];
+            self.outputImageView.image = images[i];
             POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
             spring.fromValue = [NSValue valueWithCGSize:CGSizeMake(0.98, 0.98)];
             spring.toValue = [NSValue valueWithCGSize:CGSizeMake(1.03, 1.03)];
             spring.springBounciness = 20;
             spring.springSpeed = 1;
             NSString *animationId = [NSString stringWithFormat:@"animation%i",arc4random_uniform(100)];
-            [self.debugImageView.layer pop_addAnimation:spring forKey:animationId];
+            [self.outputImageView.layer pop_addAnimation:spring forKey:animationId];
         });
     }
 }
 
-- (void)runAnimationsForImages:(NSArray*)images {
-    
-    CAShapeLayer *circle = [CAShapeLayer layer];
-    // Make a circular shape
-    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.debugImageView.frame.size.width, self.debugImageView.frame.size.height) cornerRadius:MAX(self.debugImageView.frame.size.width, self.debugImageView.frame.size.height)];
-    
-    circle.path = circularPath.CGPath;
-    
-    // Configure the appearance of the circle
-    circle.fillColor = [UIColor blackColor].CGColor;
-    circle.strokeColor = [UIColor blackColor].CGColor;
-    circle.lineWidth = 0;
-    
-    self.debugImageView.layer.mask=circle;
-    
-    
-    
-    
+- (void)runFadeAnimationsForImages:(NSArray*)images completion:(void (^)())allAnimationsCompletion {
+    // Queue up the image animation blocks and run
     NSMutableArray* animationBlocks = [NSMutableArray new];
-    
     typedef void(^animationBlock)(BOOL);
     
     animationBlock (^getNextAnimation)() = ^{
@@ -110,16 +160,17 @@ TODOS:
             [animationBlocks removeObjectAtIndex:0];
             return block;
         } else {
-            return ^(BOOL finished){};
+            return ^(BOOL finished){
+                allAnimationsCompletion();
+            };
         }
     };
     
-    // Add animations
     for (UIImage *image in images) {
         [animationBlocks addObject:^(BOOL finished){
             UIImage * toImage = image;
             [UIView transitionWithView:self.debugImageView
-                              duration:0.25f
+                              duration:0.75f
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
                                 self.debugImageView.image = toImage;
@@ -127,51 +178,14 @@ TODOS:
         }];
     }
     
-    // Start the chain
     getNextAnimation()(YES);
-    
-    
-    
-    
-    
-    
-    
-    
-    for (UIImage *image in images) {
-//        self.debugImageView.image = image;
-//        
-//        CATransition *transition = [CATransition animation];
-//        transition.duration = 1.0f;
-//        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        transition.type = kCATransitionFade;
-//        
-//        [self.debugImageView.layer addAnimation:transition forKey:nil];
-//        
-        
-        //self.debugImageView.image = image;
-    }
-    
-//    POPSpringAnimation *sizeAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];
-//    sizeAnimation.springBounciness = 10;
-//    if (self.inputImageView.bounds.size.width == 250) {
-//        sizeAnimation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.width)];
-//    }
-//    
-//    [sizeAnimation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
-//        if(finished){
-//            NSLog(@"finished");
-//            POPBasicAnimation *basicAnimation = [POPBasicAnimation animation];
-//            basicAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewAlpha];
-//            basicAnimation.toValue= @(1);
-//            [self.outputImageView pop_addAnimation:basicAnimation forKey:@"basicAnimation"];
-//        }
-//    }];
-//    
-//    [self.inputImageView pop_addAnimation:sizeAnimation forKey:@"sizeAnimation"];
 }
 
 - (void)setImageForImageProcessor:(UIImage*)image {
+    self.inputThumbnailImageView.image = image;
     self.inputImageView.image = image;
+    self.debugImageView.image = nil;
+    self.outputImageView.image = nil;
     processor = [[ImageProcessor alloc] initWithImage:image];
 }
 
@@ -194,7 +208,7 @@ TODOS:
 - (IBAction)defaultPhoto:(id)sender {
     UIImage *defaultPhoto = [UIImage imageNamed:@"Food"];
     [self setImageForImageProcessor:defaultPhoto];
-    [self detectContoursInImage];
+//    [self detectContoursInImage];
 }
 
 - (IBAction)detectContours:(id)sender {

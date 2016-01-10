@@ -37,10 +37,10 @@
 
 -(ImageProcessorResult*)prepareImage {
     // Resize the image to 1000x1000 pixels
-    inputImage = [ImageHelper resizeImage:inputImage scaledToSize:CGSizeMake(1000, 1000)];
+    croppedImage = [ImageHelper resizeImage:inputImage scaledToSize:CGSizeMake(1000, 1000)];
     
     // Crop the image to the shape of the plate
-    croppedImage = [ImageHelper roundedRectImageFromImage:inputImage size:inputImage.size withCornerRadius:inputImage.size.height/2];
+    croppedImage = [ImageHelper roundedRectImageFromImage:croppedImage size:inputImage.size withCornerRadius:inputImage.size.height/2];
     
     // Convert the image into a matrix
     imageMatrix = [ImageHelper cvMatFromUIImage:croppedImage];
@@ -58,12 +58,12 @@
     // Detect all contours within the image matrix, and filter for those that match detection criteria
     allContours = [ContourAnalyser findContoursInImage:imageMatrixAll arcLengthMultiplier:arcLengthMultiplier];
     
-    // Highlight the contours in the cropped image
-    cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
-    UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
-    
+//    // Highlight the contours in the cropped image
+//    cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
+//    UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
+//    
     NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
-    [debugImages addObject:highlightedContours];
+    [debugImages addObject:inputImage];
     
     // Return all debug images (including all contours highlighted on the original image
     return [self results:debugImages images:@[]];
