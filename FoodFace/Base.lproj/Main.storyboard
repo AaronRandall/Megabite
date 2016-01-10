@@ -22,11 +22,21 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZu-ht-T1H">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NeF-Rj-HDg">
+                                <rect key="frame" x="20" y="166" width="335" height="335"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unw-Na-UZC">
                                 <rect key="frame" x="219" y="579" width="94" height="30"/>
                                 <state key="normal" title="Default photo"/>
                                 <connections>
                                     <action selector="defaultPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xs-I1-ZEU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
+                                <rect key="frame" x="283" y="616" width="30" height="30"/>
+                                <state key="normal" title="Run"/>
+                                <connections>
+                                    <action selector="run:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SPE-aC-8As"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.020" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-9s-QPZ">
@@ -47,21 +57,15 @@
                                     <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bYo-xz-gJt"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
-                                <rect key="frame" x="283" y="616" width="30" height="30"/>
-                                <state key="normal" title="Run"/>
-                                <connections>
-                                    <action selector="run:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SPE-aC-8As"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="animatedImageView" destination="NeF-Rj-HDg" id="veL-dJ-Mo2"/>
                         <outlet property="arcLengthMultiplierField" destination="6xe-9s-QPZ" id="xk3-f6-vwy"/>
                         <outlet property="debugImageView" destination="wZu-ht-T1H" id="6Kj-PW-Wrh"/>
                         <outlet property="inputImageView" destination="VuZ-JD-EQO" id="HU4-LY-nxo"/>

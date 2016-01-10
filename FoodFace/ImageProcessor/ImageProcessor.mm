@@ -27,7 +27,7 @@
     NSMutableArray *extractedPolygons;
 }
 
--(id)initWithImage:(UIImage*)image {
+- (id)initWithImage:(UIImage*)image {
     self = [super init];
     if (self) {
         inputImage = image;
@@ -35,7 +35,21 @@
     return self;
 }
 
--(ImageProcessorResult*)prepareImage {
+- (ImageProcessorResult*)run:(NSDictionary*)options {
+    ImageProcessorResult *prepareImageResult = [self prepareImage];
+    ImageProcessorResult *findContoursResult = [self findContours:[options[@"arcLengthMultiplier"] floatValue]];
+    ImageProcessorResult *filterContoursResult = [self filterContours];
+    ImageProcessorResult *extractContourBoundingBoxImagesResult = [self extractContourBoundingBoxImages];
+    ImageProcessorResult *boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
+    ImageProcessorResult *placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate];
+    
+    return [self results:@[prepareImageResult.images.firstObject,
+                           extractContourBoundingBoxImagesResult.images,
+                           placePolygonsOnTargetTemplateResult.results.firstObject]
+                  images:@[]];
+}
+
+- (ImageProcessorResult*)prepareImage {
     // Resize the image to 1000x1000 pixels
     croppedImage = [ImageHelper resizeImage:inputImage scaledToSize:CGSizeMake(1000, 1000)];
     
@@ -54,7 +68,7 @@
     return [self results:@[] images:@[croppedImage]];
 }
 
--(ImageProcessorResult*)findContours:(float)arcLengthMultiplier {
+- (ImageProcessorResult*)findContours:(float)arcLengthMultiplier {
     // Detect all contours within the image matrix, and filter for those that match detection criteria
     allContours = [ContourAnalyser findContoursInImage:imageMatrixAll arcLengthMultiplier:arcLengthMultiplier];
     
@@ -69,7 +83,7 @@
     return [self results:debugImages images:@[]];
 }
 
--(ImageProcessorResult*)filterContours {
+- (ImageProcessorResult*)filterContours {
     filteredContours = [ContourAnalyser filterContours:allContours];
     
     // Highlight the contours in the image
@@ -83,7 +97,7 @@
     return [self results:@[numFilteredContours] images:@[highlightedContours]];
 }
 
--(ImageProcessorResult*)extractContourBoundingBoxImages {
+- (ImageProcessorResult*)extractContourBoundingBoxImages {
     // Extract filtered contours from the cropped image
     cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:imageMatrix];
     
@@ -95,7 +109,7 @@
     return [self results:contourImages images:debugImages];
 }
 
--(ImageProcessorResult*)boundingBoxImagesToPolygons {
+- (ImageProcessorResult*)boundingBoxImagesToPolygons {
     // Construct Polygon objects from the extracted images
     extractedPolygons = [NSMutableArray array];
     for (int i = 0; i < contourImages.count; i++) {
@@ -106,7 +120,7 @@
     return [self results:@[extractedPolygons] images:@[]];
 }
 
--(ImageProcessorResult*)placePolygonsOnTargetTemplate {
+- (ImageProcessorResult*)placePolygonsOnTargetTemplate {
     // Get the bin Polygons based on the item Polygons we've extracted
     NSArray *binPolygons = [PolygonHelper binPolygonsForTemplateBasedOnItemPolygons:extractedPolygons];
     
@@ -131,9 +145,8 @@
     return [self results:@[outputImage] images:@[]];
 }
 
--(ImageProcessorResult*)results:(NSArray*)results images:(NSArray*)images {
+- (ImageProcessorResult*)results:(NSArray*)results images:(NSArray*)images {
     return [[ImageProcessorResult alloc] initWithResults:results images:images];
 }
-
 
 @end
