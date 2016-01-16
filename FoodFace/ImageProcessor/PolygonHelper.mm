@@ -16,17 +16,11 @@
 + (NSArray*)binPolygonsForTemplateBasedOnItemPolygons:(NSArray*)itemPolygons {
     NSMutableArray *binPolygons = [NSMutableArray array];
     
-    // Left eye
     Polygon *leftEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 150, 150)]];
-    // Right eye
     Polygon *rightEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 150, 150)]];
-    // Nose
     Polygon *nose = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
-    // Mouth
     Polygon *mouth = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 650, 400, 200)]];
-    // Left ear
     Polygon *leftEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
-    // Right ear
     Polygon *rightEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
     
     if (itemPolygons.count == 3) {
@@ -149,19 +143,18 @@
     return result;
 }
 
-////    // Debug the bin layout
-////    [self displayBinTemplateLayout:sortedBinPolygons usingSize:testImage.size];
-//- (void)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
-//    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-//
-//    for (int i = 0; i < binPolygons.count; i++) {
-//        [((Polygon*)[binPolygons objectAtIndex:i]).shape fill];
-//    }
-//
-//    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//
-//    self.debugImageView3.image = myImage;
-//}
++ (UIImage*)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
+    // Allow for debuggin the bin layout
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+
+    for (int i = 0; i < binPolygons.count; i++) {
+        [((Polygon*)[binPolygons objectAtIndex:i]).shape fill];
+    }
+
+    UIImage *binTemplateLayout = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return binTemplateLayout;
+}
 
 @end

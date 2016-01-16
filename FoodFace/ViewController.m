@@ -16,12 +16,6 @@
 
 float const defaultArcMultiplier = 0.02;
 
-/*
- TODOS:
- - investigate increasing the # supported rotations once this is done to see if the face can be better arranged
- - also investigate supporting tweaking this value from a user input
- */
-
 @implementation ViewController {
     ImageProcessor *processor;
 }

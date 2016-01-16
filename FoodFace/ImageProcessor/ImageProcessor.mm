@@ -35,7 +35,7 @@
     return self;
 }
 
-- (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion {
+    - (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         ImageProcessorResult *results = [self run:options];
     
@@ -63,7 +63,7 @@
     boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
     
     ImageProcessorResult *placePolygonsOnTargetTemplateResult = [ImageProcessorResult new];
-placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[options[@"maxNumPolygonRotations"] floatValue]];
+    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[options[@"maxNumPolygonRotations"] floatValue]];
     
     return [self results:@[prepareImageResult.images.firstObject,
                            extractContourBoundingBoxImagesResult.images,
@@ -163,8 +163,10 @@ placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[optio
         outputImage = [PolygonHelper addItemPolygon:currentExtractedPolygon toImage:outputImage atBinPolygon:currentBinPolygon];
     }
     
+    UIImage *binTemplateLayout = [PolygonHelper displayBinTemplateLayout:sortedBinPolygons usingSize:outputImage.size];
+    
     // Return the output image containing all polygons rendered on the image
-    return [self results:@[outputImage] images:@[]];
+    return [self results:@[outputImage] images:@[binTemplateLayout]];
 }
 
 - (ImageProcessorResult*)results:(NSArray*)results images:(NSArray*)images {
