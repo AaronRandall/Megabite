@@ -60,20 +60,23 @@
 }
 
 + (Polygon*)rotatePolygonToCoverPolygon:(Polygon*)item bin:(Polygon*)bin {
-    int smallestNumRedPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
+    int smallestNumUncoveredPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
     int optimalRotation = 0;
     
     for (int i = 0; i < 6; i++) {
         int degrees = i * 30;
-        int redPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
+        int uncoveredBinPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
+    
+        if (uncoveredBinPixels == 0) {
+            // If the entire bin surface is covered, stop rotating
+            break;
+        }
         
-        if (redPixels < smallestNumRedPixels) {
-            smallestNumRedPixels = redPixels;
+        if (uncoveredBinPixels < smallestNumUncoveredPixels) {
+            smallestNumUncoveredPixels = uncoveredBinPixels;
             optimalRotation = degrees;
         }
     }
-    
-    // NSLog(@"Optimal rotation:%d, Smallest num Red pixels: %d", optimalRotation, smallestNumRedPixels);
     
     [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:optimalRotation];
     
