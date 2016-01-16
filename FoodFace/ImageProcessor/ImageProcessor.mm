@@ -63,7 +63,7 @@
     boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
     
     ImageProcessorResult *placePolygonsOnTargetTemplateResult = [ImageProcessorResult new];
-    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[options[@"maxNumPolygonRotations"] floatValue]];
+placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[options[@"maxNumPolygonRotations"] floatValue]];
     
     return [self results:@[prepareImageResult.images.firstObject,
                            extractContourBoundingBoxImagesResult.images,

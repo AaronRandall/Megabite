@@ -29,15 +29,12 @@ float const defaultArcMultiplier = 0.02;
 # pragma mark - Image processor
 
 - (void)runImageProcessing {
-    NSDictionary *options = @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text,
-                              @"maxNumPolygonRotations" : @6};
-    
-    [processor run:options completion:^(ImageProcessorResult *result) {
-        [self runAnimationsWithResults:result];
+    [processor run:[self options] completion:^(ImageProcessorResult *result) {
+        [self runAnimationsWithResult:result];
     }];
 }
 
-- (void)runAnimationsWithResults:(ImageProcessorResult*)result {
+- (void)runAnimationsWithResult:(ImageProcessorResult*)result {
     UIImage *croppedInputImage = result.results[0];
     NSArray *extractedContourBoundingBoxImages = result.results[1];
     UIImage *outputImage = result.results[2];
@@ -105,6 +102,20 @@ float const defaultArcMultiplier = 0.02;
 - (void)setArcLengthTestFieldFromFloat:(float)value {
     self.arcLengthMultiplierField.text = [NSString stringWithFormat:@"%.3f",value];
     self.sensitivityStepper.value = value;
+}
+
+- (NSNumber*)maxPolygonRotationValue {
+    NSArray *rotationValues = @[@2, @3, @4, @5, @6, @9, @20, @30, @60, @90, @180];
+    int sliderValue = (int)self.maxPolygonRotationSlider.value;
+    
+    NSLog(@"rotationValues: %@", rotationValues[sliderValue]);
+    
+    return rotationValues[sliderValue];
+}
+
+- (NSDictionary*)options {
+    return @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text,
+             @"maxNumPolygonRotations" : [self maxPolygonRotationValue]};
 }
 
 # pragma mark - IBActions

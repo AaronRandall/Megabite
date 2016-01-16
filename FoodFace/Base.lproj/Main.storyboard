@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
@@ -26,32 +26,32 @@
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unw-Na-UZC">
-                                <rect key="frame" x="219" y="579" width="94" height="30"/>
+                                <rect key="frame" x="219" y="539" width="94" height="30"/>
                                 <state key="normal" title="Default photo"/>
                                 <connections>
                                     <action selector="defaultPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xs-I1-ZEU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
-                                <rect key="frame" x="283" y="616" width="30" height="30"/>
+                                <rect key="frame" x="325" y="539" width="30" height="30"/>
                                 <state key="normal" title="Run"/>
                                 <connections>
                                     <action selector="run:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SPE-aC-8As"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.020" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-9s-QPZ">
-                                <rect key="frame" x="158" y="617" width="52" height="30"/>
+                                <rect key="frame" x="122" y="617" width="52" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" value="0.02" minimumValue="0.01" maximumValue="0.029999999999999999" stepValue="0.001" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-if-lPk">
-                                <rect key="frame" x="56" y="617" width="94" height="29"/>
+                                <rect key="frame" x="20" y="617" width="94" height="29"/>
                                 <connections>
                                     <action selector="sensitivityStepperValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="RYz-rO-zCD"/>
                                 </connections>
                             </stepper>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBR-bf-cbc">
-                                <rect key="frame" x="56" y="579" width="77" height="30"/>
+                                <rect key="frame" x="56" y="539" width="77" height="30"/>
                                 <state key="normal" title="Take photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bYo-xz-gJt"/>
@@ -60,6 +60,21 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-vl-Ur6">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Arc length multiplier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AA7-Ib-NFH">
+                                <rect key="frame" x="20" y="588" width="154" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Max. # polygon rotations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoS-9P-Yni">
+                                <rect key="frame" x="195" y="592" width="170" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="irm-WY-Z5x">
+                                <rect key="frame" x="193" y="617" width="174" height="31"/>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -69,6 +84,7 @@
                         <outlet property="arcLengthMultiplierField" destination="6xe-9s-QPZ" id="xk3-f6-vwy"/>
                         <outlet property="debugImageView" destination="wZu-ht-T1H" id="6Kj-PW-Wrh"/>
                         <outlet property="inputImageView" destination="VuZ-JD-EQO" id="HU4-LY-nxo"/>
+                        <outlet property="maxPolygonRotationSlider" destination="irm-WY-Z5x" id="UTS-gu-ThP"/>
                         <outlet property="outputImageView" destination="b3w-vl-Ur6" id="gGE-Ns-5VX"/>
                         <outlet property="sensitivityStepper" destination="PPX-if-lPk" id="KMk-1g-vsw"/>
                     </connections>

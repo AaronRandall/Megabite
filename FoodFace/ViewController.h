@@ -16,6 +16,7 @@
 - (IBAction)sensitivityStepperValueChanged:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIStepper *sensitivityStepper;
+@property (weak, nonatomic) IBOutlet UISlider *maxPolygonRotationSlider;
 @property (weak, nonatomic) IBOutlet UITextField *arcLengthMultiplierField;
 @property (weak, nonatomic) IBOutlet UIImageView *inputImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *outputImageView;
