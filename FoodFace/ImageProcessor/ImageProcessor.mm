@@ -35,14 +35,14 @@
     return self;
 }
 
-    - (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion {
+- (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         ImageProcessorResult *results = [self run:options];
-    
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(results);
         });
-
+        
     });
 }
 
