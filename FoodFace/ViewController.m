@@ -30,14 +30,11 @@ float const defaultArcMultiplier = 0.02;
 # pragma mark - Image processor
 
 - (void)runImageProcessing {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSDictionary *options = @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text};
-        ImageProcessorResult *results = [processor run:options];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self runAnimationsWithResults:results];
-        });
-    });
+    NSDictionary *options = @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text};
+    
+    [processor run:options completion:^(ImageProcessorResult *result) {
+        [self runAnimationsWithResults:result];
+    }];
 }
 
 - (void)runAnimationsWithResults:(ImageProcessorResult*)results {

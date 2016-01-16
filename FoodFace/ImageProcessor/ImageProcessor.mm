@@ -35,13 +35,35 @@
     return self;
 }
 
+- (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        ImageProcessorResult *results = [self run:options];
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(results);
+        });
+
+    });
+}
+
 - (ImageProcessorResult*)run:(NSDictionary*)options {
-    ImageProcessorResult *prepareImageResult = [self prepareImage];
-    ImageProcessorResult *findContoursResult = [self findContours:[options[@"arcLengthMultiplier"] floatValue]];
-    ImageProcessorResult *filterContoursResult = [self filterContours];
-    ImageProcessorResult *extractContourBoundingBoxImagesResult = [self extractContourBoundingBoxImages];
-    ImageProcessorResult *boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
-    ImageProcessorResult *placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate];
+    ImageProcessorResult *prepareImageResult = [ImageProcessorResult new];
+    prepareImageResult = [self prepareImage];
+    
+    ImageProcessorResult *findContoursResult = [ImageProcessorResult new];
+    findContoursResult = [self findContours:[options[@"arcLengthMultiplier"] floatValue]];
+    
+    ImageProcessorResult *filterContoursResult = [ImageProcessorResult new];
+    filterContoursResult = [self filterContours];
+    
+    ImageProcessorResult *extractContourBoundingBoxImagesResult = [ImageProcessorResult new];
+    extractContourBoundingBoxImagesResult = [self extractContourBoundingBoxImages];
+    
+    ImageProcessorResult *boundingBoxImagesToPolygonsResult = [ImageProcessorResult new];
+    boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
+    
+    ImageProcessorResult *placePolygonsOnTargetTemplateResult = [ImageProcessorResult new];
+    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate];
     
     return [self results:@[prepareImageResult.images.firstObject,
                            extractContourBoundingBoxImagesResult.images,

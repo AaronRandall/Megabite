@@ -11,6 +11,6 @@
 @interface ImageProcessor : NSObject
 
 - (id)initWithImage:(UIImage*)image;
-- (ImageProcessorResult*)run:(NSDictionary*)options;
+- (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion;
 
 @end
