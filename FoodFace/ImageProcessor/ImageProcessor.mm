@@ -63,7 +63,7 @@
     boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
     
     ImageProcessorResult *placePolygonsOnTargetTemplateResult = [ImageProcessorResult new];
-    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate];
+    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[options[@"maxNumPolygonRotations"] floatValue]];
     
     return [self results:@[prepareImageResult.images.firstObject,
                            extractContourBoundingBoxImagesResult.images,
@@ -142,7 +142,7 @@
     return [self results:@[extractedPolygons] images:@[]];
 }
 
-- (ImageProcessorResult*)placePolygonsOnTargetTemplate {
+- (ImageProcessorResult*)placePolygonsOnTargetTemplate:(int)maxNumPolygonRotations {
     // Get the bin Polygons based on the item Polygons we've extracted
     NSArray *binPolygons = [PolygonHelper binPolygonsForTemplateBasedOnItemPolygons:extractedPolygons];
     
@@ -157,7 +157,7 @@
         Polygon *currentExtractedPolygon = sortedExtractedPolygons[i];
         
         // Find the rotation where the extracted polygon covers the target polygon with the largest surface area coverage
-        currentExtractedPolygon = [PolygonHelper rotatePolygonToCoverPolygon:currentExtractedPolygon bin:currentBinPolygon];
+        currentExtractedPolygon = [PolygonHelper rotatePolygonToCoverPolygon:currentExtractedPolygon bin:currentBinPolygon maxNumPolygonRotations:maxNumPolygonRotations];
         
         // Add the polygon to the image at the desired location (based on the polygon centroids)
         outputImage = [PolygonHelper addItemPolygon:currentExtractedPolygon toImage:outputImage atBinPolygon:currentBinPolygon];

@@ -18,7 +18,6 @@ float const defaultArcMultiplier = 0.02;
 
 /*
  TODOS:
- - optimise rotatePolygonToCoverPolygon to stop rotating if covered target surface area == target total surface area
  - investigate increasing the # supported rotations once this is done to see if the face can be better arranged
  - also investigate supporting tweaking this value from a user input
  */
@@ -30,17 +29,18 @@ float const defaultArcMultiplier = 0.02;
 # pragma mark - Image processor
 
 - (void)runImageProcessing {
-    NSDictionary *options = @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text};
+    NSDictionary *options = @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text,
+                              @"maxNumPolygonRotations" : @6};
     
     [processor run:options completion:^(ImageProcessorResult *result) {
         [self runAnimationsWithResults:result];
     }];
 }
 
-- (void)runAnimationsWithResults:(ImageProcessorResult*)results {
-    UIImage *croppedInputImage = results.results[0];
-    NSArray *extractedContourBoundingBoxImages = results.results[1];
-    UIImage *outputImage = results.results[2];
+- (void)runAnimationsWithResults:(ImageProcessorResult*)result {
+    UIImage *croppedInputImage = result.results[0];
+    NSArray *extractedContourBoundingBoxImages = result.results[1];
+    UIImage *outputImage = result.results[2];
     
     self.debugImageView.image = croppedInputImage;
     

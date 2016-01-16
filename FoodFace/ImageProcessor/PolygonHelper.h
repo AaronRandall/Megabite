@@ -12,7 +12,7 @@
 
 + (NSArray*)binPolygonsForTemplateBasedOnItemPolygons:(NSArray*)itemPolygons;
 + (NSArray*)sortPolygonsBySurfaceArea:(NSArray*)polygons;
-+ (Polygon*)rotatePolygonToCoverPolygon:(Polygon*)item bin:(Polygon*)bin;
++ (Polygon*)rotatePolygonToCoverPolygon:(Polygon*)item bin:(Polygon*)bin maxNumPolygonRotations:(int)maxNumPolygonRotations;
 + (int)calculateSurfaceAreaCoverageForBin:(Polygon*)bin item:(Polygon*)item rotation:(int)rotation;
 + (UIImage*)addItemPolygon:(Polygon*)itemPolygon toImage:(UIImage*)image atBinPolygon:(Polygon*)binPolygon;
 

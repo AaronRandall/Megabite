@@ -59,12 +59,14 @@
     return [polygons sortedArrayUsingDescriptors:sortDescriptors];
 }
 
-+ (Polygon*)rotatePolygonToCoverPolygon:(Polygon*)item bin:(Polygon*)bin {
++ (Polygon*)rotatePolygonToCoverPolygon:(Polygon*)item bin:(Polygon*)bin maxNumPolygonRotations:(int)maxNumPolygonRotations {
     int smallestNumUncoveredPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
     int optimalRotation = 0;
     
-    for (int i = 0; i < 6; i++) {
-        int degrees = i * 30;
+    int maximumNumRotationsInDegress = 180;
+    
+    for (int i = 0; i < maxNumPolygonRotations; i++) {
+        int degrees = i * maximumNumRotationsInDegress/maxNumPolygonRotations;
         int uncoveredBinPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
     
         if (uncoveredBinPixels == 0) {
