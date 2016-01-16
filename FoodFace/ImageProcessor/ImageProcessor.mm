@@ -94,15 +94,15 @@
     // Detect all contours within the image matrix, and filter for those that match detection criteria
     allContours = [ContourAnalyser findContoursInImage:imageMatrixAll arcLengthMultiplier:arcLengthMultiplier];
     
-//    // Highlight the contours in the cropped image
-//    cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
-//    UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
-//    
+    // Highlight the contours in the cropped image
+    cv::Mat cvMatWithSquaresAll = [ImageHelper highlightContoursInImage:allContours image:imageMatrixAll];
+    UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
+    
     NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
     [debugImages addObject:inputImage];
     
     // Return all debug images (including all contours highlighted on the original image
-    return [self results:debugImages images:@[]];
+    return [self results:debugImages images:@[highlightedContours]];
 }
 
 - (ImageProcessorResult*)filterContours {
