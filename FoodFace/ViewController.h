@@ -15,12 +15,12 @@
 - (IBAction)run:(id)sender;
 - (IBAction)sensitivityStepperValueChanged:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UIStepper *sensitivityStepper;
-@property (weak, nonatomic) IBOutlet UISlider *maxPolygonRotationSlider;
-@property (weak, nonatomic) IBOutlet UITextField *arcLengthMultiplierField;
-@property (weak, nonatomic) IBOutlet UIImageView *inputImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *outputImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *debugImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *animatedImageView;
+@property (strong, nonatomic) IBOutlet UIStepper *sensitivityStepper;
+@property (strong, nonatomic) IBOutlet UISlider *maxPolygonRotationSlider;
+@property (strong, nonatomic) IBOutlet UITextField *arcLengthMultiplierField;
+@property (strong, nonatomic) IBOutlet UIImageView *inputImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *outputImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *debugImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *animatedImageView;
 
 @end
