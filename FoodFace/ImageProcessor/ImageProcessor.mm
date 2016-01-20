@@ -27,6 +27,15 @@
     NSMutableArray *extractedPolygons;
 }
 
++ (NSArray*)rotationValues {
+    static NSArray *_rotationValues;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _rotationValues = @[@2, @3, @4, @5, @6, @9, @20, @30, @60, @90, @180];
+    });
+    return _rotationValues;
+}
+
 - (id)initWithImage:(UIImage*)image {
     self = [super init];
     if (self) {

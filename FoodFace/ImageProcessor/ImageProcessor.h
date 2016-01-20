@@ -12,5 +12,6 @@
 
 - (id)initWithImage:(UIImage*)image;
 - (void)run:(NSDictionary*)options completion:(void (^)(ImageProcessorResult *result))completion;
++ (NSArray*)rotationValues;
 
 @end

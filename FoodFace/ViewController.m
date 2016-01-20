@@ -52,12 +52,8 @@ float const defaultArcMultiplier = 0.02;
 }
 
 - (NSNumber*)maxPolygonRotationValue {
-    NSArray *rotationValues = @[@2, @3, @4, @5, @6, @9, @20, @30, @60, @90, @180];
     int sliderValue = (int)self.maxPolygonRotationSlider.value;
-    
-    NSLog(@"rotationValues: %@", rotationValues[sliderValue]);
-    
-    return rotationValues[sliderValue];
+    return [[ImageProcessor rotationValues] objectAtIndex:sliderValue];
 }
 
 - (NSDictionary*)options {
