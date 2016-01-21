@@ -57,14 +57,14 @@
     int smallestNumUncoveredPixels = bin.shape.bounds.size.width * bin.shape.bounds.size.height;
     int optimalRotation = 0;
     
-    int maximumNumRotationsInDegress = 180;
+    int maximumNumRotationsInDegrees = 180;
     
     for (int i = 0; i < maxNumPolygonRotations; i++) {
-        int degrees = i * maximumNumRotationsInDegress/maxNumPolygonRotations;
+        int degrees = i * maximumNumRotationsInDegrees/maxNumPolygonRotations;
         int uncoveredBinPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
     
         if (uncoveredBinPixels == 0) {
-            // If the entire bin surface is covered, stop rotating
+            // If the entire bin surface is covered, don't attempt any other rotations
             break;
         }
         
@@ -94,6 +94,7 @@
     int degreesToRotate = rotation;
     UIBezierPath *copyOfItem = [item.shape copy];
     [copyOfItem applyTransform:CGAffineTransformMakeRotation([ImageHelper degreesToRadians:degreesToRotate])];
+    
     // Find the rotated path's bounding box
     CGRect boundingBox = CGPathGetPathBoundingBox(copyOfItem.CGPath);
     int rotatedCentroidX = boundingBox.size.width/2;
@@ -104,22 +105,26 @@
     [copyOfItem applyTransform:CGAffineTransformMakeTranslation(pointX-(boundingBox.origin.x), pointY-(boundingBox.origin.y))];
     
     UIGraphicsBeginImageContextWithOptions(bin.shape.bounds.size, YES, 0.0);
-    [[UIColor redColor] set]; // set the background color
-    UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
-    [[UIColor blueColor] set];
     
+    // Fill the bin polygon surface area in red
+    [[UIColor redColor] set];
+    UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
+
+    // Fill the item polygon surface area in blue
+    [[UIColor blueColor] set];
     [copyOfItem fill];
-    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIImage *binWithItemOverlayed = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSUInteger numberOfRedPixels = [ImageHelper numberOfRedPixelsInImage:myImage];
+    // Calculate the number of visible bin polygon pixels (from under the item polygon)
+    NSUInteger numberOfVisibleBinPixels = [ImageHelper numberOfRedPixelsInImage:binWithItemOverlayed];
     
 //    self.debugImageViewBin.image = bin.image;
 //    self.debugImageViewItem.image = [ImageHelper imageRotatedByDegrees:degreesToRotate image:item.image];
 //    self.debugImageView4.image = myImage;
-    // --------------------------------------------------------------------
     
-    return (int)numberOfRedPixels;
+    return (int)numberOfVisibleBinPixels;
 }
 
 + (UIImage*)addItemPolygon:(Polygon*)itemPolygon toImage:(UIImage*)image atBinPolygon:(Polygon*)binPolygon {
