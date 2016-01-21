@@ -11,8 +11,8 @@
 - (id)initWithImage:(UIImage*)image;
 - (id)initWithShape:(UIBezierPath*)shape;
 
-@property UIImage *image;
-@property UIBezierPath *shape;
+@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIBezierPath *shape;
 @property (assign, nonatomic) int surfaceArea;
 @property (assign, nonatomic) int centroidX;
 @property (assign, nonatomic) int centroidY;
