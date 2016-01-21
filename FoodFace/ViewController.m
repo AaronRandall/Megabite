@@ -11,19 +11,30 @@
 #import "ImageProcessorResult.h"
 #import "AnimationHelper.h"
 
-@interface ViewController ()
-@end
-
 float const defaultArcMultiplier = 0.02;
 
-@implementation ViewController {
-    ImageProcessor *processor;
-}
+@interface ViewController ()
+@property UIImage *inputImage;
+@end
+
+/*
+ 
+ TODO: 
+ - check that I have all debug images (inc. canny image, etc)
+ - rebuild logic to show bin layout with items placed on top (2 semi-transparent imageviews)
+ - rebuild logic to show intersection of source and target polygon (and actual rotation of object)
+ - start blog post!
+ 
+ */
+
+@implementation ViewController
 
 # pragma mark - Image processor
 
 - (void)runImageProcessing {
-    [processor run:[self options] completion:^(ImageProcessorResult *result) {
+    ImageProcessor *imageProcessor = [[ImageProcessor alloc] initWithImage:self.inputImage];
+    
+    [imageProcessor run:[self options] completion:^(ImageProcessorResult *result) {
         [self runAnimationsWithResult:result];
     }];
 }
@@ -39,11 +50,10 @@ float const defaultArcMultiplier = 0.02;
     [AnimationHelper runSpinAnimationsForImages:extractedContourBoundingBoxImages outputImage:outputImage outputImageView:self.outputImageView animatedImageView:self.animatedImageView debugImageView:self.debugImageView];
 }
 
-- (void)setImageForImageProcessor:(UIImage*)image {
-    self.inputImageView.image = image;
+- (void)displayInputImage {
+    self.inputImageView.image = self.inputImage;
     self.debugImageView.image = nil;
     self.outputImageView.image = nil;
-    processor = [[ImageProcessor alloc] initWithImage:image];
 }
 
 - (void)setArcLengthTestFieldFromFloat:(float)value {
@@ -64,7 +74,7 @@ float const defaultArcMultiplier = 0.02;
 # pragma mark - IBActions
 
 - (IBAction)takePhoto:(id)sender {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    UIImagePickerController *picker = [UIImagePickerController new];
     picker.delegate = self;
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -73,8 +83,8 @@ float const defaultArcMultiplier = 0.02;
 }
 
 - (IBAction)defaultPhoto:(id)sender {
-    UIImage *defaultPhoto = [UIImage imageNamed:@"Food"];
-    [self setImageForImageProcessor:defaultPhoto];
+    self.inputImage = [UIImage imageNamed:@"Food"];
+    [self displayInputImage];
     [self runImageProcessing];
 }
 
@@ -117,8 +127,9 @@ float const defaultArcMultiplier = 0.02;
                   usingCropRect:(CGRect)cropRect
                   rotationAngle:(CGFloat)rotationAngle {
     [self dismissViewControllerAnimated:YES completion:^{
+        self.inputImage = croppedImage;
         [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
-        [self setImageForImageProcessor:croppedImage];
+        [self displayInputImage];
         [self runImageProcessing];
     }];
 }
