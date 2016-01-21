@@ -138,9 +138,13 @@
     int boundingBoxRotation = 0;
     int smallestSurfaceArea = image.size.height * image.size.width;
     
-    // Ratios 5/36, 90/2, 30/6, 20/9, 10/18, etc
-    for (int i = 0; i < 6; i++) {
-        int degrees = i * 30;
+    // Ratios 5/36, 90/2, 30/6, 20/9, 10/18, 180/1, etc
+    // TODO: be able to modify this value (can use max # polygon rotations value)
+    int maxNumPolygonRotations = 180;
+    int maximumNumRotationsInDegrees = 180;
+    
+    for (int i = 0; i < maxNumPolygonRotations; i++) {
+        int degrees = i * maximumNumRotationsInDegrees/maxNumPolygonRotations;
         // Rotate the image
         UIImage *tempImage = [self imageRotatedByDegrees:degrees image:image];
         

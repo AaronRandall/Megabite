@@ -44,6 +44,8 @@ static NSMutableArray* debugImages;
     cv::Mat gray0(image.size(), CV_8U);
     cv::Mat gray;
     
+    [self addDebugImage:[ImageHelper UIImageFromCVMat:timg]];
+    
     for( int c = 0; c < 3; c++ ) {
         int ch[] = {c, 0};
         mixChannels(&timg, 1, &gray0, 1, ch, 1);
@@ -51,7 +53,10 @@ static NSMutableArray* debugImages;
             if( l == 0 ) {
                 cv::Canny(gray0, gray, 0, thresh, 3);
                 //cv::threshold(gray0, gray, 192.0, 255.0, 1);
+                [self addDebugImage:[ImageHelper UIImageFromCVMat:gray]];
+                
                 cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
+                [self addDebugImage:[ImageHelper UIImageFromCVMat:gray]];
             }
             else {
                 //                continue;
