@@ -17,16 +17,6 @@ float const defaultArcMultiplier = 0.02;
 @property UIImage *inputImage;
 @end
 
-/*
- 
- TODO: 
- - check that I have all debug images (inc. canny image, etc)
- - rebuild logic to show bin layout with items placed on top (2 semi-transparent imageviews)
- - rebuild logic to show intersection of source and target polygon (and actual rotation of object)
- - start blog post!
- 
- */
-
 @implementation ViewController
 
 # pragma mark - Image processor

@@ -16,6 +16,7 @@
 + (NSArray*)binPolygonsForTemplateBasedOnItemPolygons:(NSArray*)itemPolygons {
     NSMutableArray *binPolygons = [NSMutableArray array];
     
+    // Define all available bins
     Polygon *leftEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(300, 200, 150, 150)]];
     Polygon *rightEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(600, 200, 150, 150)]];
     Polygon *nose = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
@@ -23,17 +24,18 @@
     Polygon *leftEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
     Polygon *rightEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
     
+    // Construct bin template layout based on the number of extracted items
     if (itemPolygons.count == 3) {
         [binPolygons addObject:leftEye];
         [binPolygons addObject:rightEye];
         [binPolygons addObject:mouth];
-    } else if (itemPolygons.count >= 4 &&
+    } else if (itemPolygons.count > 3 &&
                itemPolygons.count <= 5) {
         [binPolygons addObject:leftEye];
         [binPolygons addObject:rightEye];
         [binPolygons addObject:mouth];
         [binPolygons addObject:nose];
-    } else if (itemPolygons.count >= 6) {
+    } else if (itemPolygons.count > 5) {
         [binPolygons addObject:leftEye];
         [binPolygons addObject:rightEye];
         [binPolygons addObject:mouth];
@@ -149,7 +151,6 @@
 }
 
 + (UIImage*)displayBinTemplateLayout:(NSArray*)binPolygons usingSize:(CGSize)size {
-    // Allow for debuggin the bin layout
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
 
     for (int i = 0; i < binPolygons.count; i++) {

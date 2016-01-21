@@ -14,17 +14,20 @@
 #import "Polygon.h"
 #import "PolygonHelper.h"
 
+@interface ImageProcessor ()
+@property (strong, nonatomic) UIImage *inputImage;
+@property (strong, nonatomic) UIImage *croppedImage;
+@property (strong, nonatomic) NSMutableArray *contourImages;
+@property (strong, nonatomic) NSMutableArray *extractedPolygons;
+@end
+
 @implementation ImageProcessor {
-    UIImage *inputImage;
-    UIImage *croppedImage;
     cv::Mat imageMatrix;
     cv::Mat imageMatrixAll;
     cv::Mat imageMatrixFiltered;
     cv::Mat imageMatrixOriginal;
     std::vector<std::vector<cv::Point>> allContours;
     std::vector<std::vector<cv::Point>> filteredContours;
-    NSMutableArray *contourImages;
-    NSMutableArray *extractedPolygons;
 }
 
 + (NSArray*)rotationValues {
@@ -39,7 +42,7 @@
 - (id)initWithImage:(UIImage*)image {
     self = [super init];
     if (self) {
-        inputImage = image;
+        self.inputImage = image;
     }
     return self;
 }
@@ -82,21 +85,21 @@
 
 - (ImageProcessorResult*)prepareImage {
     // Resize the image to 1000x1000 pixels
-    croppedImage = [ImageHelper resizeImage:inputImage scaledToSize:CGSizeMake(1000, 1000)];
+    self.croppedImage = [ImageHelper resizeImage:self.inputImage scaledToSize:CGSizeMake(1000, 1000)];
     
     // Crop the image to the shape of the plate
-    croppedImage = [ImageHelper roundedRectImageFromImage:croppedImage size:inputImage.size withCornerRadius:inputImage.size.height/2];
+    self.croppedImage = [ImageHelper roundedRectImageFromImage:self.croppedImage size:self.inputImage.size withCornerRadius:self.inputImage.size.height/2];
     
     // Convert the image into a matrix
-    imageMatrix = [ImageHelper cvMatFromUIImage:croppedImage];
+    imageMatrix = [ImageHelper cvMatFromUIImage:self.croppedImage];
     imageMatrix.copyTo(imageMatrixAll);
     imageMatrix.copyTo(imageMatrixFiltered);
     
     // Keep a copy of the original input image in cv::Mat format
-    imageMatrixOriginal = [ImageHelper cvMatFromUIImage:inputImage];
+    imageMatrixOriginal = [ImageHelper cvMatFromUIImage:self.inputImage];
     
     // Return the resized and cropped image
-    return [self results:@[] images:@[croppedImage]];
+    return [self results:@[] images:@[self.croppedImage]];
 }
 
 - (ImageProcessorResult*)findContours:(float)arcLengthMultiplier {
@@ -108,7 +111,7 @@
     UIImage *highlightedContours = [ImageHelper UIImageFromCVMat:cvMatWithSquaresAll];
     
     NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
-    [debugImages addObject:inputImage];
+    [debugImages addObject:self.inputImage];
     
     // Return all debug images (including all contours highlighted on the original image
     return [self results:debugImages images:@[highlightedContours]];
@@ -133,31 +136,31 @@
     cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:imageMatrix];
     
     // Crop extracted contours to their minimum bounding box, and make background transparent
-    contourImages = [ContourAnalyser reduceContoursToBoundingBox:extractedContours];
+    self.contourImages = [ContourAnalyser reduceContoursToBoundingBox:extractedContours];
     
     NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
     
-    return [self results:contourImages images:debugImages];
+    return [self results:self.contourImages images:debugImages];
 }
 
 - (ImageProcessorResult*)boundingBoxImagesToPolygons {
     // Construct Polygon objects from the extracted images
-    extractedPolygons = [NSMutableArray array];
-    for (int i = 0; i < contourImages.count; i++) {
-        Polygon *polygon = [[Polygon alloc] initWithImage:contourImages[i]];
-        [extractedPolygons addObject:polygon];
+    self.extractedPolygons = [NSMutableArray array];
+    for (int i = 0; i < self.contourImages.count; i++) {
+        Polygon *polygon = [[Polygon alloc] initWithImage:self.contourImages[i]];
+        [self.extractedPolygons addObject:polygon];
     }
     
-    return [self results:@[extractedPolygons] images:@[]];
+    return [self results:@[self.extractedPolygons] images:@[]];
 }
 
 - (ImageProcessorResult*)placePolygonsOnTargetTemplate:(int)maxNumPolygonRotations {
     // Get the bin Polygons based on the item Polygons we've extracted
-    NSArray *binPolygons = [PolygonHelper binPolygonsForTemplateBasedOnItemPolygons:extractedPolygons];
+    NSArray *binPolygons = [PolygonHelper binPolygonsForTemplateBasedOnItemPolygons:self.extractedPolygons];
     
     // Sort the polygons by surface area size (largest to smallest)
     NSArray *sortedBinPolygons = [PolygonHelper sortPolygonsBySurfaceArea:binPolygons];
-    NSArray *sortedExtractedPolygons = [PolygonHelper sortPolygonsBySurfaceArea:extractedPolygons];
+    NSArray *sortedExtractedPolygons = [PolygonHelper sortPolygonsBySurfaceArea:self.extractedPolygons];
     
     UIImage *outputImage = [UIImage imageNamed:@"EmptyPlate"];
     
