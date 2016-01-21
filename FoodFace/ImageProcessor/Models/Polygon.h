@@ -13,11 +13,8 @@
 
 @property UIImage *image;
 @property UIBezierPath *shape;
-@property int appliedRotation;
-@property int surfaceArea;
-@property int positionX;
-@property int positionY;
-@property int centroidX;
-@property int centroidY;
+@property (assign, nonatomic) int surfaceArea;
+@property (assign, nonatomic) int centroidX;
+@property (assign, nonatomic) int centroidY;
 
 @end
