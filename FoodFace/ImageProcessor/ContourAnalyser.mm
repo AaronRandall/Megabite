@@ -70,8 +70,6 @@ static NSMutableArray* debugImages;
             std::vector<cv::Point> approx;
             for( size_t i = 0; i < contours.size(); i++ )
             {
-                // TODO: support adjusting 0.02 value and update detected objects
-                // so user can tweak to get the correct detection
                 cv::approxPolyDP(cv::Mat(contours[i]),
                                  approx,
                                  cv::arcLength(cv::Mat(contours[i]), true) * arcLengthMultiplier,
@@ -82,44 +80,20 @@ static NSMutableArray* debugImages;
                 cv::Rect x = cv::boundingRect(currentContour);
                 
                 if (x.width > 800 || x.height > 800) {
-                    //NSLog(@"Skipping contour due to width/height constraints");
+                    // Skipping contour due to width/height constraints
                     continue;
                 }
                 
-                // Skip small or non-convex objects
                 if (std::fabs(cv::contourArea(contours[i])) < 5000
                     || fabs(contourArea(cv::Mat(contours[i]))) > 250000) {
-                    // NSLog(@"Skipping contour due to surface area constraints");
+                    // Skipping contour due to surface area constraints
                     continue;
                 }
                 
-                //                if(hierarchy[i][2]<0) {
-                //                    //Check if there is a child contour
-                //                    NSLog(@"Open Contour");
-                //                    continue;
-                //                } else {
-                //                    NSLog(@"Closed Contour");
-                //                }
-                //
-                //
                 if (skipNonConvexContours && !cv::isContourConvex(approx)) {
-                    //NSLog(@"Skipping contour due to being non-convex");
+                    // Skipping contour due to being non-convex
                     continue;
                 }
-                
-                //                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
-                //                    !cv::isContourConvex(approx))
-                //                    continue;
-                //
-                //                if (std::fabs(cv::contourArea(contours[i])) < 1000 ||
-                //                    fabs(contourArea(cv::Mat(contours[i]))) > 500000)
-                //                    continue;
-                //
-                //                if (!cv::isContourConvex(approx))
-                //                    continue;
-                //                
-                //                NSLog(@"Sides: %lu", approx.size());
-                //                NSLog(@"Size: %f", fabs(contourArea(cv::Mat(contours[i]))));
                 
                 validContours.push_back(contours[i]);
             }
@@ -140,19 +114,11 @@ static NSMutableArray* debugImages;
                 continue;
             }
             
-            // 0 == perfect match
-            //double result = cv::matchShapes(contours[x], contours[y], 1, 1);
-            //NSLog(@"Comparison result: %f", result);
-            //if (result <= 0.5) {
-            //    [evictedIndexes addObject:[NSNumber numberWithInt:y]];
-            //}
-            
             cv::Rect boundingRectX = cv::boundingRect(contours[x]);
             cv::Rect boundingRectY = cv::boundingRect(contours[y]);
             
             // Evict contours that are similar in bounds to the current contour
             if ((std::fabs(boundingRectX.x - boundingRectY.x) < 25.0f) && (std::fabs(boundingRectX.y - boundingRectY.y) < 25.0f)) {
-                //NSLog(@"** removing item (x,x)(y,y): (%d,%d),(%d,%d)", boundingRectX.x, boundingRectY.x, boundingRectX.y, boundingRectY.y);
                 [evictedIndexes addObject:[NSNumber numberWithInt:y]];
             }
         }
@@ -166,9 +132,7 @@ static NSMutableArray* debugImages;
         filteredContours.push_back(contours[x]);
     }
     
-    //    NSLog(@"** Num. filtered items: %lu", filteredContours.size());
-    
-    // Evict contours which are inside other similar contours (e.g. carrot)
+    // Evict contours which are inside other similar contours
     evictedIndexes = [NSMutableSet set];
     for (int x = 0; x < filteredContours.size(); x++) {
         for ( int y = 0; y< filteredContours.size(); y++ ) {
@@ -196,7 +160,6 @@ static NSMutableArray* debugImages;
         secondPassFilteredContours.push_back(filteredContours[x]);
     }
     
-    //    NSLog(@"** Num. second-pass filtered items: %lu", secondPassFilteredContours.size());
     return secondPassFilteredContours;
 }
 
