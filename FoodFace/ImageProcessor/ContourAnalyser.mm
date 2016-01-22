@@ -168,7 +168,7 @@ static NSMutableArray* debugImages;
     return secondPassFilteredContours;
 }
 
-+ (NSMutableArray*)reduceContoursToBoundingBox:(cv::vector<cv::Mat>)contours {
++ (NSMutableArray*)reduceContoursToBoundingBox:(cv::vector<cv::Mat>)contours maxNumPolygonRotations:(int)maxNumPolygonRotations {
     debugImages = nil;
     NSMutableArray *boundingBoxImages = [NSMutableArray array];
     
@@ -184,7 +184,7 @@ static NSMutableArray* debugImages;
         UIImage *trimmedImage = [originalImage imageByTrimmingTransparentPixels];
         
         // Rotate to find the smallest possible bounding box (minimum-area enclosing rectangle)
-        UIImage *boundingBoxImage = [ImageHelper imageBoundingBox:trimmedImage];
+        UIImage *boundingBoxImage = [ImageHelper imageBoundingBox:trimmedImage maxNumPolygonRotations:maxNumPolygonRotations];
         
         [boundingBoxImages addObject:boundingBoxImage];
     }

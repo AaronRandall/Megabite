@@ -15,7 +15,7 @@
 + (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image;
 + (cv::vector<cv::Mat>)cutContoursFromImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image;
 + (UIImage*)roundedRectImageFromImage:(UIImage *)image size:(CGSize)imageSize withCornerRadius:(float)cornerRadius;
-+ (UIImage*)imageBoundingBox:(UIImage*)image;
++ (UIImage*)imageBoundingBox:(UIImage*)image maxNumPolygonRotations:(int)maxNumPolygonRotations;
 + (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage*)image;
 + (CGFloat)degreesToRadians:(CGFloat)degrees;
 + (NSUInteger)numberOfRedPixelsInImage:(UIImage*)image;

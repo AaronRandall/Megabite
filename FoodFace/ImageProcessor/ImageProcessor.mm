@@ -59,23 +59,26 @@
 }
 
 - (ImageProcessorResult*)run:(NSDictionary*)options {
+    float arcLengthMultiplier = [options[@"arcLengthMultiplier"] floatValue];
+    float maxNumPolygonRotations = [options[@"maxNumPolygonRotations"] floatValue];
+    
     ImageProcessorResult *prepareImageResult = [ImageProcessorResult new];
     prepareImageResult = [self prepareImage];
     
     ImageProcessorResult *findContoursResult = [ImageProcessorResult new];
-    findContoursResult = [self findContours:[options[@"arcLengthMultiplier"] floatValue]];
+    findContoursResult = [self findContours:arcLengthMultiplier];
     
     ImageProcessorResult *filterContoursResult = [ImageProcessorResult new];
     filterContoursResult = [self filterContours];
     
     ImageProcessorResult *extractContourBoundingBoxImagesResult = [ImageProcessorResult new];
-    extractContourBoundingBoxImagesResult = [self extractContourBoundingBoxImages];
+    extractContourBoundingBoxImagesResult = [self extractContourBoundingBoxImages:maxNumPolygonRotations];
     
     ImageProcessorResult *boundingBoxImagesToPolygonsResult = [ImageProcessorResult new];
     boundingBoxImagesToPolygonsResult = [self boundingBoxImagesToPolygons];
     
     ImageProcessorResult *placePolygonsOnTargetTemplateResult = [ImageProcessorResult new];
-    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:[options[@"maxNumPolygonRotations"] floatValue]];
+    placePolygonsOnTargetTemplateResult = [self placePolygonsOnTargetTemplate:maxNumPolygonRotations];
     
     return [self results:@[prepareImageResult.images.firstObject,
                            extractContourBoundingBoxImagesResult.images,
@@ -131,12 +134,12 @@
     return [self results:@[numFilteredContours] images:@[highlightedContours]];
 }
 
-- (ImageProcessorResult*)extractContourBoundingBoxImages {
+- (ImageProcessorResult*)extractContourBoundingBoxImages:(int)maxNumPolygonRotations {
     // Extract filtered contours from the cropped image
     cv::vector<cv::Mat> extractedContours = [ImageHelper cutContoursFromImage:filteredContours image:imageMatrix];
     
     // Crop extracted contours to their minimum bounding box, and make background transparent
-    self.contourImages = [ContourAnalyser reduceContoursToBoundingBox:extractedContours];
+    self.contourImages = [ContourAnalyser reduceContoursToBoundingBox:extractedContours maxNumPolygonRotations:maxNumPolygonRotations];
     
     NSMutableArray *debugImages = [ContourAnalyser getDebugImages];
     
