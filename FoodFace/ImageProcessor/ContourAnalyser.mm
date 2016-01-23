@@ -32,45 +32,50 @@ static NSMutableArray* debugImages;
     debugImages = nil;
     
     std::vector<std::vector<cv::Point>> validContours;
-    cv::Mat pyr, timg;
+    
     int thresh = 50, N = 11;
-    cv::pyrDown(image, pyr, cv::Size(image.cols/2, image.rows/2));
-    cv::pyrUp(pyr, timg, image.size());
+    
+    cv::Mat downsampledImage;
+    cv::pyrDown(image, downsampledImage, cv::Size(image.cols/2, image.rows/2));
+
+    cv::Mat upsampledImage;
+    cv::pyrUp(downsampledImage, upsampledImage, image.size());
+    
     std::vector<std::vector<cv::Point>> contours;
     cv::vector<cv::Vec4i> hierarchy;
     
     bool skipNonConvexContours = YES;
     
-    cv::Mat gray0(image.size(), CV_8U);
-    cv::Mat gray;
+    cv::Mat imageFromChannel(image.size(), CV_8U);
+    cv::Mat processedImage;
     
-    [self addDebugImage:[ImageHelper UIImageFromCVMat:timg]];
+    [self addDebugImage:[ImageHelper UIImageFromCVMat:upsampledImage]];
     
     for( int c = 0; c < 3; c++ ) {
         int ch[] = {c, 0};
-        mixChannels(&timg, 1, &gray0, 1, ch, 1);
+        mixChannels(&upsampledImage, 1, &imageFromChannel, 1, ch, 1);
         for( int l = 0; l < N; l++ ) {
             if( l == 0 ) {
-                cv::Canny(gray0, gray, 0, thresh, 3);
+                cv::Canny(imageFromChannel, processedImage, 0, thresh, 3);
                 //cv::threshold(gray0, gray, 192.0, 255.0, 1);
-                [self addDebugImage:[ImageHelper UIImageFromCVMat:gray]];
+                [self addDebugImage:[ImageHelper UIImageFromCVMat:processedImage]];
                 
-                cv::dilate(gray, gray, cv::Mat(), cv::Point(-1,-1));
-                [self addDebugImage:[ImageHelper UIImageFromCVMat:gray]];
+                cv::dilate(processedImage, processedImage, cv::Mat(), cv::Point(-1,-1));
+                [self addDebugImage:[ImageHelper UIImageFromCVMat:processedImage]];
             }
             else {
                 //                continue;
                 skipNonConvexContours = YES;
-                gray = gray0 >= (l+1)*255/N;
+                processedImage = imageFromChannel >= (l+1)*255/N;
             }
             
             // Only record debug images for the first channel
             if (c == 0) {
-                [self addDebugImage:[ImageHelper UIImageFromCVMat:gray]];
+                [self addDebugImage:[ImageHelper UIImageFromCVMat:processedImage]];
             }
             
             // hierarchy is ordered as: [Next, Previous, First_Child, Parent]
-            cv::findContours(gray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+            cv::findContours(processedImage, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
             
             std::vector<cv::Point> approx;
             for( size_t i = 0; i < contours.size(); i++ )
