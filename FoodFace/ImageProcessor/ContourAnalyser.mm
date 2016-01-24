@@ -32,19 +32,22 @@ static NSMutableArray* debugImages;
     debugImages = nil;
     
     int maxThresholdLevel = 11;
+    int maxContourWidth = 800;
+    int maxContourHeight = 800;
+    int minContourSurfaceArea = 5000;
+    int maxContourSurfaceArea = 250000;
     int cannyThreshold = 50;
     bool skipNonConvexContours = YES;
     
     std::vector<std::vector<cv::Point>> validContours;
+    std::vector<std::vector<cv::Point>> contours;
+    cv::vector<cv::Vec4i> hierarchy;
     
     cv::Mat downsampledImage;
     cv::pyrDown(image, downsampledImage, cv::Size(image.cols/2, image.rows/2));
 
     cv::Mat upsampledImage;
     cv::pyrUp(downsampledImage, upsampledImage, image.size());
-    
-    std::vector<std::vector<cv::Point>> contours;
-    cv::vector<cv::Vec4i> hierarchy;
     
     cv::Mat imageFromChannel(image.size(), CV_8U);
     cv::Mat processedImage;
@@ -54,6 +57,9 @@ static NSMutableArray* debugImages;
     for( int colourPlane = 0; colourPlane < 3; colourPlane++ ) {
         int currentColourPlane[] = {colourPlane, 0};
         mixChannels(&upsampledImage, 1, &imageFromChannel, 1, currentColourPlane, 1);
+        
+        UIImage *currentImageFromChannel = [ImageHelper UIImageFromCVMat:imageFromChannel];
+        [self addDebugImage:currentImageFromChannel];
         
         for( int thresholdLevel = 0; thresholdLevel < maxThresholdLevel; thresholdLevel++ ) {
             if( thresholdLevel == 0 ) {
@@ -73,33 +79,31 @@ static NSMutableArray* debugImages;
                 [self addDebugImage:[ImageHelper UIImageFromCVMat:processedImage]];
             }
             
-            // Hierarchy is ordered as: [Next, Previous, First_Child, Parent]
             cv::findContours(processedImage, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
             
-            std::vector<cv::Point> approx;
+            std::vector<cv::Point> approxContourCurve;
             for( size_t i = 0; i < contours.size(); i++ )
             {
                 cv::approxPolyDP(cv::Mat(contours[i]),
-                                 approx,
+                                 approxContourCurve,
                                  cv::arcLength(cv::Mat(contours[i]), true) * arcLengthMultiplier,
-                                 true
-                                 );
+                                 true);
                 
                 std::vector<cv::Point> currentContour = contours[i];
                 cv::Rect x = cv::boundingRect(currentContour);
                 
-                if (x.width > 800 || x.height > 800) {
+                if (x.width > maxContourWidth || x.height > maxContourHeight) {
                     // Skipping contour due to width/height constraints
                     continue;
                 }
                 
-                if (std::fabs(cv::contourArea(contours[i])) < 5000
-                    || fabs(contourArea(cv::Mat(contours[i]))) > 250000) {
+                if (std::fabs(cv::contourArea(contours[i])) < minContourSurfaceArea
+                    || fabs(contourArea(cv::Mat(contours[i]))) > maxContourSurfaceArea) {
                     // Skipping contour due to surface area constraints
                     continue;
                 }
                 
-                if (skipNonConvexContours && !cv::isContourConvex(approx)) {
+                if (skipNonConvexContours && !cv::isContourConvex(approxContourCurve)) {
                     // Skipping contour due to being non-convex
                     continue;
                 }
