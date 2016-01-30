@@ -12,7 +12,6 @@
 
 - (IBAction)takePhoto:(id)sender;
 - (IBAction)defaultPhoto:(id)sender;
-- (IBAction)run:(id)sender;
 - (IBAction)sensitivityStepperValueChanged:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIStepper *sensitivityStepper;

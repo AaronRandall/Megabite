@@ -78,10 +78,6 @@ float const defaultArcMultiplier = 0.02;
     [self runImageProcessing];
 }
 
-- (IBAction)run:(id)sender {
-    [self runImageProcessing];
-}
-
 - (IBAction)sensitivityStepperValueChanged:(id)sender {
     [self setArcLengthTestFieldFromFloat:self.sensitivityStepper.value];
     [self runImageProcessing];
