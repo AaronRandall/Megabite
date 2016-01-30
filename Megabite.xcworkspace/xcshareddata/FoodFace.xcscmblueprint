@@ -1,0 +1,28 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F8E1BBA53AB9A66C530D29B8AB0135D860A97988",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F8E1BBA53AB9A66C530D29B8AB0135D860A97988" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D782E30E-AE8A-437F-AF34-A2A8C43457B3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F8E1BBA53AB9A66C530D29B8AB0135D860A97988" : "FoodFace\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FoodFace",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FoodFace.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:AaronRandall\/Megabite.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F8E1BBA53AB9A66C530D29B8AB0135D860A97988"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:AaronRandall\/FoodFace.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F8E1BBA53AB9A66C530D29B8AB0135D860A97988"
+    }
+  ]
+}
