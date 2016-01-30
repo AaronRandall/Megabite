@@ -72,22 +72,8 @@
 
 + (cv::Mat)highlightContoursInImage:(std::vector<std::vector<cv::Point>>)contours image:(cv::Mat)image {
     for ( int i = 0; i< contours.size(); i++ ) {
-        // draw contour
         cv::drawContours(image, contours, i, cv::Scalar(255,0,0), 10, 8, std::vector<cv::Vec4i>(), 0, cv::Point());
-        
         std::vector<cv::Point> currentSquare = contours[i];
-        
-        //        // draw bounding rect
-        //        cv::Rect rect = boundingRect(cv::Mat(squares[i]));
-        //        cv::rectangle(image, rect.tl(), rect.br(), cv::Scalar(0,255,0), 2, 8, 0);
-        
-        //        // draw rotated rect
-        //        cv::RotatedRect minRect = minAreaRect(cv::Mat(squares[i]));
-        //        cv::Point2f rect_points[4];
-        //        minRect.points( rect_points );
-        //        for ( int j = 0; j < 4; j++ ) {
-        //            cv::line( image, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,0,255), 1, 8 ); // blue
-        //        }
     }
     
     return image;

@@ -25,20 +25,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NeF-Rj-HDg">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unw-Na-UZC">
-                                <rect key="frame" x="219" y="539" width="94" height="30"/>
-                                <state key="normal" title="Default photo"/>
-                                <connections>
-                                    <action selector="defaultPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xs-I1-ZEU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5R-gO-tYu">
-                                <rect key="frame" x="325" y="539" width="30" height="30"/>
-                                <state key="normal" title="Run"/>
-                                <connections>
-                                    <action selector="run:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SPE-aC-8As"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.020" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-9s-QPZ">
                                 <rect key="frame" x="122" y="617" width="52" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -51,8 +37,9 @@
                                 </connections>
                             </stepper>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBR-bf-cbc">
-                                <rect key="frame" x="56" y="539" width="77" height="30"/>
-                                <state key="normal" title="Take photo"/>
+                                <rect key="frame" x="124" y="507" width="126" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Take a photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bYo-xz-gJt"/>
                                 </connections>
@@ -67,14 +54,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Max. # polygon rotations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoS-9P-Yni">
-                                <rect key="frame" x="195" y="592" width="170" height="21"/>
+                                <rect key="frame" x="195" y="588" width="170" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="irm-WY-Z5x">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="8" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="irm-WY-Z5x">
                                 <rect key="frame" x="193" y="617" width="174" height="31"/>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unw-Na-UZC">
+                                <rect key="frame" x="242" y="561" width="123" height="30"/>
+                                <state key="normal" title="Use default photo"/>
+                                <connections>
+                                    <action selector="defaultPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xs-I1-ZEU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
