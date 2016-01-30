@@ -1,6 +1,6 @@
 //
 //  ContourAnalyser.m
-//  FoodFace
+//  Megabite
 //
 //  Created by Aaron on 01/01/2016.
 //  Copyright © 2016 Aaron. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  AnimationHelper.h
-//  FoodFace
+//  Megabite
 //
 //  Created by Aaron Randall on 16/01/2016.
 //  Copyright © 2016 Aaron. All rights reserved.

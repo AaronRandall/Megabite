@@ -1,6 +1,6 @@
 //
 //  Polygon.h
-//  FoodFace
+//  Megabite
 //
 //  Created by Aaron Randall on 13/12/2015.
 //  Copyright © 2015 Aaron. All rights reserved.
