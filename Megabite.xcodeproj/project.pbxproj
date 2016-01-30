@@ -52,7 +52,7 @@
 		734BF2D41C4A859400570F88 /* AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationHelper.m; sourceTree = "<group>"; };
 		73EB6CC41C1DE6A700C314B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8E0BD7E53F778412F0991262 /* Pods-FoodFace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodFace.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodFace/Pods-FoodFace.debug.xcconfig"; sourceTree = "<group>"; };
-		938321691BDF9482005F681D /* FoodFace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodFace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		938321691BDF9482005F681D /* Megabite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Megabite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9383216D1BDF9482005F681D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9383216F1BDF9482005F681D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		938321701BDF9482005F681D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,10 +61,10 @@
 		938321761BDF9482005F681D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9383217B1BDF9482005F681D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9383217D1BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		938321821BDF9482005F681D /* FoodFaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodFaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		938321821BDF9482005F681D /* Megabite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Megabite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		938321861BDF9482005F681D /* FoodFaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodFaceTests.m; sourceTree = "<group>"; };
 		938321881BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9383218D1BDF9482005F681D /* FoodFaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodFaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9383218D1BDF9482005F681D /* Megabite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Megabite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		938321911BDF9482005F681D /* FoodFaceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodFaceUITests.m; sourceTree = "<group>"; };
 		938321931BDF9482005F681D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93B1B2B31C39B88E00280992 /* UIImage+AverageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AverageColor.h"; sourceTree = "<group>"; };
@@ -138,9 +138,9 @@
 		9383216A1BDF9482005F681D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				938321691BDF9482005F681D /* FoodFace.app */,
-				938321821BDF9482005F681D /* FoodFaceTests.xctest */,
-				9383218D1BDF9482005F681D /* FoodFaceUITests.xctest */,
+				938321691BDF9482005F681D /* Megabite.app */,
+				938321821BDF9482005F681D /* Megabite.xctest */,
+				9383218D1BDF9482005F681D /* Megabite.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,9 +242,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		938321681BDF9482005F681D /* FoodFace */ = {
+		938321681BDF9482005F681D /* Megabite */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 938321961BDF9482005F681D /* Build configuration list for PBXNativeTarget "FoodFace" */;
+			buildConfigurationList = 938321961BDF9482005F681D /* Build configuration list for PBXNativeTarget "Megabite" */;
 			buildPhases = (
 				8798BF03A29575DC42A4F6AC /* Check Pods Manifest.lock */,
 				938321651BDF9482005F681D /* Sources */,
@@ -256,14 +256,14 @@
 			);
 			dependencies = (
 			);
-			name = FoodFace;
+			name = Megabite;
 			productName = FoodFace;
-			productReference = 938321691BDF9482005F681D /* FoodFace.app */;
+			productReference = 938321691BDF9482005F681D /* Megabite.app */;
 			productType = "com.apple.product-type.application";
 		};
-		938321811BDF9482005F681D /* FoodFaceTests */ = {
+		938321811BDF9482005F681D /* MegabiteTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 938321991BDF9482005F681D /* Build configuration list for PBXNativeTarget "FoodFaceTests" */;
+			buildConfigurationList = 938321991BDF9482005F681D /* Build configuration list for PBXNativeTarget "MegabiteTests" */;
 			buildPhases = (
 				9383217E1BDF9482005F681D /* Sources */,
 				9383217F1BDF9482005F681D /* Frameworks */,
@@ -274,14 +274,14 @@
 			dependencies = (
 				938321841BDF9482005F681D /* PBXTargetDependency */,
 			);
-			name = FoodFaceTests;
+			name = MegabiteTests;
 			productName = FoodFaceTests;
-			productReference = 938321821BDF9482005F681D /* FoodFaceTests.xctest */;
+			productReference = 938321821BDF9482005F681D /* Megabite.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9383218C1BDF9482005F681D /* FoodFaceUITests */ = {
+		9383218C1BDF9482005F681D /* MegabiteUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9383219C1BDF9482005F681D /* Build configuration list for PBXNativeTarget "FoodFaceUITests" */;
+			buildConfigurationList = 9383219C1BDF9482005F681D /* Build configuration list for PBXNativeTarget "MegabiteUITests" */;
 			buildPhases = (
 				938321891BDF9482005F681D /* Sources */,
 				9383218A1BDF9482005F681D /* Frameworks */,
@@ -292,9 +292,9 @@
 			dependencies = (
 				9383218F1BDF9482005F681D /* PBXTargetDependency */,
 			);
-			name = FoodFaceUITests;
+			name = MegabiteUITests;
 			productName = FoodFaceUITests;
-			productReference = 9383218D1BDF9482005F681D /* FoodFaceUITests.xctest */;
+			productReference = 9383218D1BDF9482005F681D /* Megabite.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -319,7 +319,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 938321641BDF9482005F681D /* Build configuration list for PBXProject "FoodFace" */;
+			buildConfigurationList = 938321641BDF9482005F681D /* Build configuration list for PBXProject "Megabite" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -332,9 +332,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				938321681BDF9482005F681D /* FoodFace */,
-				938321811BDF9482005F681D /* FoodFaceTests */,
-				9383218C1BDF9482005F681D /* FoodFaceUITests */,
+				938321681BDF9482005F681D /* Megabite */,
+				938321811BDF9482005F681D /* MegabiteTests */,
+				9383218C1BDF9482005F681D /* MegabiteUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -440,12 +440,12 @@
 /* Begin PBXTargetDependency section */
 		938321841BDF9482005F681D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 938321681BDF9482005F681D /* FoodFace */;
+			target = 938321681BDF9482005F681D /* Megabite */;
 			targetProxy = 938321831BDF9482005F681D /* PBXContainerItemProxy */;
 		};
 		9383218F1BDF9482005F681D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 938321681BDF9482005F681D /* FoodFace */;
+			target = 938321681BDF9482005F681D /* Megabite */;
 			targetProxy = 9383218E1BDF9482005F681D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -562,7 +562,7 @@
 				INFOPLIST_FILE = FoodFace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaronrandall.iphone;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Megabite;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -579,7 +579,7 @@
 				INFOPLIST_FILE = FoodFace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaronrandall.iphone;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Megabite;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -591,8 +591,8 @@
 				INFOPLIST_FILE = FoodFaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Aaron.FoodFaceTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodFace.app/FoodFace";
+				PRODUCT_NAME = Megabite;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Megabite.app/Megabite";
 			};
 			name = Debug;
 		};
@@ -603,8 +603,8 @@
 				INFOPLIST_FILE = FoodFaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Aaron.FoodFaceTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodFace.app/FoodFace";
+				PRODUCT_NAME = Megabite;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Megabite.app/Megabite";
 			};
 			name = Release;
 		};
@@ -614,7 +614,7 @@
 				INFOPLIST_FILE = FoodFaceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Aaron.FoodFaceUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Megabite;
 				TEST_TARGET_NAME = FoodFace;
 				USES_XCTRUNNER = YES;
 			};
@@ -626,7 +626,7 @@
 				INFOPLIST_FILE = FoodFaceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Aaron.FoodFaceUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Megabite;
 				TEST_TARGET_NAME = FoodFace;
 				USES_XCTRUNNER = YES;
 			};
@@ -635,7 +635,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		938321641BDF9482005F681D /* Build configuration list for PBXProject "FoodFace" */ = {
+		938321641BDF9482005F681D /* Build configuration list for PBXProject "Megabite" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				938321941BDF9482005F681D /* Debug */,
@@ -644,7 +644,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		938321961BDF9482005F681D /* Build configuration list for PBXNativeTarget "FoodFace" */ = {
+		938321961BDF9482005F681D /* Build configuration list for PBXNativeTarget "Megabite" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				938321971BDF9482005F681D /* Debug */,
@@ -653,7 +653,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		938321991BDF9482005F681D /* Build configuration list for PBXNativeTarget "FoodFaceTests" */ = {
+		938321991BDF9482005F681D /* Build configuration list for PBXNativeTarget "MegabiteTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9383219A1BDF9482005F681D /* Debug */,
@@ -662,7 +662,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9383219C1BDF9482005F681D /* Build configuration list for PBXNativeTarget "FoodFaceUITests" */ = {
+		9383219C1BDF9482005F681D /* Build configuration list for PBXNativeTarget "MegabiteUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9383219D1BDF9482005F681D /* Debug */,
