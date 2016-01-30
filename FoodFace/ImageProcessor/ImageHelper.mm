@@ -141,7 +141,7 @@
     int maximumNumRotationsInDegrees = 180;
     
     for (int i = 0; i < maxNumPolygonRotations; i++) {
-        int degrees = i * maximumNumRotationsInDegrees/maxNumPolygonRotations;
+        int degrees = i * (maximumNumRotationsInDegrees/maxNumPolygonRotations);
         // Rotate the image
         UIImage *tempImage = [self imageRotatedByDegrees:degrees image:image];
         
@@ -154,9 +154,6 @@
             smallestSurfaceArea = currentSurfaceArea;
             boundingBoxRotation = degrees;
         }
-        
-        // Observe bounding box size
-        //NSLog(@"Rotation: %d, SurfaceArea: %f (%f, %f)", i, (tempImage.size.width * tempImage.size.height),tempImage.size.width, tempImage.size.height);
     }
     
     UIImage *boundingBoxImage = [self imageRotatedByDegrees:boundingBoxRotation image:image];

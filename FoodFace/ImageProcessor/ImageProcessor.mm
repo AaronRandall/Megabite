@@ -91,7 +91,7 @@
     self.croppedImage = [ImageHelper resizeImage:self.inputImage scaledToSize:CGSizeMake(1000, 1000)];
     
     // Crop the image to the shape of the plate
-    self.croppedImage = [ImageHelper roundedRectImageFromImage:self.croppedImage size:self.inputImage.size withCornerRadius:self.inputImage.size.height/2];
+    self.croppedImage = [ImageHelper roundedRectImageFromImage:self.croppedImage size:self.croppedImage.size withCornerRadius:self.croppedImage.size.height/2];
     
     // Convert the image into a matrix
     imageMatrix = [ImageHelper cvMatFromUIImage:self.croppedImage];
