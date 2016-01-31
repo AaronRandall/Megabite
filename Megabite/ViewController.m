@@ -30,15 +30,15 @@ float const defaultArcMultiplier = 0.02;
 }
 
 - (void)runAnimationsWithResult:(ImageProcessorResult*)result {
-    self.debugImageView.image = result.croppedInputImage;
+    self.croppedImageView.image = result.croppedInputImage;
     
     [AnimationHelper runPopAnimationsForImages:result.extractedContourBoundingBoxImages imageView:self.animatedImageView];
-    [AnimationHelper runSpinAnimationsForImages:result.extractedContourBoundingBoxImages outputImage:result.outputImage outputImageView:self.outputImageView animatedImageView:self.animatedImageView debugImageView:self.debugImageView];
+    [AnimationHelper runSpinAnimationsForImages:result.extractedContourBoundingBoxImages outputImage:result.outputImage outputImageView:self.outputImageView animatedImageView:self.animatedImageView croppedImageView:self.croppedImageView];
 }
 
 - (void)displayInputImage {
     self.inputImageView.image = self.inputImage;
-    self.debugImageView.image = nil;
+    self.croppedImageView.image = nil;
     self.outputImageView.image = nil;
 }
 
@@ -69,7 +69,7 @@ float const defaultArcMultiplier = 0.02;
 }
 
 - (IBAction)defaultPhoto:(id)sender {
-    self.inputImage = [UIImage imageNamed:@"Food"];
+    self.inputImage = [UIImage imageNamed:@"DefaultImage"];
     [self displayInputImage];
     [self runImageProcessing];
 }

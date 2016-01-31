@@ -26,7 +26,7 @@
     }
 }
 
-+ (void)runSpinAnimationsForImages:(NSArray*)images outputImage:(UIImage*)outputImage outputImageView:(UIImageView*)outputImageView animatedImageView:(UIImageView*)animatedImageView debugImageView:(UIImageView*)debugImageView {
++ (void)runSpinAnimationsForImages:(NSArray*)images outputImage:(UIImage*)outputImage outputImageView:(UIImageView*)outputImageView animatedImageView:(UIImageView*)animatedImageView croppedImageView:(UIImageView*)croppedImageView {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (images.count/2.f * NSEC_PER_SEC) + (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         outputImageView.image = nil;
@@ -44,7 +44,7 @@
         spinAnimationOriginal.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         spinAnimationOriginal.removedOnCompletion = YES;
         spinAnimationOriginal.fillMode = kCAFillModeForwards;
-        [debugImageView.layer addAnimation:spinAnimationOriginal forKey:@"spinAnimationOriginal"];
+        [croppedImageView.layer addAnimation:spinAnimationOriginal forKey:@"spinAnimationOriginal"];
         
         
         outputImageView.image = outputImage;

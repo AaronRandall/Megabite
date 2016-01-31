@@ -18,8 +18,8 @@
 @property (strong, nonatomic) IBOutlet UISlider *maxPolygonRotationSlider;
 @property (strong, nonatomic) IBOutlet UITextField *arcLengthMultiplierField;
 @property (strong, nonatomic) IBOutlet UIImageView *inputImageView;
-@property (strong, nonatomic) IBOutlet UIImageView *outputImageView;
-@property (strong, nonatomic) IBOutlet UIImageView *debugImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *croppedImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *animatedImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *outputImageView;
 
 @end

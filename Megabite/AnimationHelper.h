@@ -11,6 +11,6 @@
 @interface AnimationHelper : NSObject
 
 + (void)runPopAnimationsForImages:(NSArray*)images imageView:(UIImageView*)imageView;
-+ (void)runSpinAnimationsForImages:(NSArray*)images outputImage:(UIImage*)outputImage outputImageView:(UIImageView*)outputImageView animatedImageView:(UIImageView*)animatedImageView debugImageView:(UIImageView*)debugImageView;
++ (void)runSpinAnimationsForImages:(NSArray*)images outputImage:(UIImage*)outputImage outputImageView:(UIImageView*)outputImageView animatedImageView:(UIImageView*)animatedImageView croppedImageView:(UIImageView*)croppedImageView;
 
 @end

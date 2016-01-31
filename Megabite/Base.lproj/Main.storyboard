@@ -19,7 +19,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VuZ-JD-EQO">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZu-ht-T1H">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZu-ht-T1H" userLabel="Cropped Image View">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NeF-Rj-HDg">
@@ -76,7 +76,7 @@
                     <connections>
                         <outlet property="animatedImageView" destination="NeF-Rj-HDg" id="veL-dJ-Mo2"/>
                         <outlet property="arcLengthMultiplierField" destination="6xe-9s-QPZ" id="xk3-f6-vwy"/>
-                        <outlet property="debugImageView" destination="wZu-ht-T1H" id="6Kj-PW-Wrh"/>
+                        <outlet property="croppedImageView" destination="wZu-ht-T1H" id="Lg1-gC-hBX"/>
                         <outlet property="inputImageView" destination="VuZ-JD-EQO" id="HU4-LY-nxo"/>
                         <outlet property="maxPolygonRotationSlider" destination="irm-WY-Z5x" id="UTS-gu-ThP"/>
                         <outlet property="outputImageView" destination="b3w-vl-Ur6" id="gGE-Ns-5VX"/>
