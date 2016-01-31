@@ -1,6 +1,6 @@
 # Megabite
 
-Screentendo is a desktop application that allows you to to turn a selection of your screen into a playable level of Super Mario Bros. Read more about it [here](http://aaronrandall.com/blog/megabite/).
+Megabite is a mobile app that automatically turns a photo of your food into a face. Read more about it [here](http://aaronrandall.com/blog/megabite/).
 
 ![](https://github.com/AaronRandall/Megabite/blob/master/Megabite/Assets.xcassets/Megabite.gif)
 
