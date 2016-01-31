@@ -179,8 +179,14 @@ static NSMutableArray* debugImages;
 + (NSMutableArray*)reduceContoursToBoundingBox:(cv::vector<cv::Mat>)contours maxNumPolygonRotations:(int)maxNumPolygonRotations {
     debugImages = nil;
     NSMutableArray *boundingBoxImages = [NSMutableArray array];
+
+    // Currently the largest target template polygon size is 6, so limit to that until there are more
+    int maxNumberContours = 6;
+    if (maxNumberContours > contours.size()) {
+        maxNumberContours = (int)contours.size();
+    }
     
-    for (int i = 0; i < contours.size(); i++) {
+    for (int i = 0; i < maxNumberContours; i++) {
         UIImage *extractedContour = [ImageHelper UIImageFromCVMat:contours[i]];
         
         // Make the black mask of the image transparent
