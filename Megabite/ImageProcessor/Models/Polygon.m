@@ -29,15 +29,15 @@
 }
 
 - (int)surfaceArea {
-    return self.shape.bounds.size.height * self.shape.bounds.size.width;
+    return (self.shape.bounds.size.height * self.shape.bounds.size.width);
 }
 
 - (int)centroidX {
-    return self.shape.bounds.size.width / 2;
+    return (self.shape.bounds.size.width / 2);
 }
 
 - (int)centroidY {
-    return self.shape.bounds.size.height / 2;
+    return (self.shape.bounds.size.height / 2);
 }
 
 - (UIBezierPath*)shapeFromImage:(UIImage*)image {

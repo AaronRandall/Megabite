@@ -71,7 +71,7 @@
             //
             rawData[byteIndex] = 0;
             rawData[byteIndex + 1] = 0;
-        rawData[byteIndex + 2] = 0;
+            rawData[byteIndex + 2] = 0;
             rawData[byteIndex + 3] = 0;
         }
         

@@ -31,7 +31,7 @@
                                         8 * cvMat.elemSize(),                       //bits per pixel
                                         cvMat.step[0],                              //bytesPerRow
                                         colorSpace,                                 //colorspace
-                                        kCGImageAlphaNone|kCGBitmapByteOrderDefault,// bitmap info
+                                        kCGImageAlphaNone|kCGBitmapByteOrderDefault,//bitmap info
                                         provider,                                   //CGDataProviderRef
                                         NULL,                                       //decode
                                         false,                                      //should interpolate
@@ -84,24 +84,17 @@
     
     for (int i = 0; i < contours.size(); i++)
     {
-        // Get bounding box for contour
-        //cv::Rect roi = cv::boundingRect(contours[i]); // This is a OpenCV function
-        
         // Create a mask for each contour to mask out that region from image.
         cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
-        drawContours(mask, contours, i, cv::Scalar(255), CV_FILLED); // This is a OpenCV function
+        drawContours(mask, contours, i, cv::Scalar(255), CV_FILLED);
         
-        // At this point, mask has value of 255 for pixels within the contour and value of 0 for those not in contour.
-        
-        // Extract region using mask for region
+        // Extract region using mask for region (at this point the mask has value of 255 for pixels within the contour and value of 0 for those not in contour)
         cv::Mat contourRegion;
         cv::Mat imageROI;
-        image.copyTo(imageROI, mask); // 'image' is the image you used to compute the contours.
-        contourRegion = imageROI;//(roi);
-        // Mat maskROI = mask(roi); // Save this if you want a mask for pixels within the contour in contourRegion.
+        image.copyTo(imageROI, mask);
+        contourRegion = imageROI;
         
         // Store contourRegion. contourRegion is a rectangular image the size of the bounding rect for the contour
-        // BUT only pixels within the contour is visible. All other pixels are set to (0,0,0).
         subregions.push_back(contourRegion);
     }
     
@@ -128,7 +121,7 @@
     
     for (int i = 0; i < maxNumPolygonRotations; i++) {
         int degrees = i * (maximumNumRotationsInDegrees/maxNumPolygonRotations);
-        // Rotate the image
+
         UIImage *tempImage = [self imageRotatedByDegrees:degrees image:image];
         
         // Trim to smallest box
@@ -151,7 +144,7 @@
 }
 
 + (CGFloat)degreesToRadians:(CGFloat)degrees {
-    return degrees * M_PI / 180;
+    return (degrees * M_PI / 180);
 }
 
 + (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage*)image {
@@ -188,10 +181,7 @@ struct pixel {
     // Allocate a buffer big enough to hold all the pixels
     struct pixel* pixels = (struct pixel*) calloc(1, image.size.width * image.size.height * sizeof(struct pixel));
     
-    if (pixels != nil)
-    {
-        // Create a new bitmap
-        
+    if (pixels != nil) {
         CGContextRef context = CGBitmapContextCreate(
                                                      (void*) pixels,
                                                      image.size.width,
@@ -202,17 +192,12 @@ struct pixel {
                                                      kCGImageAlphaPremultipliedLast
                                                      );
         
-        if (context != NULL)
-        {
+        if (context != NULL) {
             // Draw the image in the bitmap
-            
             CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, image.size.width, image.size.height), image.CGImage);
             
             // Now that we have the image drawn in our own buffer, we can loop over the pixels to
-            // process it. This simple case simply counts all pixels that have a pure red component.
-            
-            // There are probably more efficient and interesting ways to do this. But the important
-            // part is that the pixels buffer can be read directly.
+            // process it. This simple case simply counts all pixels that have a pure red component
             NSUInteger numberOfPixels = image.size.width * image.size.height;
             
             for (int i=0; i<numberOfPixels; i++) {
@@ -231,9 +216,6 @@ struct pixel {
 }
 
 + (UIImage *)resizeImage:(UIImage *)image scaledToSize:(CGSize)size {
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();

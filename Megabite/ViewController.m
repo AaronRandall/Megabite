@@ -36,27 +36,6 @@ float const defaultArcMultiplier = 0.02;
     [AnimationHelper runSpinAnimationsForImages:result.extractedContourBoundingBoxImages outputImage:result.outputImage outputImageView:self.outputImageView animatedImageView:self.animatedImageView croppedImageView:self.croppedImageView];
 }
 
-- (void)displayInputImage {
-    self.inputImageView.image = self.inputImage;
-    self.croppedImageView.image = nil;
-    self.outputImageView.image = nil;
-}
-
-- (void)setArcLengthTestFieldFromFloat:(float)value {
-    self.arcLengthMultiplierField.text = [NSString stringWithFormat:@"%.3f",value];
-    self.sensitivityStepper.value = value;
-}
-
-- (NSNumber*)maxPolygonRotationValue {
-    int sliderValue = (int)self.maxPolygonRotationSlider.value;
-    return [[ImageProcessor rotationValues] objectAtIndex:sliderValue];
-}
-
-- (NSDictionary*)options {
-    return @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text,
-             @"maxNumPolygonRotations" : [self maxPolygonRotationValue]};
-}
-
 # pragma mark - IBActions
 
 - (IBAction)takePhoto:(id)sender {
@@ -75,8 +54,31 @@ float const defaultArcMultiplier = 0.02;
 }
 
 - (IBAction)sensitivityStepperValueChanged:(id)sender {
-    [self setArcLengthTestFieldFromFloat:self.sensitivityStepper.value];
+    [self setArcLengthMultiplierValue:self.sensitivityStepper.value];
     [self runImageProcessing];
+}
+
+# pragma mark - Options
+
+- (void)setArcLengthMultiplierValue:(float)value {
+    self.arcLengthMultiplierField.text = [NSString stringWithFormat:@"%.3f",value];
+    self.sensitivityStepper.value = value;
+}
+
+- (NSNumber*)maxPolygonRotationValue {
+    int sliderValue = (int)self.maxPolygonRotationSlider.value;
+    return [[ImageProcessor rotationValues] objectAtIndex:sliderValue];
+}
+
+- (NSDictionary*)options {
+    return @{@"arcLengthMultiplier" : self.arcLengthMultiplierField.text,
+             @"maxNumPolygonRotations" : [self maxPolygonRotationValue]};
+}
+
+- (void)displayInputImage {
+    self.inputImageView.image = self.inputImage;
+    self.croppedImageView.image = nil;
+    self.outputImageView.image = nil;
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -110,7 +112,7 @@ float const defaultArcMultiplier = 0.02;
                   rotationAngle:(CGFloat)rotationAngle {
     [self dismissViewControllerAnimated:YES completion:^{
         self.inputImage = croppedImage;
-        [self setArcLengthTestFieldFromFloat:defaultArcMultiplier];
+        [self setArcLengthMultiplierValue:defaultArcMultiplier];
         [self displayInputImage];
         [self runImageProcessing];
     }];
