@@ -2,7 +2,7 @@
 
 Screentendo is a desktop application that allows you to to turn a selection of your screen into a playable level of Super Mario Bros. Read more about it [here](http://aaronrandall.com/blog/megabite/).
 
-![](https://github.com/AaronRandall/Screentendo/blob/master/Megabite/Assets.xcassets/Megabite.gif)
+![](https://github.com/AaronRandall/Megabite/blob/master/Megabite/Assets.xcassets/Megabite.gif)
 
 ## Installation
 
