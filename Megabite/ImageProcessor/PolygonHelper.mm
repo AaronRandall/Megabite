@@ -16,7 +16,7 @@
 + (NSArray*)binPolygonsForTemplateBasedOnItemPolygons:(NSArray*)itemPolygons {
     NSMutableArray *binPolygons = [NSMutableArray array];
     
-    // Define all available bins
+    // Define all available target polygons
     Polygon *leftEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(280, 200, 150, 150)]];
     Polygon *rightEye = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(580, 200, 150, 150)]];
     Polygon *nose = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(450, 450, 100, 100)]];
@@ -24,7 +24,7 @@
     Polygon *leftEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(50, 300, 100, 200)]];
     Polygon *rightEar = [[Polygon alloc] initWithShape:[UIBezierPath bezierPathWithRect:CGRectMake(850, 300, 100, 200)]];
     
-    // Construct bin template layout based on the number of extracted items
+    // Construct target template layout based on the number of extracted items
     if (itemPolygons.count == 3) {
         [binPolygons addObject:leftEye];
         [binPolygons addObject:rightEye];
@@ -66,7 +66,7 @@
         int uncoveredBinPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
     
         if (uncoveredBinPixels == 0) {
-            // If the entire bin surface is covered, don't attempt any other rotations
+            // If the entire target polygon surface is covered, don't attempt any other rotations
             break;
         }
         
