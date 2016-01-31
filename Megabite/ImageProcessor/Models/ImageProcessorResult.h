@@ -10,7 +10,10 @@
 
 - (id)initWithResults:(NSArray*)results images:(NSArray*)images;
 
-@property (nonatomic, retain) NSArray *results;
-@property (nonatomic, retain) NSArray *images;
+@property (nonatomic, readonly, retain) NSArray *results;
+@property (nonatomic, readonly, retain) NSArray *images;
+@property (nonatomic, readonly, retain) UIImage *croppedInputImage;
+@property (nonatomic, readonly, retain) UIImage *outputImage;
+@property (nonatomic, readonly, retain) NSArray *extractedContourBoundingBoxImages;
 
 @end

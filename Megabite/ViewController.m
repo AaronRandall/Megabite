@@ -30,14 +30,10 @@ float const defaultArcMultiplier = 0.02;
 }
 
 - (void)runAnimationsWithResult:(ImageProcessorResult*)result {
-    UIImage *croppedInputImage = result.results[0];
-    NSArray *extractedContourBoundingBoxImages = result.results[1];
-    UIImage *outputImage = result.results[2];
+    self.debugImageView.image = result.croppedInputImage;
     
-    self.debugImageView.image = croppedInputImage;
-    
-    [AnimationHelper runPopAnimationsForImages:extractedContourBoundingBoxImages imageView:self.animatedImageView];
-    [AnimationHelper runSpinAnimationsForImages:extractedContourBoundingBoxImages outputImage:outputImage outputImageView:self.outputImageView animatedImageView:self.animatedImageView debugImageView:self.debugImageView];
+    [AnimationHelper runPopAnimationsForImages:result.extractedContourBoundingBoxImages imageView:self.animatedImageView];
+    [AnimationHelper runSpinAnimationsForImages:result.extractedContourBoundingBoxImages outputImage:result.outputImage outputImageView:self.outputImageView animatedImageView:self.animatedImageView debugImageView:self.debugImageView];
 }
 
 - (void)displayInputImage {
