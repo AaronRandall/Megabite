@@ -22,9 +22,8 @@
 		936D05941C5D500B0009D5CD /* ImageProcessorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D05801C5D500B0009D5CD /* ImageProcessorResult.m */; };
 		936D05951C5D500B0009D5CD /* Polygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D05821C5D500B0009D5CD /* Polygon.m */; };
 		936D05961C5D500B0009D5CD /* PolygonHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 936D05841C5D500B0009D5CD /* PolygonHelper.mm */; };
-		936D05971C5D500B0009D5CD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 936D05851C5D500B0009D5CD /* Info.plist */; };
-		936D05981C5D500B0009D5CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D05861C5D500B0009D5CD /* main.m */; };
 		936D05991C5D500B0009D5CD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D05891C5D500B0009D5CD /* ViewController.m */; };
+		93B0DA681C5E6055009CAC34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B0DA651C5E6055009CAC34 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,14 +71,14 @@
 		936D05821C5D500B0009D5CD /* Polygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Polygon.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		936D05831C5D500B0009D5CD /* PolygonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PolygonHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		936D05841C5D500B0009D5CD /* PolygonHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PolygonHelper.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		936D05851C5D500B0009D5CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		936D05861C5D500B0009D5CD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		936D05871C5D500B0009D5CD /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PrefixHeader.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		936D05881C5D500B0009D5CD /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		936D05891C5D500B0009D5CD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		938321691BDF9482005F681D /* Megabite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Megabite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		938321821BDF9482005F681D /* Megabite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Megabite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9383218D1BDF9482005F681D /* Megabite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Megabite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93B0DA651C5E6055009CAC34 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SupportingFiles/main.m; sourceTree = "<group>"; };
+		93B0DA661C5E6055009CAC34 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = SupportingFiles/PrefixHeader.pch; sourceTree = "<group>"; };
+		93B0DA6B1C5E612E009CAC34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +120,7 @@
 		936D05681C5D500B0009D5CD /* Megabite */ = {
 			isa = PBXGroup;
 			children = (
+				93B0DA631C5E5FE4009CAC34 /* SupportingFiles */,
 				936D05771C5D500B0009D5CD /* ImageProcessor */,
 				936D05721C5D500B0009D5CD /* Categories */,
 				936D056B1C5D500B0009D5CD /* AppDelegate.h */,
@@ -129,12 +129,9 @@
 				936D05891C5D500B0009D5CD /* ViewController.m */,
 				936D05691C5D500B0009D5CD /* AnimationHelper.h */,
 				936D056A1C5D500B0009D5CD /* AnimationHelper.m */,
-				936D056D1C5D500B0009D5CD /* Assets.xcassets */,
 				936D056E1C5D500B0009D5CD /* LaunchScreen.storyboard */,
 				936D05701C5D500B0009D5CD /* Main.storyboard */,
-				936D05851C5D500B0009D5CD /* Info.plist */,
-				936D05861C5D500B0009D5CD /* main.m */,
-				936D05871C5D500B0009D5CD /* PrefixHeader.pch */,
+				936D056D1C5D500B0009D5CD /* Assets.xcassets */,
 			);
 			path = Megabite;
 			sourceTree = "<group>";
@@ -195,6 +192,16 @@
 				9383218D1BDF9482005F681D /* Megabite.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		93B0DA631C5E5FE4009CAC34 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				93B0DA6B1C5E612E009CAC34 /* Info.plist */,
+				93B0DA651C5E6055009CAC34 /* main.m */,
+				93B0DA661C5E6055009CAC34 /* PrefixHeader.pch */,
+			);
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		A8B65B8CC9F08EE5E8A54CCD /* Frameworks */ = {
@@ -311,7 +318,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				936D05971C5D500B0009D5CD /* Info.plist in Resources */,
 				936D058E1C5D500B0009D5CD /* Main.storyboard in Resources */,
 				936D058C1C5D500B0009D5CD /* Assets.xcassets in Resources */,
 				936D058D1C5D500B0009D5CD /* LaunchScreen.storyboard in Resources */,
@@ -372,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93B0DA681C5E6055009CAC34 /* main.m in Sources */,
 				936D05911C5D500B0009D5CD /* ContourAnalyser.mm in Sources */,
 				936D05931C5D500B0009D5CD /* ImageProcessor.mm in Sources */,
 				936D05921C5D500B0009D5CD /* ImageHelper.mm in Sources */,
@@ -382,7 +389,6 @@
 				936D05901C5D500B0009D5CD /* UIImage+Trim.m in Sources */,
 				936D058B1C5D500B0009D5CD /* AppDelegate.m in Sources */,
 				936D05961C5D500B0009D5CD /* PolygonHelper.mm in Sources */,
-				936D05981C5D500B0009D5CD /* main.m in Sources */,
 				936D058A1C5D500B0009D5CD /* AnimationHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,8 +530,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = Megabite/PrefixHeader.pch;
-				INFOPLIST_FILE = Megabite/Info.plist;
+				GCC_PREFIX_HEADER = Megabite/SupportingFiles/PrefixHeader.pch;
+				INFOPLIST_FILE = Megabite/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaronrandall.iphone;
 				PRODUCT_NAME = Megabite;
@@ -541,8 +547,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = Megabite/PrefixHeader.pch;
-				INFOPLIST_FILE = Megabite/Info.plist;
+				GCC_PREFIX_HEADER = Megabite/SupportingFiles/PrefixHeader.pch;
+				INFOPLIST_FILE = Megabite/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaronrandall.iphone;
 				PRODUCT_NAME = Megabite;
