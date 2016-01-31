@@ -61,10 +61,6 @@
     
     int maximumNumRotationsInDegrees = 180;
     
-    // TODO: DEBUG, REMOVE
-    //[self debugCalculateSurfaceAreaCoverageForBin:bin item:item rotation:1];
-    
-    
     for (int i = 0; i < maxNumPolygonRotations; i++) {
         int degrees = i * maximumNumRotationsInDegrees/maxNumPolygonRotations;
         int uncoveredBinPixels = [self calculateSurfaceAreaCoverageForBin:bin item:item rotation:degrees];
@@ -120,60 +116,6 @@
     NSUInteger numberOfVisibleBinPixels = [ImageHelper numberOfRedPixelsInImage:binWithItemOverlayed];
     
     return (int)numberOfVisibleBinPixels;
-}
-
-+ (int)debugCalculateSurfaceAreaCoverageForBin:(Polygon*)bin item:(Polygon*)item rotation:(int)rotation {
-    // --------------------------------------------------------------------
-    // Debug overlay of bin and item
-    //    CGPathRef path = createPathRotatedAroundBoundingBoxCenter(item.shape.CGPath, M_PI / 8);
-    //    item.shape = [UIBezierPath bezierPathWithCGPath:path];
-    
-    NSMutableArray *rotatedItemImages = [NSMutableArray array];
-    NSMutableArray *binImages = [NSMutableArray array];
-    
-    for (int i = 0; i < 180; i++) {
-        rotation = i;
-        
-        // Rotate the UIBezierPath
-        int degreesToRotate = rotation;
-        UIBezierPath *copyOfItem = [item.shape copy];
-        [copyOfItem applyTransform:CGAffineTransformMakeRotation([ImageHelper degreesToRadians:degreesToRotate])];
-        
-        // Find the rotated path's bounding box
-        CGRect boundingBox = CGPathGetPathBoundingBox(copyOfItem.CGPath);
-        int rotatedCentroidX = boundingBox.size.width/2;
-        int rotatedCentroidY = boundingBox.size.height/2;
-        double pointX = bin.centroidX - rotatedCentroidX;
-        double pointY = bin.centroidY - rotatedCentroidY;
-        
-        [copyOfItem applyTransform:CGAffineTransformMakeTranslation(pointX-(boundingBox.origin.x), pointY-(boundingBox.origin.y))];
-        
-        UIGraphicsBeginImageContextWithOptions(bin.shape.bounds.size, YES, 0.0);
-        
-        // Fill the bin polygon surface area in red
-        [[UIColor redColor] set];
-        UIRectFill(CGRectMake(0.0, 0.0, bin.shape.bounds.size.width, bin.shape.bounds.size.height));
-
-        // Fill the item polygon surface area in blue
-        [[UIColor blueColor] set];
-        [copyOfItem fill];
-        
-        UIImage *binWithItemOverlayed = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        // Calculate the number of visible bin polygon pixels (from under the item polygon)
-        NSUInteger numberOfVisibleBinPixels = [ImageHelper numberOfRedPixelsInImage:binWithItemOverlayed];
-        
-    //    self.debugImageViewBin.image = bin.image;
-        UIImage *testImage = [ImageHelper imageRotatedByDegrees:degreesToRotate image:item.image];
-
-        [binImages addObject:binWithItemOverlayed];
-        [rotatedItemImages addObject:testImage];
-    //    self.debugImageView4.image = myImage;
-    }
-    
-    NSLog(@"Finished");
-    return 0;//(int)numberOfVisibleBinPixels;
 }
 
 + (UIImage*)addItemPolygon:(Polygon*)itemPolygon toImage:(UIImage*)image atBinPolygon:(Polygon*)binPolygon {
