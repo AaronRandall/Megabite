@@ -6,7 +6,7 @@ Megabite is a mobile app that automatically turns a photo of your food into a fa
 
 ## Installation
 
-This project uses [Cocoapods](https://guides.cocoapods.org/using/getting-started.html).
+This project uses [CocoaPods](https://guides.cocoapods.org/using/getting-started.html).
 From the root of the project, install dependencies with:
 
     pod install
